@@ -1,13 +1,13 @@
 
 import './App.css'
-import { MainInterface } from './components/MainInterface'
+import { MainInterface } from '@/components/MainInterface'
 
 function App() {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
   
   if (!apiKey) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
         <div className="text-center p-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">
             🗺️ Đà Nẵng Mới - Tra Cứu Phường Xã

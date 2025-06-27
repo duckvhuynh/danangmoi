@@ -7,7 +7,7 @@ interface LoadingScreenProps {
 
 export function LoadingScreen({ message = "Đang tải bản đồ..." }: LoadingScreenProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
       <Card className="w-96 shadow-lg">
         <CardContent className="p-8 text-center space-y-4">
           <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto">
@@ -38,7 +38,7 @@ interface ErrorScreenProps {
 
 export function ErrorScreen({ error, onRetry }: ErrorScreenProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-pink-100">
+    <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-pink-100">
       <Card className="w-96 shadow-lg">
         <CardContent className="p-8 text-center space-y-4">
           <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto">

@@ -109,7 +109,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen w-full">
+      <div className="flex h-screen w-screen">
         <AppSidebar
           selectedWard={selectedWard}
           searchQuery={searchQuery}
@@ -119,7 +119,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
           isLocating={isLocating}
         />
         
-        <SidebarInset className="flex-1">
+        <SidebarInset className="flex-1 h-full m-0 rounded-none shadow-none">
           <div className="flex h-full w-full relative">
             {/* Header with sidebar trigger */}
             <div className="absolute top-4 left-4 z-10">
