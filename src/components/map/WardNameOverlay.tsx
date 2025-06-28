@@ -86,19 +86,19 @@ export default function WardNameOverlay({
       }
       
       updateContent() {
-        // Create a beautiful card with shadcn styling
         this.container.innerHTML = `
-          <div style="transform: translate(-50%, -50%);">
-            <div class="bg-card text-card-foreground border-2 rounded-lg shadow-lg py-2 px-3 min-w-[180px]">
-              <div class="flex flex-col items-center p-0">
-                <div class="font-semibold text-sm text-center">
-                  ${this.wardName}
+            <div style="transform: translate(-50%, -50%);">
+                <div class="bg-white/70 backdrop-blur-sm text-card-foreground border border-gray-300 rounded-md shadow-md px-2.5 py-1.5">
+                    <div class="flex flex-col items-center gap-0.5">
+                    <div class="font-medium text-sm text-center text-gray-800">
+                        ${this.wardName}
+                    </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         `;
-      }
+        }
+
       
       getBorderColorClass() {
         switch (this.color) {
