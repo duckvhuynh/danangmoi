@@ -1,5 +1,6 @@
 import { useMap } from "@vis.gl/react-google-maps";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import WardNameOverlay from "./WardNameOverlay";
 
 interface PolygonData {
   district: string;
@@ -29,6 +30,8 @@ const DISTRICT_COLORS: Record<string, { stroke: string; fill: string }> = {
 export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOverlayProps) {
   const map = useMap();
   const polygonRefs = useRef<google.maps.Polygon[]>([]);
+  const [hoveredWard, setHoveredWard] = useState<PolygonData | null>(null);
+  const [overlayPosition, setOverlayPosition] = useState<google.maps.LatLng | null>(null);
 
   useEffect(() => {
     if (!map || !visible) {
@@ -37,6 +40,8 @@ export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOve
         polygon.setMap(null);
       });
       polygonRefs.current = [];
+      // Clear hover state
+      setHoveredWard(null);
       return;
     }
 
@@ -46,10 +51,19 @@ export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOve
     });
     polygonRefs.current = [];
 
+    // Group polygons by ward name for synchronized hover effects
+    const wardPolygonMap = new Map<string, google.maps.Polygon[]>();
+
     // Create new polygons
     polygons.forEach((polygonData) => {
       // Get colors for this district
       const colors = DISTRICT_COLORS[polygonData.district] || DISTRICT_COLORS.default;
+      
+      // Array to store all polygon parts for this ward
+      const wardPolygons: google.maps.Polygon[] = [];
+      
+      // Add to ward-polygon mapping
+      wardPolygonMap.set(polygonData.ward, wardPolygons);
 
       // Function to create and set up a polygon with event handlers
       const createPolygon = (path: Array<{ lat: number; lng: number }>) => {
@@ -68,6 +82,9 @@ export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOve
 
         polygon.setMap(map);
         
+        // Add polygon to the ward's polygon array for synchronized hover
+        wardPolygons.push(polygon);
+        
         // Add click listener
         polygon.addListener('click', () => {
           if (onPolygonClick) {
@@ -75,23 +92,47 @@ export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOve
           }
         });
 
-        // Add hover effects
-        polygon.addListener('mouseover', () => {
-          polygon.setOptions({
-            fillOpacity: 0.25,
-            strokeWeight: 2.5,
-            strokeOpacity: 1,
-            zIndex: 2,
+        // Add hover effects - highlight all polygons of the same ward
+        polygon.addListener('mouseover', (event: google.maps.PolyMouseEvent) => {
+          // Highlight all polygons for this ward
+          const allWardPolygons = wardPolygonMap.get(polygonData.ward) || [];
+          allWardPolygons.forEach(poly => {
+            poly.setOptions({
+              fillOpacity: 0.25,
+              strokeWeight: 2.5,
+              strokeOpacity: 1,
+              zIndex: 2,
+            });
           });
+          
+          // Calculate center of polygon or use the mouse position
+          if (event.latLng) {
+            setOverlayPosition(event.latLng);
+          } else {
+            // Calculate the center of the polygon
+            const bounds = new google.maps.LatLngBounds();
+            path.forEach(point => {
+              bounds.extend(new google.maps.LatLng(point.lat, point.lng));
+            });
+            setOverlayPosition(bounds.getCenter());
+          }
+          
+          setHoveredWard(polygonData);
         });
 
         polygon.addListener('mouseout', () => {
-          polygon.setOptions({
-            fillOpacity: 0.12,
-            strokeWeight: 1.5,
-            strokeOpacity: 0.8,
-            zIndex: 1,
+          // Reset all polygons for this ward
+          const allWardPolygons = wardPolygonMap.get(polygonData.ward) || [];
+          allWardPolygons.forEach(poly => {
+            poly.setOptions({
+              fillOpacity: 0.12,
+              strokeWeight: 1.5,
+              strokeOpacity: 0.8,
+              zIndex: 1,
+            });
           });
+          
+          setHoveredWard(null);
         });
 
         return polygon;
@@ -118,8 +159,23 @@ export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOve
         polygon.setMap(null);
       });
       polygonRefs.current = [];
+      setHoveredWard(null);
+      setOverlayPosition(null);
     };
   }, [map, polygons, visible, onPolygonClick]);
 
-  return null; // This component doesn't render anything directly
+  return (
+    <>
+      {hoveredWard && overlayPosition && (
+        <WardNameOverlay 
+          map={map}
+          position={overlayPosition}
+          wardName={hoveredWard.ward}
+          district={hoveredWard.district}
+          color={DISTRICT_COLORS[hoveredWard.district]?.fill || DISTRICT_COLORS.default.fill}
+          visible={true}
+        />
+      )}
+    </>
+  )
 }
