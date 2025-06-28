@@ -34,16 +34,46 @@ export function SidebarPanel({
     <div className="w-full max-w-[28rem] min-w-[20rem] bg-background border-l flex flex-col">{" "}
       {/* Header */}
       <div className="p-4 border-b">
-        <div className="flex items-center space-x-2 mb-4">
-          <MapPin className="w-6 h-6 text-primary flex-shrink-0" />
-          <h1 className="text-xl font-bold leading-tight">{DANANG_CITY_INFO.officialName}</h1>
+        <div className="flex items-center space-x-2 mb-3">
+          <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+            <MapPin className="w-5 h-5 text-primary" />
+          </div>
+          <div>
+            <h1 className="text-xl font-bold leading-tight">{DANANG_CITY_INFO.officialName}</h1>
+            <p className="text-xs text-muted-foreground leading-tight">
+              {DANANG_CITY_INFO.mergedFrom.join(" + ")}
+            </p>
+          </div>
         </div>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          {DANANG_CITY_INFO.totalAdministrativeUnits} đơn vị hành chính cấp xã • Diện tích: {DANANG_CITY_INFO.totalArea}
-        </p>
-        <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-          {DANANG_CITY_INFO.description}
-        </p>
+        
+        <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-md">
+            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+              <Users className="w-4 h-4 text-blue-700" />
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Dân số</p>
+              <p className="font-medium text-sm">{DANANG_CITY_INFO.populationFormatted}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-md">
+            <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+              <Globe className="w-4 h-4 text-green-700" />
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Diện tích</p>
+              <p className="font-medium text-sm">{DANANG_CITY_INFO.totalArea}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-3 p-2 bg-blue-50 rounded-lg">
+          <div className="flex items-center gap-1 text-xs text-blue-800">
+            <CalendarClock className="w-3 h-3" />
+            <span>Có hiệu lực:</span>
+          </div>
+          <div className="font-medium text-xs">{DANANG_CITY_INFO.effectiveDate}</div>
+        </div>
       </div>
 
       {/* Content */}
