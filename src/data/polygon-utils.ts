@@ -23,29 +23,9 @@ export interface PolygonData {
   code?: string;
 }
 
-// Helper function to extract district name from ward name
-function extractDistrictFromWard(wardName: string): string {
-  // Common district names in Đà Nẵng
-  const districts = [
-    "Hải Châu",
-    "Cẩm Lệ",
-    "Sơn Trà",
-    "Ngũ Hành Sơn",
-    "Liên Chiểu",
-    "Thanh Khê",
-    "Hoà Vang"
-  ];
-  
-  // Try to extract the district name from the ward name
-  for (const district of districts) {
-    if (wardName.includes(district)) {
-      return district;
-    }
-  }
-  
-  // If we can't determine the district, use a placeholder
-  return "Đà Nẵng";
-}
+// We're removing the district extraction functionality as requested
+// A default district value is provided for backward compatibility
+const DEFAULT_DISTRICT = "Đà Nẵng";
 
 // Transform the new admin boundaries format to the format expected by our app
 export function transformAdminBoundaries(): PolygonData[] {
@@ -82,13 +62,10 @@ export function transformAdminBoundaries(): PolygonData[] {
       // Use the first valid path for backward compatibility with the polygon property
       const polygon = polygons.length > 0 ? polygons[0] : [];
       
-      // Extract district from the ward name or set a default
-      const district = extractDistrictFromWard(boundary.name);
-      
       return {
         id: boundary.id,
         code: boundary.code,
-        district,
+        district: DEFAULT_DISTRICT, // Use default district for all wards now
         ward: boundary.name,
         polygon,      // Keep single polygon for backward compatibility
         polygons      // Store all polygons for multipolygon support
