@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { MapPin, Building2, Users, Globe, BarChart } from "lucide-react";
-import danangPolygons from "../../data/danang_polygons.json";
+import { danangPolygons } from "../../data/polygon-utils";
 import { DANANG_CITY_INFO } from "../../data/danang-info";
 
 export function StatisticsPanel() {

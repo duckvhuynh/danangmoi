@@ -4,7 +4,8 @@ import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
 import { Label } from "../ui/label";
 import { Navigation } from "lucide-react";
-import danangPolygons from "../../data/danang_polygons.json";
+import { danangPolygons, isPointInPolygon as isPointInPolygonCheck } from "../../data/polygon-utils";
+import type { PolygonData } from "../../data/polygon-utils";
 import { offices } from "../../data/offices";
 import { PolygonOverlay } from "./PolygonOverlay";
 import { UserLocationMarker } from "./UserLocationMarker";
@@ -13,12 +14,6 @@ import { SidebarPanel } from "../sidebar/SidebarPanel";
 
 // Da Nang coordinates
 const DA_NANG_CENTER = { lat: 16.047079, lng: 108.206230 };
-
-interface PolygonData {
-  district: string;
-  ward: string;
-  polygon: Array<{ lat: number; lng: number }>;
-}
 
 interface MapContainerProps {
   apiKey: string;
@@ -41,14 +36,12 @@ export function MapContainer({ apiKey }: MapContainerProps) {
       
       // Find which polygon contains the clicked point
       const foundWard = danangPolygons.find((ward) => {
-        if (!ward.polygon || ward.polygon.length === 0) return false;
-        
-        // Simple point-in-polygon algorithm
-        return isPointInPolygon(clickedPoint, ward.polygon);
+        // Use our point-in-polygon check from the utility file, checking both single and multi-polygons
+        return isPointInPolygonCheck(clickedPoint, ward.polygon, ward.polygons);
       });
 
       if (foundWard) {
-        setSelectedWard(foundWard as PolygonData);
+        setSelectedWard(foundWard);
       }
     }
   }, []);
@@ -65,12 +58,12 @@ export function MapContainer({ apiKey }: MapContainerProps) {
           
           // Find which ward the user is in
           const userWard = danangPolygons.find((ward) => {
-            if (!ward.polygon || ward.polygon.length === 0) return false;
-            return isPointInPolygon(location, ward.polygon);
+            // Check both single and multi-polygons
+            return isPointInPolygonCheck(location, ward.polygon, ward.polygons);
           });
           
           if (userWard) {
-            setSelectedWard(userWard as PolygonData);
+            setSelectedWard(userWard);
           }
         },
         (error) => {
@@ -156,21 +149,4 @@ export function MapContainer({ apiKey }: MapContainerProps) {
 }
 
 // Helper function to check if a point is inside a polygon
-function isPointInPolygon(
-  point: { lat: number; lng: number },
-  polygon: Array<{ lat: number; lng: number }>
-): boolean {
-  let inside = false;
-  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-    if (
-      polygon[i].lat > point.lat !== polygon[j].lat > point.lat &&
-      point.lng <
-        ((polygon[j].lng - polygon[i].lng) * (point.lat - polygon[i].lat)) /
-          (polygon[j].lat - polygon[i].lat) +
-          polygon[i].lng
-    ) {
-      inside = !inside;
-    }
-  }
-  return inside;
-}
+// Using the isPointInPolygon function from polygon-utils.ts

@@ -12,17 +12,12 @@ import { PolygonOverlay } from "./map/PolygonOverlay";
 import { UserLocationMarker } from "./map/UserLocationMarker";
 import { OfficeMarkers } from "./map/OfficeMarkers";
 import { LoadingScreen } from "./LoadingScreen";
-import danangPolygons from "../data/danang_polygons.json";
+import { danangPolygons, isPointInPolygon as isPointInPolygonUtil } from "../data/polygon-utils";
+import type { PolygonData } from "../data/polygon-utils";
 import { offices } from "../data/offices";
 
 // Da Nang coordinates
 const DA_NANG_CENTER = { lat: 16.047079, lng: 108.206230 };
-
-interface PolygonData {
-  district: string;
-  ward: string;
-  polygon: Array<{ lat: number; lng: number }>;
-}
 
 interface MainInterfaceProps {
   apiKey: string;
@@ -56,10 +51,8 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
       
       // Find which polygon contains the clicked point
       const foundWard = danangPolygons.find((ward) => {
-        if (!ward.polygon || ward.polygon.length === 0) return false;
-        
-        // Simple point-in-polygon algorithm
-        return isPointInPolygon(clickedPoint, ward.polygon);
+        // Check both single polygon and multipolygon
+        return isPointInPolygonUtil(clickedPoint, ward.polygon, ward.polygons);
       });
 
       if (foundWard) {
@@ -82,12 +75,12 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
           
           // Find which ward the user is in
           const userWard = danangPolygons.find((ward) => {
-            if (!ward.polygon || ward.polygon.length === 0) return false;
-            return isPointInPolygon(location, ward.polygon);
+            // Check both single polygon and multipolygon
+            return isPointInPolygonUtil(location, ward.polygon, ward.polygons);
           });
           
           if (userWard) {
-            setSelectedWard(userWard as PolygonData);
+            setSelectedWard(userWard);
           }
         },
         (error) => {
@@ -178,21 +171,4 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
 }
 
 // Helper function to check if a point is inside a polygon
-function isPointInPolygon(
-  point: { lat: number; lng: number },
-  polygon: Array<{ lat: number; lng: number }>
-): boolean {
-  let inside = false;
-  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-    if (
-      polygon[i].lat > point.lat !== polygon[j].lat > point.lat &&
-      point.lng <
-        ((polygon[j].lng - polygon[i].lng) * (point.lat - polygon[i].lat)) /
-          (polygon[j].lat - polygon[i].lat) +
-          polygon[i].lng
-    ) {
-      inside = !inside;
-    }
-  }
-  return inside;
-}
+// Using the isPointInPolygon function from polygon-utils.ts

@@ -5,6 +5,7 @@ interface PolygonData {
   district: string;
   ward: string;
   polygon: Array<{ lat: number; lng: number }>;
+  polygons?: Array<Array<{ lat: number; lng: number }>>;
 }
 
 interface PolygonOverlayProps {
@@ -47,54 +48,68 @@ export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOve
 
     // Create new polygons
     polygons.forEach((polygonData) => {
-      if (!polygonData.polygon || polygonData.polygon.length === 0) return;
-
       // Get colors for this district
       const colors = DISTRICT_COLORS[polygonData.district] || DISTRICT_COLORS.default;
 
-      const polygon = new google.maps.Polygon({
-        paths: polygonData.polygon.map(point => ({
-          lat: point.lat,
-          lng: point.lng
-        })),
-        strokeColor: colors.stroke,
-        strokeOpacity: 0.8,
-        strokeWeight: 1.5,
-        fillColor: colors.fill,
-        fillOpacity: 0.12,
-        clickable: true,
-        zIndex: 1,
-      });
+      // Function to create and set up a polygon with event handlers
+      const createPolygon = (path: Array<{ lat: number; lng: number }>) => {
+        if (!path || path.length === 0) return null;
 
-      polygon.setMap(map);
-      
-      // Add click listener
-      polygon.addListener('click', () => {
-        if (onPolygonClick) {
-          onPolygonClick(polygonData);
-        }
-      });
-
-      // Add hover effects
-      polygon.addListener('mouseover', () => {
-        polygon.setOptions({
-          fillOpacity: 0.25,
-          strokeWeight: 2.5,
-          strokeOpacity: 1,
-          zIndex: 2,
-        });
-      });
-
-      polygon.addListener('mouseout', () => {
-        polygon.setOptions({
-          fillOpacity: 0.12,
-          strokeWeight: 1.5,
+        const polygon = new google.maps.Polygon({
+          paths: path,
+          strokeColor: colors.stroke,
           strokeOpacity: 0.8,
+          strokeWeight: 1.5,
+          fillColor: colors.fill,
+          fillOpacity: 0.12,
+          clickable: true,
           zIndex: 1,
         });
-      });
 
-      polygonRefs.current.push(polygon);
+        polygon.setMap(map);
+        
+        // Add click listener
+        polygon.addListener('click', () => {
+          if (onPolygonClick) {
+            onPolygonClick(polygonData);
+          }
+        });
+
+        // Add hover effects
+        polygon.addListener('mouseover', () => {
+          polygon.setOptions({
+            fillOpacity: 0.25,
+            strokeWeight: 2.5,
+            strokeOpacity: 1,
+            zIndex: 2,
+          });
+        });
+
+        polygon.addListener('mouseout', () => {
+          polygon.setOptions({
+            fillOpacity: 0.12,
+            strokeWeight: 1.5,
+            strokeOpacity: 0.8,
+            zIndex: 1,
+          });
+        });
+
+        return polygon;
+      };
+
+      // Handle multipolygons (multiple paths)
+      if (polygonData.polygons && polygonData.polygons.length > 0) {
+        // Create a polygon for each path in the multipolygon
+        polygonData.polygons.forEach(path => {
+          const polygon = createPolygon(path);
+          if (polygon) polygonRefs.current.push(polygon);
+        });
+      } 
+      // Fallback to single polygon for backward compatibility
+      else if (polygonData.polygon && polygonData.polygon.length > 0) {
+        const polygon = createPolygon(polygonData.polygon);
+        if (polygon) polygonRefs.current.push(polygon);
+      }
     });
 
     return () => {
