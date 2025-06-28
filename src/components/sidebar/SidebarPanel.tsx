@@ -7,6 +7,7 @@ import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
 import { MapPin, Search, BarChart3, Building2, Navigation } from "lucide-react";
 import { StatisticsPanel } from "../statistics/StatisticsPanel";
+import { DANANG_CITY_INFO } from "../../data/danang-info";
 
 interface PolygonData {
   district: string;
@@ -30,33 +31,36 @@ export function SidebarPanel({
   onGetUserLocation,
 }: SidebarPanelProps) {
   return (
-    <div className="w-[28rem] bg-background border-l flex flex-col">{" "}
+    <div className="w-full max-w-[28rem] min-w-[20rem] bg-background border-l flex flex-col">{" "}
       {/* Header */}
       <div className="p-4 border-b">
         <div className="flex items-center space-x-2 mb-4">
-          <MapPin className="w-6 h-6 text-primary" />
-          <h1 className="text-xl font-bold">Đà Nẵng Mới</h1>
+          <MapPin className="w-6 h-6 text-primary flex-shrink-0" />
+          <h1 className="text-xl font-bold leading-tight">{DANANG_CITY_INFO.officialName}</h1>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Tra cứu thông tin phường xã sau sáp nhập
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {DANANG_CITY_INFO.totalAdministrativeUnits} đơn vị hành chính cấp xã • Diện tích: {DANANG_CITY_INFO.totalArea}
+        </p>
+        <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
+          {DANANG_CITY_INFO.description}
         </p>
       </div>
 
       {/* Content */}
       <div className="flex-1 overflow-hidden">
         <Tabs defaultValue="search" className="h-full flex flex-col">
-          <TabsList className="grid w-full grid-cols-3 m-4 mb-0">
-            <TabsTrigger value="search" className="text-xs">
-              <Search className="w-4 h-4 mr-1" />
-              Tra cứu
+          <TabsList className="grid w-full grid-cols-3 m-4 mb-0 shrink-0">
+            <TabsTrigger value="search" className="text-xs p-2 min-w-0 flex-1">
+              <Search className="w-4 h-4 mr-1 flex-shrink-0" />
+              <span className="truncate">Tra cứu</span>
             </TabsTrigger>
-            <TabsTrigger value="info" className="text-xs">
-              <MapPin className="w-4 h-4 mr-1" />
-              Thông tin
+            <TabsTrigger value="info" className="text-xs p-2 min-w-0 flex-1">
+              <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
+              <span className="truncate">Thông tin</span>
             </TabsTrigger>
-            <TabsTrigger value="stats" className="text-xs">
-              <BarChart3 className="w-4 h-4 mr-1" />
-              Thống kê
+            <TabsTrigger value="stats" className="text-xs p-2 min-w-0 flex-1">
+              <BarChart3 className="w-4 h-4 mr-1 flex-shrink-0" />
+              <span className="truncate">Thống kê</span>
             </TabsTrigger>
           </TabsList>
 
@@ -66,8 +70,8 @@ export function SidebarPanel({
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-base flex items-center gap-2">
-                    <Search className="w-4 h-4" />
-                    Tìm kiếm địa chỉ cũ
+                    <Search className="w-4 h-4 flex-shrink-0" />
+                    <span className="leading-tight">Tìm kiếm địa chỉ cũ</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
@@ -84,8 +88,8 @@ export function SidebarPanel({
                     />
                   </div>
                   <Button onClick={onSearch} className="w-full" size="sm">
-                    <Search className="w-4 h-4 mr-2" />
-                    Tìm kiếm
+                    <Search className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <span>Tìm kiếm</span>
                   </Button>
                 </CardContent>
               </Card>
@@ -94,16 +98,16 @@ export function SidebarPanel({
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-base flex items-center gap-2">
-                    <Navigation className="w-4 h-4" />
-                    Vị trí hiện tại
+                    <Navigation className="w-4 h-4 flex-shrink-0" />
+                    <span className="leading-tight">Vị trí hiện tại</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <Button onClick={onGetUserLocation} variant="outline" className="w-full" size="sm">
-                    <Navigation className="w-4 h-4 mr-2" />
-                    Xác định vị trí của tôi
+                    <Navigation className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <span>Xác định vị trí của tôi</span>
                   </Button>
-                  <p className="text-xs text-muted-foreground mt-2">
+                  <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
                     Tự động xác định phường/xã bạn đang ở
                   </p>
                 </CardContent>
@@ -114,11 +118,11 @@ export function SidebarPanel({
               {selectedWard ? (
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-lg">
+                    <CardTitle className="text-lg leading-tight">
                       {selectedWard.ward}
                     </CardTitle>
                     <div className="flex items-center gap-2">
-                      <Badge variant="secondary">
+                      <Badge variant="secondary" className="text-xs">
                         {selectedWard.district}
                       </Badge>
                     </div>
@@ -127,8 +131,8 @@ export function SidebarPanel({
                     <div>
                       <h4 className="font-medium mb-2">Thông tin cơ bản</h4>
                       <div className="text-sm text-muted-foreground space-y-1">
-                        <p>Quận/Huyện: {selectedWard.district}</p>
-                        <p>Phường/Xã: {selectedWard.ward}</p>
+                        <p className="break-words">Quận/Huyện: {selectedWard.district}</p>
+                        <p className="break-words">Phường/Xã: {selectedWard.ward}</p>
                         <p>Số điểm ranh giới: {selectedWard.polygon?.length || 0}</p>
                       </div>
                     </div>
@@ -137,14 +141,16 @@ export function SidebarPanel({
                     
                     <div>
                       <h4 className="font-medium mb-2">Trụ sở phường</h4>
-                      <Button variant="outline" size="sm" className="w-full mb-2">
-                        <Building2 className="w-4 h-4 mr-2" />
-                        Xem thông tin trụ sở
-                      </Button>
-                      <Button variant="outline" size="sm" className="w-full">
-                        <MapPin className="w-4 h-4 mr-2" />
-                        Tìm đường đến trụ sở
-                      </Button>
+                      <div className="space-y-2">
+                        <Button variant="outline" size="sm" className="w-full justify-start">
+                          <Building2 className="w-4 h-4 mr-2 flex-shrink-0" />
+                          <span className="truncate">Xem thông tin trụ sở</span>
+                        </Button>
+                        <Button variant="outline" size="sm" className="w-full justify-start">
+                          <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                          <span className="truncate">Tìm đường đến trụ sở</span>
+                        </Button>
+                      </div>
                     </div>
                     
                     <Separator />
@@ -163,7 +169,7 @@ export function SidebarPanel({
                 <div className="text-center text-muted-foreground py-8">
                   <MapPin className="w-12 h-12 mx-auto mb-2 opacity-50" />
                   <p>Chưa chọn phường/xã nào</p>
-                  <p className="text-sm mt-1">
+                  <p className="text-sm mt-1 leading-relaxed">
                     Nhấp vào bản đồ để xem thông tin
                   </p>
                 </div>

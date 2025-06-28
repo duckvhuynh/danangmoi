@@ -140,3 +140,19 @@ html, body {
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+img[alt="Google"] {
+  display: none;
+}
+
+a[rel="noopener"] {
+  display: none;
+}
+
+div.gmnoprint {
+  display: none;
+}
+
+.gm-style iframe + div {
+  border: none !important;
+}

@@ -18,6 +18,7 @@ import { Label } from "./ui/label";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { StatisticsPanel } from "./statistics/StatisticsPanel";
+import { DANANG_CITY_INFO } from "../data/danang-info";
 
 interface PolygonData {
   district: string;
@@ -46,13 +47,13 @@ export function AppSidebar({
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center space-x-2 px-2 py-4">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
             <MapPin className="w-5 h-5 text-white" />
           </div>
-          <div>
-            <h1 className="text-lg font-bold">Đà Nẵng Mới</h1>
-            <p className="text-xs text-muted-foreground">
-              Tra cứu phường xã sau sáp nhập
+          <div className="min-w-0 flex-1">
+            <h1 className="text-lg font-bold leading-tight truncate">{DANANG_CITY_INFO.officialName}</h1>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              {DANANG_CITY_INFO.totalAdministrativeUnits} đơn vị hành chính cấp xã • {DANANG_CITY_INFO.populationFormatted} dân
             </p>
           </div>
         </div>
@@ -61,18 +62,18 @@ export function AppSidebar({
       <SidebarContent>
         <Tabs defaultValue="search" className="h-full flex flex-col">
           <div className="px-4">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="search" className="text-xs">
-                <Search className="w-4 h-4 mr-1" />
-                Tra cứu
+            <TabsList className="grid w-full grid-cols-3 shrink-0">
+              <TabsTrigger value="search" className="text-xs p-2 min-w-0 flex-1">
+                <Search className="w-4 h-4 mr-1 flex-shrink-0" />
+                <span className="truncate">Tra cứu</span>
               </TabsTrigger>
-              <TabsTrigger value="info" className="text-xs">
-                <MapPin className="w-4 h-4 mr-1" />
-                Thông tin
+              <TabsTrigger value="info" className="text-xs p-2 min-w-0 flex-1">
+                <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
+                <span className="truncate">Thông tin</span>
               </TabsTrigger>
-              <TabsTrigger value="stats" className="text-xs">
-                <BarChart3 className="w-4 h-4 mr-1" />
-                Thống kê
+              <TabsTrigger value="stats" className="text-xs p-2 min-w-0 flex-1">
+                <BarChart3 className="w-4 h-4 mr-1 flex-shrink-0" />
+                <span className="truncate">Thống kê</span>
               </TabsTrigger>
             </TabsList>
           </div>
@@ -171,12 +172,60 @@ export function AppSidebar({
             </TabsContent>
 
             <TabsContent value="info" className="p-4 space-y-4 m-0">
+              {/* Da Nang City Information */}
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <Building2 className="w-4 h-4" />
+                    Thông tin Thành phố Đà Nẵng
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3 text-center">
+                    <div className="bg-blue-50 p-3 rounded-lg">
+                      <div className="text-lg font-bold text-blue-600">{DANANG_CITY_INFO.totalAdministrativeUnits}</div>
+                      <div className="text-xs text-muted-foreground">Đơn vị hành chính</div>
+                    </div>
+                    <div className="bg-green-50 p-3 rounded-lg">
+                      <div className="text-lg font-bold text-green-600">{DANANG_CITY_INFO.populationFormatted}</div>
+                      <div className="text-xs text-muted-foreground">Dân số</div>
+                    </div>
+                  </div>
+                  
+                  <div className="text-center bg-orange-50 p-3 rounded-lg">
+                    <div className="text-lg font-bold text-orange-600">{DANANG_CITY_INFO.totalArea}</div>
+                    <div className="text-xs text-muted-foreground">Diện tích</div>
+                  </div>
+                  
+                  <div className="text-xs space-y-1">
+                    <div className="flex justify-between">
+                      <span>Phường:</span>
+                      <span className="font-medium">{DANANG_CITY_INFO.wards}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Xã:</span>
+                      <span className="font-medium">{DANANG_CITY_INFO.communes}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Đặc khu:</span>
+                      <span className="font-medium">{DANANG_CITY_INFO.specialZones} ({DANANG_CITY_INFO.specialZoneName})</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <Badge variant="secondary" className="text-xs">
+                      Có hiệu lực {DANANG_CITY_INFO.effectiveDate}
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
               {selectedWard ? (
                 <Card>
                   <CardHeader className="pb-3">
                     <CardTitle className="text-base flex items-center gap-2">
                       <MapPin className="w-4 h-4" />
-                      Thông tin phường xã
+                      Thông tin phường xã được chọn
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
