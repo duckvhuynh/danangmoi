@@ -71,22 +71,38 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
   }, []);
 
   const handleGetUserLocation = () => {
-    if (navigator.geolocation) {
-      setIsLocating(true);
+    if (!navigator.geolocation) return;
+
+    setIsLocating(true);
+
+    let attempt = 0;
+    const maxAttempts = 2;
+
+    const tryGetLocation = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          const accuracy = position.coords.accuracy; // in meters
           const location = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
+
+          // optional: log accuracy
+          console.log(`Location accuracy: ${accuracy}m (attempt ${attempt + 1})`);
+
+          // if accuracy > 100 meters and we haven't retried yet, try again
+          if (accuracy > 100 && attempt < maxAttempts - 1) {
+            attempt++;
+            setTimeout(tryGetLocation, 1000); // wait a bit before retrying
+            return;
+          }
+
           setUserLocation(location);
           setIsLocating(false);
 
-          // Find which ward the user is in
-          const userWard = danangPolygons.find((ward) => {
-            // Check both single polygon and multipolygon
-            return isPointInPolygonUtil(location, ward.polygon, ward.polygons);
-          });
+          const userWard = danangPolygons.find((ward) =>
+            isPointInPolygonUtil(location, ward.polygon, ward.polygons)
+          );
 
           if (userWard) {
             setSelectedWard(userWard);
@@ -95,16 +111,24 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
         (error) => {
           console.error("Error getting location:", error);
           setIsLocating(false);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0,
         }
       );
-    }
+    };
+
+    tryGetLocation();
   };
+
 
   const handleSearch = () => {
     // TODO: Implement address search functionality
     console.log("Searching for:", searchQuery);
   };
-  
+
   const clearSelectedWard = () => {
     setSelectedWard(null);
   };
@@ -171,11 +195,11 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                 onGetUserLocation={handleGetUserLocation}
                 isLocating={isLocating}
               />
-              
+
               {/* Selected Ward Info Card/Drawer */}
-              <SelectedWardInfo 
-                selectedWard={selectedWard} 
-                onClose={clearSelectedWard} 
+              <SelectedWardInfo
+                selectedWard={selectedWard}
+                onClose={clearSelectedWard}
               />
             </APIProvider>
           </div>
