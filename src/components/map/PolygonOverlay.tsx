@@ -57,7 +57,7 @@ export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOve
     // Create new polygons
     polygons.forEach((polygonData) => {
       // Get colors for this district
-      const colors = DISTRICT_COLORS[polygonData.district] || DISTRICT_COLORS.default;
+      // const colors = DISTRICT_COLORS[polygonData.district] || DISTRICT_COLORS.default;
       
       // Array to store all polygon parts for this ward
       const wardPolygons: google.maps.Polygon[] = [];
@@ -71,10 +71,10 @@ export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOve
 
         const polygon = new google.maps.Polygon({
           paths: path,
-          strokeColor: colors.stroke,
+          strokeColor: "#1872c5",
           strokeOpacity: 0.8,
           strokeWeight: 1.5,
-          fillColor: colors.fill,
+          fillColor: "#1872c5",
           fillOpacity: 0.12,
           clickable: true,
           zIndex: 1,
@@ -98,8 +98,8 @@ export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOve
           const allWardPolygons = wardPolygonMap.get(polygonData.ward) || [];
           allWardPolygons.forEach(poly => {
             poly.setOptions({
-              fillOpacity: 0.25,
-              strokeWeight: 2.5,
+              fillOpacity: 0.8,
+              strokeWeight: 1.5,
               strokeOpacity: 1,
               zIndex: 2,
             });
@@ -126,7 +126,7 @@ export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOve
           allWardPolygons.forEach(poly => {
             poly.setOptions({
               fillOpacity: 0.12,
-              strokeWeight: 1.5,
+              strokeWeight: 1,
               strokeOpacity: 0.8,
               zIndex: 1,
             });

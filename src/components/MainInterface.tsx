@@ -29,12 +29,12 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
   const [selectedWard, setSelectedWard] = useState<PolygonData | null>(null);
   const [showPolygons, setShowPolygons] = useState(true);
   const [showOffices, setShowOffices] = useState(true);
-  
+
   // This effect ensures the selectedWard variable is used
   useEffect(() => {
     console.log("Selected ward updated:", selectedWard?.ward || "None");
   }, [selectedWard]);
-  
+
   const [searchQuery, setSearchQuery] = useState("");
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [isLocating, setIsLocating] = useState(false);
@@ -56,7 +56,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
   const handleMapClick = useCallback((event: MapMouseEvent) => {
     if (event.detail.latLng) {
       const clickedPoint = event.detail.latLng;
-      
+
       // Find which polygon contains the clicked point
       const foundWard = danangPolygons.find((ward) => {
         // Check both single polygon and multipolygon
@@ -80,13 +80,13 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
           };
           setUserLocation(location);
           setIsLocating(false);
-          
+
           // Find which ward the user is in
           const userWard = danangPolygons.find((ward) => {
             // Check both single polygon and multipolygon
             return isPointInPolygonUtil(location, ward.polygon, ward.polygons);
           });
-          
+
           if (userWard) {
             setSelectedWard(userWard);
           }
@@ -118,7 +118,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
           onGetUserLocation={handleGetUserLocation}
           isLocating={isLocating}
         />
-        
+
         <SidebarInset className="flex-1 h-full m-0 rounded-none shadow-none">
           <div className="flex h-full w-full relative">
             {/* Header with sidebar trigger */}
@@ -129,17 +129,14 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
             {/* Main Map */}
             <APIProvider apiKey={apiKey}>
               <Map
+                id="danang-map"
                 defaultCenter={DA_NANG_CENTER}
                 defaultZoom={12}
-                mapId="danang-map"
+                mapId="danang-map-id"
+                // mapId="3fec513989decfcd"
                 onClick={handleMapClick}
                 className="w-full h-full"
-                zoomControl={true}
-                mapTypeControl={false}
-                scaleControl={true}
-                streetViewControl={false}
-                rotateControl={false}
-                fullscreenControl={true}
+                disableDefaultUI={true}
               >
                 {/* Polygon overlays */}
                 <PolygonOverlay
@@ -147,13 +144,13 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                   visible={showPolygons}
                   onPolygonClick={handlePolygonClick}
                 />
-                
+
                 {/* Office markers */}
                 <OfficeMarkers
                   offices={offices}
                   visible={showOffices}
                 />
-                
+
                 {/* User location marker */}
                 {userLocation && (
                   <UserLocationMarker position={userLocation} />
