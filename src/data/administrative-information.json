@@ -123,7 +123,7 @@
       "merged_communes_wards": "Phường Hòa Khánh Nam, Phường Hòa Minh, Xã Hòa Sơn",
       "area_km2": 40.93,
       "population": 112518,
-      "is_commune": true,
+      "is_commune": false,
       "location": {
         "address": "Số 168 đường Nguyễn Sinh Sắc, phường Hòa Khánh",
         "latitude": 16.072657705029805,
@@ -136,7 +136,7 @@
       "merged_communes_wards": "Phường Hòa Hiệp Bắc, Phường Hòa Hiệp Nam, Xã Hòa Bắc, Xã Hòa Liên",
       "area_km2": 406.09,
       "population": 48992,
-      "is_commune": true,
+      "is_commune": false,
       "location": {
         "address": "Lô 1-2 đường Nguyễn Tất Thành, phường Hải Vân",
         "latitude": 16.106978030875325,
@@ -149,7 +149,7 @@
       "merged_communes_wards": "Phường Hòa Khánh Bắc, Xã Hòa Liên (phần còn lại sau khi sáp nhập vào phường Hải Vân)",
       "area_km2": 41.19,
       "population": 70628,
-      "is_commune": true,
+      "is_commune": false,
       "location": {
         "address": "Số 68 đường Lạc Long Quân, phường Liên Chiểu",
         "latitude": 16.076467079275318,
@@ -175,7 +175,7 @@
       "merged_communes_wards": "Phường Hòa Xuân, Xã Hòa Châu, Xã Hòa Phước",
       "area_km2": 27.96,
       "population": 85580,
-      "is_commune": true,
+      "is_commune": false,
       "location": {
         "address": "Số 111 đường Hoàng Ngân, phường Hòa Xuân",
         "latitude": 15.995705076937789,
@@ -201,7 +201,7 @@
       "merged_communes_wards": "Phường An Phú, Xã Tam Thanh, Xã Tam Phú",
       "area_km2": 29.401,
       "population": 36210.0,
-      "is_commune": true,
+      "is_commune": false,
       "location": {
         "address": "Khối phố Phú Thạnh, Phường Quảng Phú",
         "latitude": 15.577899745788356,
@@ -214,7 +214,7 @@
       "merged_communes_wards": "Phường An Sơn, Phường Hòa Hương, Xã Tam Ngọc",
       "area_km2": 33.523,
       "population": 14640.0,
-      "is_commune": true,
+      "is_commune": false,
       "location": {
         "address": "Số 510 đường Hùng Vương, phường Hương Trà",
         "latitude": 15.554651948158433,
@@ -227,7 +227,7 @@
       "merged_communes_wards": "Phường Tân Thạnh, Phường Hòa Thuận, Xã Tam Thăng",
       "area_km2": 36.8,
       "population": 34770.0,
-      "is_commune": true,
+      "is_commune": false,
       "location": {
         "address": "Số 01 đường Nguyễn Đình Hiến, phường Bàn Thạch",
         "latitude": 15.580602543733773,
@@ -279,7 +279,7 @@
       "merged_communes_wards": "Phường Điện Thắng Bắc, Xã Điện Hòa, Xã Điện Tiến",
       "area_km2": 30.78,
       "population": 36390.0,
-      "is_commune": true,
+      "is_commune": false,
       "location": {
         "address": "Thôn Xóm Bùng, phường Điện Bàn Bắc (Trụ sở xã Điện Hòa cũ)",
         "latitude": 15.934104147256866,
