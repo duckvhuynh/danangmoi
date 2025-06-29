@@ -1225,7 +1225,7 @@
     {
       "old_commune_ward": "Tam Kỳ",
       "new_commune_ward": "Tam Hải",
-      "merged_communes_wards": "Không sáp nhập",
+      "merged_communes_wards": "Không thực hiện sắp xếp",
       "area_km2": 10.312,
       "population": 13320.0,
       "is_commune": true,
@@ -1238,7 +1238,7 @@
     {
       "old_commune_ward": "Hội An",
       "new_commune_ward": "Tân Hiệp",
-      "merged_communes_wards": "Không sáp nhập",
+      "merged_communes_wards": "Không thực hiện sắp xếp",
       "area_km2": 2.614,
       "population": 16430.0,
       "is_commune": true,
