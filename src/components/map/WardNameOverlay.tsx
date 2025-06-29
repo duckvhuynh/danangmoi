@@ -233,39 +233,15 @@ export default function WardNameOverlay({
           } else {
             type = wardInfo?.is_commune ? 'Xã' : 'Phường';
           }
-          
-          const population = wardInfo?.population?.toLocaleString('vi-VN') || '';
-          const area = wardInfo?.area_km2 ? `${wardInfo.area_km2} km²` : '';
-          const mergedFrom = wardInfo?.merged_communes_wards || '';
-          
+
           // Create the HTML content
           container.innerHTML = `
             <div class="card">
               <div class="card-content">
-                <div style="display: flex; justify-content: space-between; align-items: center">
-                  <div class="badge">${type}</div>
-                  <div class="badge badge-colored">
-                    <span class="color-dot"></span>
-                    ${this.district}
-                  </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                  <h3 class="title" style="margin: 0; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${wardInfo?.new_commune_ward || this.wardName}</h3>
+                  <div class="badge" style="flex-shrink: 0; ${type === 'Phường' ? 'background-color: #e6f2ff; color: #0066cc; border-color: #99ccff;' : type === 'Đặc khu' ? 'background-color: #ffebeb; color: #cc0000; border-color: #ffb3b3;' : ''}">${type}</div>
                 </div>
-                
-                <h3 class="title">${wardInfo?.new_commune_ward || this.wardName}</h3>
-                
-                ${population || area ? `
-                <div class="subtitle">
-                  ${population ? `<span>${population} dân</span>` : ''}
-                  ${population && area ? '<span class="separator">•</span>' : ''}
-                  ${area ? `<span>${area}</span>` : ''}
-                </div>
-                ` : ''}
-                
-                ${mergedFrom ? `
-                <div class="merged-info">
-                  <div class="merged-info-label">Gộp từ các đơn vị:</div>
-                  <div class="merged-info-content">${mergedFrom}</div>
-                </div>
-                ` : ''}
               </div>
             </div>
           `;
@@ -280,14 +256,16 @@ export default function WardNameOverlay({
           container.innerHTML = `
             <div class="card">
               <div class="card-content">
-                <div style="display: flex; justify-content: space-between; align-items: center">
-                  <div class="badge">${badgeText}</div>
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                  <h3 class="title" style="margin: 0; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${this.wardName}</h3>
+                  <div class="badge" style="flex-shrink: 0;">${badgeText}</div>
+                </div>
+                <div style="margin-top: 6px;">
                   <div class="badge badge-colored">
                     <span class="color-dot"></span>
                     ${this.district}
                   </div>
                 </div>
-                <h3 class="title">${this.wardName}</h3>
               </div>
             </div>
           `;
