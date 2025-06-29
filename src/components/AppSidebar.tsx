@@ -1,4 +1,4 @@
-import { MapPin, Search, Navigation, Loader2, Info } from "lucide-react";
+import { MapPin, Search, Navigation, Loader2, Info, LocateIcon } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -114,7 +114,7 @@ export function AppSidebar({
                         {isLocating ? (
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                         ) : (
-                          <Navigation className="w-4 h-4 mr-2" />
+                          <LocateIcon className="w-4 h-4 mr-2" />
                         )}
                         {isLocating ? "Đang xác định..." : "Xác định vị trí"}
                       </Button>

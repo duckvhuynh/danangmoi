@@ -2,7 +2,7 @@ import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
 import { Label } from "../ui/label";
 import { Card } from "../ui/card";
-import { Navigation, Layers, Building2, Loader2 } from "lucide-react";
+import { Layers, Building2, Loader2, LocateIcon } from "lucide-react";
 
 interface MapControlsProps {
   showPolygons: boolean;
@@ -33,7 +33,7 @@ export function MapControls({
         {isLocating ? (
           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
         ) : (
-          <Navigation className="w-4 h-4 mr-2" />
+          <LocateIcon className="w-4 h-4 mr-2" />
         )}
         {isLocating ? "Đang xác định..." : "Vị trí của tôi"}
       </Button>
@@ -55,7 +55,7 @@ export function MapControls({
         <div className="flex items-center justify-between">
           <Label htmlFor="show-offices" className="text-sm flex items-center gap-2">
             <Building2 className="w-4 h-4" />
-            Trụ sở
+            Trung tâm HC
           </Label>
           <Switch
             id="show-offices"

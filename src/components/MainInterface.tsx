@@ -15,7 +15,7 @@ import { SelectedWardInfo } from "./map/SelectedWardInfo";
 import { LoadingScreen } from "./LoadingScreen";
 import { danangPolygons, isPointInPolygon as isPointInPolygonUtil } from "../data/polygon-utils";
 import type { PolygonData } from "../data/polygon-utils";
-import { offices } from "../data/offices";
+import { offices } from "../data/office-utils";
 
 // Da Nang coordinates
 const DA_NANG_CENTER = { lat: 16.047079, lng: 108.206230 };
@@ -29,7 +29,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
   // even though it's no longer passed to AppSidebar after removing the "Thông tin" tab
   const [selectedWard, setSelectedWard] = useState<PolygonData | null>(null);
   const [showPolygons, setShowPolygons] = useState(true);
-  const [showOffices, setShowOffices] = useState(true);
+  const [showOffices, setShowOffices] = useState(false);
 
   // This effect ensures the selectedWard variable is used
   useEffect(() => {
@@ -87,9 +87,6 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
             lng: position.coords.longitude,
           };
 
-          // optional: log accuracy
-          console.log(`Location accuracy: ${accuracy}m (attempt ${attempt + 1})`);
-
           // if accuracy > 100 meters and we haven't retried yet, try again
           if (accuracy > 100 && attempt < maxAttempts - 1) {
             attempt++;
@@ -108,8 +105,8 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
             setSelectedWard(userWard);
           }
         },
-        (error) => {
-          console.error("Error getting location:", error);
+        () => {
+          // console.error("Error getting location:", error);
           setIsLocating(false);
         },
         {
@@ -160,7 +157,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
               <Map
                 id="danang-map"
                 defaultCenter={DA_NANG_CENTER}
-                defaultZoom={12}
+                defaultZoom={9}
                 mapId="8edea94d65887b5c9697477e"
                 onClick={handleMapClick}
                 className="w-full h-full"
@@ -178,6 +175,8 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                 <OfficeMarkers
                   offices={offices}
                   visible={showOffices}
+                  selectedWard={selectedWard}
+                  userLocation={userLocation}
                 />
 
                 {/* User location marker */}
@@ -200,6 +199,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
               <SelectedWardInfo
                 selectedWard={selectedWard}
                 onClose={clearSelectedWard}
+                userLocation={userLocation}
               />
             </APIProvider>
           </div>
