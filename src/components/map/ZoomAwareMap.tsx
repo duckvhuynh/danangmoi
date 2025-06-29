@@ -41,6 +41,7 @@ export function ZoomAwareMap({
             mapId={mapId}
             onClick={onClick}
             className={className}
+            gestureHandling={'greedy'}
             disableDefaultUI={disableDefaultUI}
             restriction={{
                 latLngBounds: {
