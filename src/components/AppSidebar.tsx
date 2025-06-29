@@ -1,4 +1,4 @@
-import { MapPin, Search, Navigation, Loader2, Info, LocateIcon } from "lucide-react";
+import { Search, Navigation, Loader2, Info, LocateIcon } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -34,8 +34,12 @@ export function AppSidebar({
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center space-x-2 px-2 py-4">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-            <MapPin className="w-5 h-5 text-white" />
+          <div className="w-20 h-10 flex items-center justify-center flex-shrink-0">
+            <img
+              src="/logo.png"
+              alt="1022 Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
           <div className="min-w-0 flex-1">
             <h1 className="text-lg font-bold leading-tight truncate">{DANANG_CITY_INFO.officialName}</h1>

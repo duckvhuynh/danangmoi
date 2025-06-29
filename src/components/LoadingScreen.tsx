@@ -1,4 +1,4 @@
-import { Loader2, MapPin, AlertCircle } from "lucide-react";
+import { Loader2, AlertCircle } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
 
 interface LoadingScreenProps {
@@ -10,8 +10,12 @@ export function LoadingScreen({ message = "Đang tải bản đồ..." }: Loadin
     <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
       <Card className="w-96 shadow-lg">
         <CardContent className="p-8 text-center space-y-4">
-          <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto">
-            <MapPin className="w-8 h-8 text-white" />
+          <div className="w-30 h-16 flex items-center justify-center mx-auto">
+            <img
+              src="/logo.png"
+              alt="1022 Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
           <h1 className="text-2xl font-bold text-gray-800">Thành phố Đà Nẵng (mới)</h1>
           <p className="text-gray-600 text-sm">94 đơn vị hành chính cấp xã • 3.065.628 dân</p>
@@ -42,7 +46,7 @@ export function ErrorScreen({ error, onRetry }: ErrorScreenProps) {
     <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-pink-100">
       <Card className="w-96 shadow-lg">
         <CardContent className="p-8 text-center space-y-4">
-          <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto">
+          <div className="w-30 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto">
             <AlertCircle className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-gray-800">Có lỗi xảy ra</h1>
