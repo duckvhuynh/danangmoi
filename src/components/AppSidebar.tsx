@@ -47,16 +47,16 @@ export function AppSidebar({
       </SidebarHeader>
 
       <SidebarContent>
-        <Tabs defaultValue="search" className="h-full flex flex-col">
+        <Tabs defaultValue="infor" className="h-full flex flex-col">
           <div className="px-4">
             <TabsList className="grid w-full grid-cols-2 shrink-0">
+              <TabsTrigger value="infor" className="text-xs p-2 min-w-0 flex-1">
+                <Info className="w-4 h-4 mr-1 flex-shrink-0" />
+                <span className="truncate">Thông tin</span>
+              </TabsTrigger>
               <TabsTrigger value="search" className="text-xs p-2 min-w-0 flex-1">
                 <Search className="w-4 h-4 mr-1 flex-shrink-0" />
                 <span className="truncate">Tra cứu</span>
-              </TabsTrigger>
-              <TabsTrigger value="stats" className="text-xs p-2 min-w-0 flex-1">
-                <Info className="w-4 h-4 mr-1 flex-shrink-0" />
-                <span className="truncate">Thông tin</span>
               </TabsTrigger>
             </TabsList>
           </div>
@@ -105,9 +105,9 @@ export function AppSidebar({
                       <p className="text-sm text-muted-foreground">
                         Xác định vị trí để biết phường xã hiện tại
                       </p>
-                      <Button 
-                        onClick={onGetUserLocation} 
-                        className="w-full" 
+                      <Button
+                        onClick={onGetUserLocation}
+                        className="w-full"
                         size="sm"
                         disabled={isLocating}
                       >
@@ -124,7 +124,7 @@ export function AppSidebar({
               </SidebarGroup>
             </TabsContent>
 
-            <TabsContent value="stats" className="p-4 space-y-4 m-0">
+            <TabsContent value="infor" className="p-4 space-y-4 m-0">
               <StatisticsPanel />
             </TabsContent>
           </div>

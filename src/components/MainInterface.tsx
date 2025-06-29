@@ -11,6 +11,7 @@ import { MapControls } from "./map/MapControls";
 import { PolygonOverlay } from "./map/PolygonOverlay";
 import { UserLocationMarker } from "./map/UserLocationMarker";
 import { OfficeMarkers } from "./map/OfficeMarkers";
+import { SelectedWardInfo } from "./map/SelectedWardInfo";
 import { LoadingScreen } from "./LoadingScreen";
 import { danangPolygons, isPointInPolygon as isPointInPolygonUtil } from "../data/polygon-utils";
 import type { PolygonData } from "../data/polygon-utils";
@@ -103,6 +104,10 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
     // TODO: Implement address search functionality
     console.log("Searching for:", searchQuery);
   };
+  
+  const clearSelectedWard = () => {
+    setSelectedWard(null);
+  };
 
   if (isMapLoading) {
     return <LoadingScreen message="Đang tải dữ liệu bản đồ..." />;
@@ -165,6 +170,12 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                 onToggleOffices={setShowOffices}
                 onGetUserLocation={handleGetUserLocation}
                 isLocating={isLocating}
+              />
+              
+              {/* Selected Ward Info Card/Drawer */}
+              <SelectedWardInfo 
+                selectedWard={selectedWard} 
+                onClose={clearSelectedWard} 
               />
             </APIProvider>
           </div>

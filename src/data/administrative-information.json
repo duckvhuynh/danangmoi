@@ -292,7 +292,7 @@
       "merged_communes_wards": "Phường Minh An, Phường Cẩm Phô, Phường Sơn Phong, Phường Cẩm Nam, Xã Cẩm Kim",
       "area_km2": 37.222,
       "population": 10810.0,
-      "is_commune": true,
+      "is_commune": false,
       "location": {
         "address": "Số 02 đường Hoàng Diệu, phường Hội An",
         "latitude": 15.879401236179584,
@@ -305,7 +305,7 @@
       "merged_communes_wards": "Phường Cẩm Châu, Phường Cửa Đại, Xã Cẩm Thanh",
       "area_km2": 31.109,
       "population": 18220.0,
-      "is_commune": true,
+      "is_commune": false,
       "location": {
         "address": "Số 456 đường Cửa Đại, phường Hội An Đông,",
         "latitude": 15.880725189133944,
@@ -318,7 +318,7 @@
       "merged_communes_wards": "Phường Thanh Hà, Phường Tân An, Phường Cẩm An, Xã Cẩm Hà",
       "area_km2": 42.37,
       "population": 18090.0,
-      "is_commune": true,
+      "is_commune": false,
       "location": {
         "address": "Số 544 đường Hai Bà Trưng, phường Hội An Tây",
         "latitude": 15.88664390366524,
