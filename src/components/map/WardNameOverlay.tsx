@@ -239,8 +239,8 @@ export default function WardNameOverlay({
             <div class="card">
               <div class="card-content">
                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-                  <h3 class="title" style="margin: 0; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${wardInfo?.new_commune_ward || this.wardName}</h3>
                   <div class="badge" style="flex-shrink: 0; ${type === 'Phường' ? 'background-color: #e6f2ff; color: #0066cc; border-color: #99ccff;' : type === 'Đặc khu' ? 'background-color: #ffebeb; color: #cc0000; border-color: #ffb3b3;' : ''}">${type}</div>
+                  <h3 class="title" style="margin: 0; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${wardInfo?.new_commune_ward || this.wardName}</h3>
                 </div>
               </div>
             </div>

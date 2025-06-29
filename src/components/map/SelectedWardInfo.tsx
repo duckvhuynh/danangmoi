@@ -91,10 +91,10 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
         <div className="space-y-4">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <h2 className="text-md font-bold">{wardInfo?.new_commune_ward || selectedWard.ward}</h2>
                     <Badge variant={wardType === 'Phường' ? "default" : wardType === 'Xã' ? "secondary" : "destructive"}>
                         {wardType}
                     </Badge>
+                     <h2 className="text-md font-bold">{wardInfo?.new_commune_ward || selectedWard.ward}</h2>
                 </div>
                 {!isMobile && (
                     <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={handleClose}>
