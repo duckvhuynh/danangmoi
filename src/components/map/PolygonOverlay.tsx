@@ -15,6 +15,7 @@ interface PolygonOverlayProps {
   visible: boolean;
   selectedPolygon?: PolygonData | null;
   onPolygonClick?: (polygon: PolygonData) => void;
+  interactive?: boolean; // New prop to control if the polygon is clickable and hoverable
 }
 
 // Color scheme for different districts
@@ -36,7 +37,7 @@ const SELECTED_COLORS = {
 };
 
 export function PolygonOverlay(
-  { polygons, visible, selectedPolygon, onPolygonClick }: PolygonOverlayProps
+  { polygons, visible, selectedPolygon, onPolygonClick, interactive = true }: PolygonOverlayProps
 ) {
   const map = useMap();
   const polygonRefs = useRef<google.maps.Polygon[]>([]);
@@ -159,7 +160,7 @@ export function PolygonOverlay(
           strokeWeight,
           fillColor,
           fillOpacity,
-          clickable: true,
+          clickable: interactive, // Use interactive prop to control clickability
           zIndex,
         });
 
@@ -168,81 +169,85 @@ export function PolygonOverlay(
         // Add polygon to the ward's polygon array for synchronized hover
         wardPolygons.push(polygon);
 
-        // Add click listener
-        polygon.addListener("click", () => {
-          if (onPolygonClick) {
-            onPolygonClick(polygonData);
-          }
-        });
-
-        // Add hover effects - highlight all polygons of the same ward
-        polygon.addListener("mouseover", (event: google.maps.PolyMouseEvent) => {
-          // Highlight all polygons for this ward
-          const allWardPolygons = wardPolygonMap.get(polygonData.ward) || [];
-          const isCurrentlySelected = selectedPolygon?.ward === polygonData.ward;
-
-          allWardPolygons.forEach((poly) => {
-            if (isCurrentlySelected) {
-              // If selected, just increase opacity slightly on hover
-              poly.setOptions({
-                fillOpacity: 0.6,
-                strokeWeight: 3,
-                strokeOpacity: 1,
-                zIndex: 4,
-              });
-            } else {
-              // Normal hover effect for non-selected polygons
-              poly.setOptions({
-                fillOpacity: 0.8,
-                strokeWeight: 1.5,
-                strokeOpacity: 1,
-                zIndex: 2,
-              });
+        // Only add event listeners if interactive
+        if (interactive) {
+          // Add click listener
+          polygon.addListener("click", () => {
+            if (onPolygonClick) {
+              onPolygonClick(polygonData);
             }
           });
 
-          // Calculate center of polygon or use the mouse position
-          if (event.latLng) {
-            setOverlayPosition(event.latLng);
-          } else {
-            // Calculate the center of the polygon
-            const bounds = new google.maps.LatLngBounds();
-            path.forEach((point) => {
-              bounds.extend(new google.maps.LatLng(point.lat, point.lng));
+          // Add hover effects
+          polygon.addListener("mouseover", (event: google.maps.PolyMouseEvent) => {
+            // Highlight all polygons for this ward
+            const allWardPolygons = wardPolygonMap.get(polygonData.ward) || [];
+            const isCurrentlySelected = selectedPolygon?.ward === polygonData.ward;
+
+            allWardPolygons.forEach((poly) => {
+              if (isCurrentlySelected) {
+                // If selected, just increase opacity slightly on hover
+                poly.setOptions({
+                  fillOpacity: 0.6,
+                  strokeWeight: 3,
+                  strokeOpacity: 1,
+                  zIndex: 4,
+                });
+              } else {
+                // Normal hover effect for non-selected polygons
+                poly.setOptions({
+                  fillOpacity: 0.8,
+                  strokeWeight: 1.5,
+                  strokeOpacity: 1,
+                  zIndex: 2,
+                });
+              }
             });
-            setOverlayPosition(bounds.getCenter());
-          }
 
-          setHoveredWard(polygonData);
-        });
-
-        polygon.addListener("mouseout", () => {
-          // Reset all polygons for this ward
-          const allWardPolygons = wardPolygonMap.get(polygonData.ward) || [];
-          const isCurrentlySelected = selectedPolygon?.ward === polygonData.ward;
-
-          allWardPolygons.forEach((poly) => {
-            if (isCurrentlySelected) {
-              // Reset to selected state
-              poly.setOptions({
-                fillOpacity: 0.4,
-                strokeWeight: 2.5,
-                strokeOpacity: 0.8,
-                zIndex: 3,
-              });
+            // Calculate center of polygon or use the mouse position
+            if (event.latLng) {
+              setOverlayPosition(event.latLng);
             } else {
-              // Reset to normal state
-              poly.setOptions({
-                fillOpacity: 0.12,
-                strokeWeight: 1,
-                strokeOpacity: 0.8,
-                zIndex: 1,
+              // Calculate the center of the polygon
+              const bounds = new google.maps.LatLngBounds();
+              path.forEach((point) => {
+                bounds.extend(new google.maps.LatLng(point.lat, point.lng));
               });
+              setOverlayPosition(bounds.getCenter());
             }
+            
+            setHoveredWard(polygonData);
           });
+          
+          // Add mouseout listener
+          polygon.addListener("mouseout", () => {
+            // Reset all polygons for this ward
+            const allWardPolygons = wardPolygonMap.get(polygonData.ward) || [];
+            const isCurrentlySelected = selectedPolygon?.ward === polygonData.ward;
 
-          setHoveredWard(null);
-        });
+            allWardPolygons.forEach((poly) => {
+              if (isCurrentlySelected) {
+                // Reset to selected state
+                poly.setOptions({
+                  fillOpacity: 0.4,
+                  strokeWeight: 2.5,
+                  strokeOpacity: 0.8,
+                  zIndex: 3,
+                });
+              } else {
+                // Reset to normal state
+                poly.setOptions({
+                  fillOpacity: 0.12,
+                  strokeWeight: 1,
+                  strokeOpacity: 0.8,
+                  zIndex: 1,
+                });
+              }
+            });
+
+            setHoveredWard(null);
+          });
+        }
 
         return polygon;
       };
@@ -271,7 +276,7 @@ export function PolygonOverlay(
       setHoveredWard(null);
       setOverlayPosition(null);
     };
-  }, [map, polygons, visible, selectedPolygon, onPolygonClick]);
+  }, [map, polygons, visible, selectedPolygon, onPolygonClick, interactive]);
 
   return (
     <>

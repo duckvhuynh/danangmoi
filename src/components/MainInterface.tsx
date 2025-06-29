@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import { APIProvider } from "@vis.gl/react-google-maps";
 import type { MapMouseEvent } from "@vis.gl/react-google-maps";
+import { ZoomAwareMap } from "./map/ZoomAwareMap";
 import {
   SidebarProvider,
   SidebarTrigger,
@@ -16,9 +17,12 @@ import { LoadingScreen } from "./LoadingScreen";
 import { danangPolygons, isPointInPolygon as isPointInPolygonUtil } from "../data/polygon-utils";
 import type { PolygonData } from "../data/polygon-utils";
 import { offices } from "../data/office-utils";
+import { getWholeDanangPolygon, getWholeDanangBounds } from "../data/whole-danang-utils";
 
 // Da Nang coordinates
 const DA_NANG_CENTER = { lat: 16.047079, lng: 108.206230 };
+// Zoom threshold for showing detailed polygons vs whole city polygon
+const ZOOM_THRESHOLD = 10;
 
 interface MainInterfaceProps {
   apiKey: string;
@@ -30,6 +34,11 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
   const [selectedWard, setSelectedWard] = useState<PolygonData | null>(null);
   const [showPolygons, setShowPolygons] = useState(true);
   const [showOffices, setShowOffices] = useState(false);
+  
+  // New state for zoom level and city boundary
+  const [zoomLevel, setZoomLevel] = useState<number>(9); // Start with a zoom level below threshold
+  const [wholeDanangPolygon] = useState<PolygonData>(getWholeDanangPolygon());
+  const [danangBounds] = useState(getWholeDanangBounds());
 
   // This effect ensures the selectedWard variable is used
   useEffect(() => {
@@ -56,19 +65,23 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
 
   const handleMapClick = useCallback((event: MapMouseEvent) => {
     if (event.detail.latLng) {
-      const clickedPoint = event.detail.latLng;
-
-      // Find which polygon contains the clicked point
-      const foundWard = danangPolygons.find((ward) => {
-        // Check both single polygon and multipolygon
-        return isPointInPolygonUtil(clickedPoint, ward.polygon, ward.polygons);
-      });
-
-      if (foundWard) {
-        setSelectedWard(foundWard as PolygonData);
+      // Only process polygon selection when zoom level is at or above threshold
+      // This prevents selecting administrative divisions when viewing the whole city
+      if (zoomLevel >= ZOOM_THRESHOLD) {
+        const clickedPoint = event.detail.latLng;
+        
+        // Find which polygon contains the clicked point
+        const foundWard = danangPolygons.find((ward) => {
+          // Check both single polygon and multipolygon
+          return isPointInPolygonUtil(clickedPoint, ward.polygon, ward.polygons);
+        });
+  
+        if (foundWard) {
+          setSelectedWard(foundWard as PolygonData);
+        }
       }
     }
-  }, []);
+  }, [zoomLevel]);
 
   const handleGetUserLocation = () => {
     if (!navigator.geolocation) return;
@@ -154,7 +167,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
 
             {/* Main Map */}
             <APIProvider apiKey={apiKey}>
-              <Map
+              <ZoomAwareMap
                 id="danang-map"
                 defaultCenter={DA_NANG_CENTER}
                 defaultZoom={9}
@@ -162,19 +175,34 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                 onClick={handleMapClick}
                 className="w-full h-full"
                 disableDefaultUI={true}
+                onZoomChange={setZoomLevel}
+                initialBounds={danangBounds}
               >
-                {/* Polygon overlays */}
-                <PolygonOverlay
-                  polygons={danangPolygons as PolygonData[]}
-                  visible={showPolygons}
-                  selectedPolygon={selectedWard}
-                  onPolygonClick={handlePolygonClick}
-                />
+                {/* Whole city polygon (shown when zoom < ZOOM_THRESHOLD) - non-interactive */}
+                {zoomLevel < ZOOM_THRESHOLD && (
+                  <PolygonOverlay
+                    polygons={[wholeDanangPolygon]}
+                    visible={showPolygons}
+                    selectedPolygon={selectedWard}
+                    onPolygonClick={handlePolygonClick}
+                    interactive={false} // Make the whole city polygon non-interactive
+                  />
+                )}
+                
+                {/* Detailed ward polygons (shown when zoom >= ZOOM_THRESHOLD) */}
+                {zoomLevel >= ZOOM_THRESHOLD && (
+                  <PolygonOverlay
+                    polygons={danangPolygons as PolygonData[]}
+                    visible={showPolygons}
+                    selectedPolygon={selectedWard}
+                    onPolygonClick={handlePolygonClick}
+                  />
+                )}
 
-                {/* Office markers */}
+                {/* Office markers (only visible at higher zoom levels) */}
                 <OfficeMarkers
                   offices={offices}
-                  visible={showOffices}
+                  visible={showOffices && zoomLevel >= ZOOM_THRESHOLD}
                   selectedWard={selectedWard}
                   userLocation={userLocation}
                 />
@@ -183,7 +211,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                 {userLocation && (
                   <UserLocationMarker position={userLocation} />
                 )}
-              </Map>
+              </ZoomAwareMap>
 
               {/* Map Controls */}
               <MapControls
