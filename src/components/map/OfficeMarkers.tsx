@@ -1,128 +1,206 @@
 import { AdvancedMarker, Pin, InfoWindow } from "@vis.gl/react-google-maps";
 import { useState } from "react";
-import type { Office } from "../../data/offices";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Badge } from "../ui/badge";
+import type { Office } from "../../data/office-utils";
 import { Button } from "../ui/button";
 import { MapPin, Phone, Clock, Navigation } from "lucide-react";
+import { isPointInPolygon } from "../../data/polygon-utils";
+import type { PolygonData } from "../../data/polygon-utils";
 
 interface OfficeMarkersProps {
   offices: Office[];
   visible: boolean;
+  selectedWard?: PolygonData | null;
+  userLocation?: { lat: number; lng: number } | null;
 }
 
-export function OfficeMarkers({ offices, visible }: OfficeMarkersProps) {
+export function OfficeMarkers({ offices, visible, selectedWard, userLocation }: OfficeMarkersProps) {
   const [selectedOffice, setSelectedOffice] = useState<Office | null>(null);
 
-  if (!visible) return null;
+  // Helper function to create Google Maps directions URL
+  const getGoogleMapsDirectionsUrl = (lat: number, lng: number): string => {
+    let url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
+    
+    // Add origin parameter if user location is available
+    if (userLocation) {
+      url += `&origin=${userLocation.lat},${userLocation.lng}`;
+    }
+    
+    return url;
+  };
 
-  const getMarkerColor = (type: Office['type']) => {
-    switch (type) {
-      case 'city':
-        return '#DC2626'; // red-600
-      case 'district':
-        return '#2563EB'; // blue-600
+  const isOfficeInSelectedWard = (office: Office): boolean => {
+    if (!selectedWard) return false;
+
+    return isPointInPolygon(
+      office.position,
+      selectedWard.polygon,
+      selectedWard.polygons
+    );
+  };
+
+  const getMarkerColor = (office: Office) => {
+    // Highlighted state for offices within selected polygon
+    // if (selectedWard && isOfficeInSelectedWard(office)) {
+    //   // Use a more vibrant yellow if general visibility is off to make highlighted offices stand out
+    //   return !visible ? '#EAB308' : '#FACC15'; // yellow-600 vs yellow-500
+    // }
+
+    // Default colors based on type
+    switch (office.type) {
+      case 'commune':
+        return '#6B7280'; // gray-500
       case 'ward':
-        return '#16A34A'; // green-600
+        return '#2563EB'; // blue-600
+      case 'special':
+        return '#DC2626'; // red-600
       default:
         return '#6B7280'; // gray-500
     }
   };
 
-  const getOfficeTypeLabel = (type: Office['type']) => {
-    switch (type) {
-      case 'city':
-        return 'Thành phố';
-      case 'district':
-        return 'Quận/Huyện';
-      case 'ward':
-        return 'Phường/Xã';
-      default:
-        return 'Khác';
+  // Function to determine if an office should be visible
+  const shouldShowOffice = (office: Office): boolean => {
+    // Always show offices within selected polygon
+    if (selectedWard && isOfficeInSelectedWard(office)) {
+      return true;
     }
+    // Otherwise, show only if visible flag is true
+    return visible;
   };
 
   return (
     <>
-      {offices.map((office) => (
-        <AdvancedMarker
-          key={office.id}
-          position={office.position}
-          onClick={() => setSelectedOffice(office)}
-        >
-          <Pin
-            background={getMarkerColor(office.type)}
-            borderColor="#FFFFFF"
-            glyphColor="#FFFFFF"
-            scale={office.type === 'city' ? 1.4 : office.type === 'district' ? 1.2 : 1.0}
-          />
-        </AdvancedMarker>
-      ))}
+      {offices.map((office) =>
+        shouldShowOffice(office) ? (
+          <AdvancedMarker
+            key={office.id}
+            position={office.position}
+            onClick={() => setSelectedOffice(office)}
+          >
+            <Pin
+              background={getMarkerColor(office)}
+              borderColor="#FFFFFF"
+              glyphColor="#FFFFFF"
+              scale={
+                selectedWard && isOfficeInSelectedWard(office)
+                  ? 1.2 // Larger scale for highlighted offices
+                  : 0.8
+              }
+            />
+          </AdvancedMarker>
+        ) : null
+      )}
 
-      {selectedOffice && (
+      {selectedOffice && shouldShowOffice(selectedOffice) && (
         <InfoWindow
           position={selectedOffice.position}
           onCloseClick={() => setSelectedOffice(null)}
         >
-          <Card className="w-80 border-0 shadow-none">
-            <CardHeader className="pb-2">
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-base font-semibold">
-                    {selectedOffice.name}
-                  </CardTitle>
-                  <Badge variant="secondary" className="mt-1">
-                    {getOfficeTypeLabel(selectedOffice.type)}
-                  </Badge>
+          <div className="w-70 max-w-full p-0 bg-white rounded-lg overflow-hidden">
+            <div className="relative">
+              <div className="px-4 pb-2">
+                <h3 className="text-lg font-semibold truncate">Trung tâm hành chính công</h3>
+                <div className="text-xs text-gray-500 mt-1">
+                  {selectedOffice.name}
                 </div>
               </div>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 mt-0.5 text-muted-foreground flex-shrink-0" />
-                <span className="text-sm">{selectedOffice.address}</span>
+            </div>
+
+            <div className="border-t border-gray-100 px-4 py-3 space-y-3">
+              {/* Address */}
+              <div className="flex items-start gap-3">
+                <div className="bg-gray-100 rounded-full p-2 flex-shrink-0">
+                  <MapPin className="w-4 h-4 text-gray-600" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-xs text-gray-500 mb-0.5">Địa chỉ</div>
+                  <div className="text-sm">{selectedOffice.address}</div>
+                </div>
               </div>
-              
+
+              {/* Phone */}
               {selectedOffice.phone && (
-                <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                  <span className="text-sm">{selectedOffice.phone}</span>
+                <div className="flex items-start gap-3">
+                  <div className="bg-gray-100 rounded-full p-2 flex-shrink-0">
+                    <Phone className="w-4 h-4 text-gray-600" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-xs text-gray-500 mb-0.5">Điện thoại</div>
+                    <div className="text-sm">{selectedOffice.phone}</div>
+                  </div>
                 </div>
               )}
-              
+
+              {/* Working hours */}
               {selectedOffice.workingHours && (
-                <div className="flex items-start gap-2">
-                  <Clock className="w-4 h-4 mt-0.5 text-muted-foreground flex-shrink-0" />
-                  <span className="text-sm">{selectedOffice.workingHours}</span>
+                <div className="flex items-start gap-3">
+                  <div className="bg-gray-100 rounded-full p-2 flex-shrink-0">
+                    <Clock className="w-4 h-4 text-gray-600" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-xs text-gray-500 mb-0.5">Giờ làm việc</div>
+                    <div className="text-sm">{selectedOffice.workingHours}</div>
+                  </div>
                 </div>
               )}
-              
-              {selectedOffice.services && (
-                <div>
-                  <h4 className="text-sm font-medium mb-1">Dịch vụ:</h4>
-                  <ul className="text-xs text-muted-foreground space-y-1">
+
+              {/* Services */}
+              {selectedOffice.services && selectedOffice.services.length > 0 && (
+                <div className="pt-1">
+                  <div className="text-xs text-gray-500 mb-1">Dịch vụ chính</div>
+                  <div className="flex flex-wrap gap-1">
                     {selectedOffice.services.slice(0, 3).map((service, index) => (
-                      <li key={index}>• {service}</li>
+                      <span key={index} className="inline-flex text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">
+                        {service}
+                      </span>
                     ))}
                     {selectedOffice.services.length > 3 && (
-                      <li>• Và {selectedOffice.services.length - 3} dịch vụ khác</li>
+                      <span className="inline-flex text-xs bg-gray-50 text-gray-600 px-2 py-0.5 rounded-full">
+                        +{selectedOffice.services.length - 3}
+                      </span>
                     )}
-                  </ul>
+                  </div>
                 </div>
               )}
-              
-              <div className="flex gap-2 pt-2">
-                <Button size="sm" className="flex-1" variant="outline">
-                  <Navigation className="w-4 h-4 mr-1" />
-                  Chỉ đường
-                </Button>
-                <Button size="sm" className="flex-1" variant="outline">
-                  <Phone className="w-4 h-4 mr-1" />
+            </div>
+
+            {/* Action buttons with gradient background */}
+            <div className="px-4 py-3 flex gap-3">
+              <Button
+                size="sm"
+                className="flex-1 bg-white"
+                variant="outline"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(
+                    getGoogleMapsDirectionsUrl(
+                      selectedOffice.position.lat,
+                      selectedOffice.position.lng
+                    ),
+                    '_blank'
+                  );
+                }}
+              >
+                <Navigation className="w-4 h-4 mr-1.5" />
+                Chỉ đường
+              </Button>
+
+              {selectedOffice.phone && (
+                <Button
+                  size="sm"
+                  className="flex-1 bg-white hover:bg-green-50 border-green-200 hover:border-green-300 text-green-700"
+                  variant="outline"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.location.href = `tel:${selectedOffice.phone}`;
+                  }}
+                >
+                  <Phone className="w-4 h-4 mr-1.5" />
                   Gọi điện
                 </Button>
-              </div>
-            </CardContent>
-          </Card>
+              )}
+            </div>
+          </div>
         </InfoWindow>
       )}
     </>

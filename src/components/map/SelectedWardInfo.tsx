@@ -32,9 +32,10 @@ interface WardInfo {
 interface SelectedWardInfoProps {
     selectedWard: PolygonData | null;
     onClose: () => void;
+    userLocation?: { lat: number; lng: number } | null;
 }
 
-export function SelectedWardInfo({ selectedWard, onClose }: SelectedWardInfoProps) {
+export function SelectedWardInfo({ selectedWard, onClose, userLocation }: SelectedWardInfoProps) {
     const isMobile = useIsMobile();
     const [wardInfo, setWardInfo] = useState<WardInfo | null>(null);
     const [isOpen, setIsOpen] = useState(false);
@@ -152,7 +153,7 @@ export function SelectedWardInfo({ selectedWard, onClose }: SelectedWardInfoProp
                 <div className="space-y-2 pt-2">
                     <div className="flex items-center gap-2 text-sm font-medium">
                         <MapPin className="h-4 w-4" />
-                        <span>Trụ sở</span>
+                        <span>Trung tâm phục vụ hành chính công</span>
                     </div>
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center justify-between gap-2 bg-gray-50 p-3 rounded-lg">
@@ -170,7 +171,13 @@ export function SelectedWardInfo({ selectedWard, onClose }: SelectedWardInfoProp
                                 size="sm"
                                 className="w-full flex items-center justify-center gap-2 text-sm"
                                 onClick={() => {
-                                    const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${wardInfo.location.latitude},${wardInfo.location.longitude}`;
+                                    let mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${wardInfo.location.latitude},${wardInfo.location.longitude}`;
+                                    
+                                    // Add origin parameter if user location is available
+                                    if (userLocation) {
+                                        mapsUrl += `&origin=${userLocation.lat},${userLocation.lng}`;
+                                    }
+                                    
                                     window.open(mapsUrl, '_blank');
                                 }}
                             >
