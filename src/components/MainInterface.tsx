@@ -132,8 +132,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                 id="danang-map"
                 defaultCenter={DA_NANG_CENTER}
                 defaultZoom={12}
-                mapId="danang-map-id"
-                // mapId="3fec513989decfcd"
+                mapId="8edea94d65887b5c9697477e"
                 onClick={handleMapClick}
                 className="w-full h-full"
                 disableDefaultUI={true}
@@ -142,6 +141,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                 <PolygonOverlay
                   polygons={danangPolygons as PolygonData[]}
                   visible={showPolygons}
+                  selectedPolygon={selectedWard}
                   onPolygonClick={handlePolygonClick}
                 />
 
