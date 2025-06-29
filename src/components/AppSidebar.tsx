@@ -1,11 +1,8 @@
-import { MapPin, Search, BarChart3, Building2, Navigation, Loader2 } from "lucide-react";
+import { MapPin, Search, BarChart3, Navigation, Loader2 } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -139,87 +136,9 @@ export function AppSidebar({
                   </Card>
                 </SidebarGroupContent>
               </SidebarGroup>
-
-              {/* Quick Access */}
-              <SidebarGroup>
-                <SidebarGroupLabel>
-                  <Building2 className="w-4 h-4 mr-2" />
-                  Truy cập nhanh
-                </SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton>
-                        <MapPin className="w-4 h-4" />
-                        Xem tất cả trụ sở
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton>
-                        <Search className="w-4 h-4" />
-                        Danh sách phường xã mới
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton>
-                        <BarChart3 className="w-4 h-4" />
-                        Thống kê sáp nhập
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
             </TabsContent>
 
             <TabsContent value="info" className="p-4 space-y-4 m-0">
-              {/* Da Nang City Information */}
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    <Building2 className="w-4 h-4" />
-                    Thông tin Thành phố Đà Nẵng
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="grid grid-cols-2 gap-3 text-center">
-                    <div className="bg-blue-50 p-3 rounded-lg">
-                      <div className="text-lg font-bold text-blue-600">{DANANG_CITY_INFO.totalAdministrativeUnits}</div>
-                      <div className="text-xs text-muted-foreground">Đơn vị hành chính</div>
-                    </div>
-                    <div className="bg-green-50 p-3 rounded-lg">
-                      <div className="text-lg font-bold text-green-600">{DANANG_CITY_INFO.populationFormatted}</div>
-                      <div className="text-xs text-muted-foreground">Dân số</div>
-                    </div>
-                  </div>
-                  
-                  <div className="text-center bg-orange-50 p-3 rounded-lg">
-                    <div className="text-lg font-bold text-orange-600">{DANANG_CITY_INFO.totalArea}</div>
-                    <div className="text-xs text-muted-foreground">Diện tích</div>
-                  </div>
-                  
-                  <div className="text-xs space-y-1">
-                    <div className="flex justify-between">
-                      <span>Phường:</span>
-                      <span className="font-medium">{DANANG_CITY_INFO.wards}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Xã:</span>
-                      <span className="font-medium">{DANANG_CITY_INFO.communes}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Đặc khu:</span>
-                      <span className="font-medium">{DANANG_CITY_INFO.specialZones} ({DANANG_CITY_INFO.specialZoneName})</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex gap-2">
-                    <Badge variant="secondary" className="text-xs">
-                      Có hiệu lực {DANANG_CITY_INFO.effectiveDate}
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
-
               {selectedWard ? (
                 <Card>
                   <CardHeader className="pb-3">

@@ -98,63 +98,22 @@ export function PolygonOverlay({ polygons, visible, onPolygonClick }: PolygonOve
           const allWardPolygons = wardPolygonMap.get(polygonData.ward) || [];
           allWardPolygons.forEach(poly => {
             poly.setOptions({
-              fillOpacity: 0.3,
+              fillOpacity: 0.25,
               strokeWeight: 2.5,
               strokeOpacity: 1,
               zIndex: 2,
             });
           });
           
-          // Calculate center of the ward's polygons or use the mouse position
+          // Calculate center of polygon or use the mouse position
           if (event.latLng) {
-            // For better UX, calculate the centroid of all polygons in this ward
+            setOverlayPosition(event.latLng);
+          } else {
+            // Calculate the center of the polygon
             const bounds = new google.maps.LatLngBounds();
-            
-            // If we have multipolygons, add all points from all polygons
-            if (polygonData.polygons && polygonData.polygons.length > 0) {
-              polygonData.polygons.forEach(polyPath => {
-                polyPath.forEach(point => {
-                  bounds.extend(new google.maps.LatLng(point.lat, point.lng));
-                });
-              });
-            } 
-            // Fallback to single polygon
-            else if (polygonData.polygon && polygonData.polygon.length > 0) {
-              polygonData.polygon.forEach(point => {
-                bounds.extend(new google.maps.LatLng(point.lat, point.lng));
-              });
-            }
-            
-            // Simple approach to center the overlay
-            const centerPoint = bounds.getCenter();
-            
-            // Attempt to avoid edges by checking map bounds
-            const mapBounds = map.getBounds();
-            if (mapBounds) {
-              const ne = mapBounds.getNorthEast();
-              const sw = mapBounds.getSouthWest();
-              
-              // Calculate center manually - better than potentially buggy projection methods
-              const lat = centerPoint.lat();
-              const lng = centerPoint.lng();
-              
-              // If we're too close to the east edge, move west a bit
-              if (lng > (ne.lng() - (ne.lng() - sw.lng()) * 0.15)) {
-                const adjustedLng = ne.lng() - (ne.lng() - sw.lng()) * 0.2;
-                setOverlayPosition(new google.maps.LatLng(lat, adjustedLng));
-                return;
-              }
-              
-              // If we're too close to the west edge, move east a bit
-              if (lng < (sw.lng() + (ne.lng() - sw.lng()) * 0.15)) {
-                const adjustedLng = sw.lng() + (ne.lng() - sw.lng()) * 0.2;
-                setOverlayPosition(new google.maps.LatLng(lat, adjustedLng));
-                return;
-              }
-            }
-            
-            // Use the center of all polygons for this ward as the overlay position
-            // This ensures consistent tooltip placement regardless of which polygon part is hovered
+            path.forEach(point => {
+              bounds.extend(new google.maps.LatLng(point.lat, point.lng));
+            });
             setOverlayPosition(bounds.getCenter());
           }
           

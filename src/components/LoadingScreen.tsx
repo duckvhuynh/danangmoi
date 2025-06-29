@@ -23,8 +23,8 @@ export function LoadingScreen({ message = "Đang tải bản đồ..." }: Loadin
           </div>
           
           <div className="text-xs text-gray-500 space-y-1">
-            <p>📅 Hiệu lực từ ngày 1/7/2025</p>
-            <p>🏛️ UBND TP. Đà Nẵng</p>
+            <p>Hiệu lực từ ngày 1/7/2025</p>
+            <p>UBND TP. Đà Nẵng</p>
           </div>
         </CardContent>
       </Card>
