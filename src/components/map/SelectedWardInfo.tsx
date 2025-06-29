@@ -90,7 +90,7 @@ export function SelectedWardInfo({ selectedWard, onClose }: SelectedWardInfoProp
         <div className="space-y-4">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <h2 className="text-xl font-bold">{wardInfo?.new_commune_ward || selectedWard.ward}</h2>
+                    <h2 className="text-md font-bold">{wardInfo?.new_commune_ward || selectedWard.ward}</h2>
                     <Badge variant={wardType === 'Phường' ? "default" : wardType === 'Xã' ? "secondary" : "destructive"}>
                         {wardType}
                     </Badge>
@@ -113,7 +113,7 @@ export function SelectedWardInfo({ selectedWard, onClose }: SelectedWardInfoProp
             </div>
 
             <div className="grid grid-cols-2 gap-3 pt-2">
-                {wardInfo?.population && (
+                {wardInfo?.population && wardInfo.population > 0 ? (
                     <div className="flex flex-col gap-1 bg-blue-50 rounded-lg p-3">
                         <div className="flex items-center gap-2 text-xs text-blue-700">
                             <Users className="h-3.5 w-3.5" />
@@ -121,10 +121,10 @@ export function SelectedWardInfo({ selectedWard, onClose }: SelectedWardInfoProp
                         </div>
                         <div className="font-semibold text-blue-900">{formatPopulation(wardInfo.population)}</div>
                     </div>
-                )}
+                ) : (<></>)}
 
                 {wardInfo?.area_km2 && (
-                    <div className="flex flex-col gap-1 bg-green-50 rounded-lg p-3">
+                    <div className={`flex flex-col gap-1 bg-green-50 rounded-lg p-3 ${(!wardInfo?.population || wardInfo.population === 0) ? "col-span-2" : ""}`}>
                         <div className="flex items-center gap-2 text-xs text-green-700">
                             <Globe className="h-3.5 w-3.5" />
                             <span>Diện tích</span>
