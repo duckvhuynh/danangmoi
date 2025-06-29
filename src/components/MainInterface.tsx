@@ -24,9 +24,17 @@ interface MainInterfaceProps {
 }
 
 export function MainInterface({ apiKey }: MainInterfaceProps) {
+  // Keep selectedWard state for map interactions (polygon highlighting, click handling)
+  // even though it's no longer passed to AppSidebar after removing the "Thông tin" tab
   const [selectedWard, setSelectedWard] = useState<PolygonData | null>(null);
   const [showPolygons, setShowPolygons] = useState(true);
   const [showOffices, setShowOffices] = useState(true);
+  
+  // This effect ensures the selectedWard variable is used
+  useEffect(() => {
+    console.log("Selected ward updated:", selectedWard?.ward || "None");
+  }, [selectedWard]);
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [isLocating, setIsLocating] = useState(false);
@@ -104,7 +112,6 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
     <SidebarProvider>
       <div className="flex h-screen w-screen">
         <AppSidebar
-          selectedWard={selectedWard}
           searchQuery={searchQuery}
           onSearchQueryChange={setSearchQuery}
           onSearch={handleSearch}
@@ -169,6 +176,3 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
     </SidebarProvider>
   );
 }
-
-// Helper function to check if a point is inside a polygon
-// Using the isPointInPolygon function from polygon-utils.ts

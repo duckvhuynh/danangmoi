@@ -179,7 +179,7 @@ Dự án được phát triển cho UBND TP. Đà Nẵng để phục vụ ngư�
 ## 📞 Hỗ trợ
 
 - Email: support@danang.gov.vn
-- Hotline: 1900.xxxx
+- Hotline: *1022 hoặc 0236.1022
 - Website: https://danang.gov.vn
 
 ## 🖼️ Screenshots

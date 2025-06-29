@@ -1,4 +1,5 @@
-import { APIProvider, Map, MapMouseEvent } from "@vis.gl/react-google-maps";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import type { MapMouseEvent } from "@vis.gl/react-google-maps";
 import { useState, useCallback } from "react";
 import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
@@ -10,7 +11,6 @@ import { offices } from "../../data/offices";
 import { PolygonOverlay } from "./PolygonOverlay";
 import { UserLocationMarker } from "./UserLocationMarker";
 import { OfficeMarkers } from "./OfficeMarkers";
-import { SidebarPanel } from "../sidebar/SidebarPanel";
 
 // Da Nang coordinates
 const DA_NANG_CENTER = { lat: 16.047079, lng: 108.206230 };
@@ -22,7 +22,7 @@ interface MapContainerProps {
 export function MapContainer({ apiKey }: MapContainerProps) {
   const [selectedWard, setSelectedWard] = useState<PolygonData | null>(null);
   const [showPolygons, setShowPolygons] = useState(true);
-  const [showOffices, setShowOffices] = useState(true);
+  const [showOffices,] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
 
@@ -81,9 +81,9 @@ export function MapContainer({ apiKey }: MapContainerProps) {
   return (
     <div className="h-screen w-full relative">
       <APIProvider apiKey={apiKey}>
-        <div className="flex h-full">
+        <div className="h-full">
           {/* Map */}
-          <div className="flex-1 relative">
+          <div className="h-full relative">
             <Map
               defaultCenter={DA_NANG_CENTER}
               defaultZoom={12}
@@ -133,15 +133,6 @@ export function MapContainer({ apiKey }: MapContainerProps) {
               </div>
             </div>
           </div>
-
-          {/* Sidebar */}
-          <SidebarPanel
-            selectedWard={selectedWard}
-            searchQuery={searchQuery}
-            onSearchQueryChange={setSearchQuery}
-            onSearch={handleSearch}
-            onGetUserLocation={handleGetUserLocation}
-          />
         </div>
       </APIProvider>
     </div>

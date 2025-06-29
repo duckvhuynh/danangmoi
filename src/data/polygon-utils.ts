@@ -12,8 +12,7 @@ export interface AdminBoundary {
 }
 
 // Type assertion for the imported data
-const adminBoundaries = adminBoundariesData as AdminBoundary[];
-
+const adminBoundaries = adminBoundariesData as unknown as AdminBoundary[];
 export interface PolygonData {
   district: string;
   ward: string;

@@ -58,8 +58,7 @@ export function ErrorScreen({ error, onRetry }: ErrorScreenProps) {
           )}
           
           <div className="text-xs text-gray-500 space-y-1">
-            <p>📞 Liên hệ hỗ trợ: 1900.xxxx</p>
-            <p>📧 Email: support@danang.gov.vn</p>
+            <p>Liên hệ hỗ trợ: *1022 hoặc 0236.1022</p>
           </div>
         </CardContent>
       </Card>
