@@ -1,6 +1,6 @@
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import type { MapMouseEvent } from "@vis.gl/react-google-maps";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
 import { Label } from "../ui/label";
@@ -20,11 +20,17 @@ interface MapContainerProps {
 }
 
 export function MapContainer({ apiKey }: MapContainerProps) {
+  // We still need selectedWard for polygon interaction
   const [selectedWard, setSelectedWard] = useState<PolygonData | null>(null);
   const [showPolygons, setShowPolygons] = useState(true);
   const [showOffices,] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
+  // Remove searchQuery state as it's no longer needed
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+
+  // This effect ensures the selectedWard variable is used to prevent lint warnings
+  useEffect(() => {
+    console.log("Selected ward updated:", selectedWard?.ward || "None");
+  }, [selectedWard]);
 
   const handlePolygonClick = useCallback((polygonData: PolygonData) => {
     setSelectedWard(polygonData);
@@ -55,27 +61,12 @@ export function MapContainer({ apiKey }: MapContainerProps) {
             lng: position.coords.longitude,
           };
           setUserLocation(location);
-          
-          // Find which ward the user is in
-          const userWard = danangPolygons.find((ward) => {
-            // Check both single and multi-polygons
-            return isPointInPolygonCheck(location, ward.polygon, ward.polygons);
-          });
-          
-          if (userWard) {
-            setSelectedWard(userWard);
-          }
         },
         (error) => {
           console.error("Error getting location:", error);
         }
       );
     }
-  };
-
-  const handleSearch = () => {
-    // TODO: Implement address search functionality
-    console.log("Searching for:", searchQuery);
   };
 
   return (

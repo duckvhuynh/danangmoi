@@ -1,4 +1,4 @@
-import { MapPin, Search, BarChart3, Navigation, Loader2, Info } from "lucide-react";
+import { MapPin, Search, Navigation, Loader2, Info } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
