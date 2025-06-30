@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import type { PolygonData } from "../../data/polygon-utils";
 import { calculateMultiPolygonCentroid } from "../../data/polygon-utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface WardLabelsOverlayProps {
   polygons: PolygonData[];
@@ -22,6 +23,7 @@ export default function WardLabelsOverlay({
   zoomLevel,
   zoomThreshold
 }: WardLabelsOverlayProps) {
+  const isMobile = useIsMobile();
   const map = useMap();
   const overlaysRef = useRef<Array<{ overlay: google.maps.OverlayView, wardName: string }>>([]);
   
@@ -353,9 +355,9 @@ export default function WardLabelsOverlay({
               
               // Match the scaling logic from draw()
               if (this.currentZoom >= 13) {
-                finalScale = 1.1; // Larger at high zoom (13+)
+                finalScale = isMobile ? 1.3 : 1.1; // Larger at high zoom (13+)
               } else if (this.currentZoom >= 11) {
-                finalScale = 0.9; // Medium size at regular zoom (11-12)
+                finalScale = isMobile ? 1.1 : 0.9; // Medium size at regular zoom (11-12)
               }
               
               labelContainer.style.transform = `translate(-50%, -50%) scale(${finalScale})`;
