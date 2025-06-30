@@ -36,7 +36,15 @@
       "location": {
         "address": "Số 15 đường Lê Hồng Phong, phường Hải Châu",
         "latitude": 16.06372834024789,
-        "longitude":  108.22247219553093
+        "longitude": 108.22247219553093
+      },
+      "local_government_headquarters": {
+        "address": "Số 15 đường Lê Hồng Phong, phường Hải Châu (Trụ sở phường Phước Ninh cũ)",
+        "location": {
+          "latitude": 16.06372834024789,
+          "longitude": 108.22247219553093
+        },
+        "phone": "0903570134"
       }
     },
     {
@@ -50,6 +58,14 @@
         "address": "Số 338 đường Núi Thành, phường Hòa Cường",
         "latitude": 16.038501989096403,
         "longitude": 108.22202498093247
+      },
+      "local_government_headquarters": {
+        "address": "Số 338 đường Núi Thành, phường Hòa Cường (Trụ sở phường Hòa Cường Bắc cũ)",
+        "location": {
+          "latitude": 16.038501989096403,
+          "longitude": 108.22202498093247
+        },
+        "phone": "0905275908"
       }
     },
     {
@@ -63,6 +79,14 @@
         "address": "Số 503 đường Trần Cao Vân, phường Thanh Khê",
         "latitude": 16.070995194769353,
         "longitude": 108.19106197813886
+      },
+      "local_government_headquarters": {
+        "address": "Số 503 đường Trần Cao Vân, phường Thanh Khê (Trụ sở quận Thanh Khê cũ)",
+        "location": {
+          "latitude": 16.070995194769353,
+          "longitude": 108.19106197813886
+        },
+        "phone": "0989074161"
       }
     },
     {
@@ -76,6 +100,14 @@
         "address": "Số 916 đường Tôn Đản, phường An Khê",
         "latitude": 16.025480447287954,
         "longitude": 108.18810480777326
+      },
+      "local_government_headquarters": {
+        "address": "Số 916 đường Tôn Đản, phường An Khê (Trụ sở phường Hòa Phát cũ)",
+        "location": {
+          "latitude": 16.025480447287954,
+          "longitude": 108.18810480777326
+        },
+        "phone": "0903555480"
       }
     },
     {
@@ -89,6 +121,14 @@
         "address": "Số 289 đường Nguyễn Công Trứ, phường An Hải",
         "latitude": 16.0649122223973,
         "longitude": 108.24248032768
+      },
+      "local_government_headquarters": {
+        "address": "Số 289 đường Nguyễn Công Trứ, phường An Hải (Trụ sở phường Phước Mỹ cũ)",
+        "location": {
+          "latitude": 16.0649122223973,
+          "longitude": 108.24248032768
+        },
+        "phone": "0905607727"
       }
     },
     {
@@ -102,6 +142,14 @@
         "address": "Số 06 đường Nguyễn Phan Vinh, phường Sơn Trà",
         "latitude": 16.1011671835079,
         "longitude": 108.249401794754
+      },
+      "local_government_headquarters": {
+        "address": "Số 06 đường Nguyễn Phan Vinh, phường Sơn Trà (Trụ sở phường Thọ Quang cũ)",
+        "location": {
+          "latitude": 16.1011671835079,
+          "longitude": 108.249401794754
+        },
+        "phone": "0913415457"
       }
     },
     {
@@ -115,6 +163,14 @@
         "address": "Số 486 đường Lê Văn Hiến, phường Ngũ Hành Sơn",
         "latitude": 16.01638737234392,
         "longitude": 108.25367116028593
+      },
+      "local_government_headquarters": {
+        "address": "Số 486 đường Lê Văn Hiến, phường Ngũ Hành Sơn (Trụ sở quận Ngũ Hành Sơn cũ)",
+        "location": {
+          "latitude": 16.01638737234392,
+          "longitude": 108.25367116028593
+        },
+        "phone": "0905058559"
       }
     },
     {
@@ -128,6 +184,14 @@
         "address": "Số 168 đường Nguyễn Sinh Sắc, phường Hòa Khánh",
         "latitude": 16.072657705029805,
         "longitude": 108.15823261104447
+      },
+      "local_government_headquarters": {
+        "address": "Số 168 đường Nguyễn Sinh Sắc, phường Hòa Khánh (Trụ sở quận Liên Chiểu cũ)",
+        "location": {
+          "latitude": 16.072657705029805,
+          "longitude": 108.15823261104447
+        },
+        "phone": "0905234569"
       }
     },
     {
@@ -141,6 +205,14 @@
         "address": "Lô 1-2 đường Nguyễn Tất Thành, phường Hải Vân",
         "latitude": 16.106978030875325,
         "longitude": 108.12643398530781
+      },
+      "local_government_headquarters": {
+        "address": "Lô 1-2 đường Nguyễn Tất Thành, phường Hải Vân (Trụ sở phường Hòa Hiệp Nam cũ)",
+        "location": {
+          "latitude": 16.106978030875325,
+          "longitude": 108.12643398530781
+        },
+        "phone": "0905885123"
       }
     },
     {
@@ -154,6 +226,14 @@
         "address": "Số 68 đường Lạc Long Quân, phường Liên Chiểu",
         "latitude": 16.076467079275318,
         "longitude": 108.14556482711018
+      },
+      "local_government_headquarters": {
+        "address": "Số 68 đường Lạc Long Quân, phường Liên Chiểu (Trụ sở phường Hòa Khánh Bắc cũ)",
+        "location": {
+          "latitude": 16.076467079275318,
+          "longitude": 108.14556482711018
+        },
+        "phone": "0905537609"
       }
     },
     {
@@ -167,6 +247,14 @@
         "address": "Số 135 đường Ông Ích Đường, phường Cẩm Lệ",
         "latitude": 16.017656519809655,
         "longitude": 108.20461512228147
+      },
+      "local_government_headquarters": {
+        "address": "Số 135 đường Ông Ích Đường, phường Cẩm Lệ",
+        "location": {
+          "latitude": 16.017656519809655,
+          "longitude": 108.20461512228147
+        },
+        "phone": "0913496249"
       }
     },
     {
@@ -180,6 +268,14 @@
         "address": "Số 111 đường Hoàng Ngân, phường Hòa Xuân",
         "latitude": 15.995705076937789,
         "longitude": 108.21141998102371
+      },
+      "local_government_headquarters": {
+        "address": "- 111 Hoàng Ngân, phường Hòa Xuân (Trụ sở phường Hòa Xuân cũ)\n- 17 Đặng Nhơn, phường Hòa Xuân",
+        "location": {
+          "latitude": 15.995705076937789,
+          "longitude": 108.21141998102371
+        },
+        "phone": "0905023357"
       }
     },
     {
@@ -193,6 +289,14 @@
         "address": "Số 159 đường Trưng Nữ Vương, phường Tam Kỳ",
         "latitude": 15.570390555620907,
         "longitude": 108.47258064776194
+      },
+      "local_government_headquarters": {
+        "address": "70 Hùng Vương, phường Tam Kỳ (Trụ sở thành phố Tam Kỳ cũ)",
+        "location": {
+          "latitude": 15.570725881387519,
+          "longitude": 108.47327144780851
+        },
+        "phone": "0905381177"
       }
     },
     {
@@ -206,6 +310,14 @@
         "address": "Khối phố Phú Thạnh, Phường Quảng Phú",
         "latitude": 15.577899745788356,
         "longitude": 108.50677436139655
+      },
+      "local_government_headquarters": {
+        "address": "Khối phố Phú Thạnh, Phường Quảng Phú (Trụ sở Phường An Phú cũ)",
+        "location": {
+          "latitude": 15.577899745788356,
+          "longitude": 108.50677436139655
+        },
+        "phone": "0911197777"
       }
     },
     {
@@ -219,6 +331,14 @@
         "address": "Số 510 đường Hùng Vương, phường Hương Trà",
         "latitude": 15.554651948158433,
         "longitude": 108.49659491583074
+      },
+      "local_government_headquarters": {
+        "address": "Số 510 đường Hùng Vương, phường Hương Trà (Trụ sở Ban Quản lý dự án đầu tư xây dựng tỉnh Quảng Nam cũ)",
+        "location": {
+          "latitude": 15.554651948158433,
+          "longitude": 108.49659491583074
+        },
+        "phone": "0901937789"
       }
     },
     {
@@ -232,6 +352,14 @@
         "address": "Số 01 đường Nguyễn Đình Hiến, phường Bàn Thạch",
         "latitude": 15.580602543733773,
         "longitude": 108.47453143045891
+      },
+      "local_government_headquarters": {
+        "address": "Số 268 đường Trưng Nữ Vương, phường Bàn Thạch",
+        "location": {
+          "latitude": 15.570430088085201,
+          "longitude": 108.4721240251581
+        },
+        "phone": "0905285611"
       }
     },
     {
@@ -245,6 +373,14 @@
         "address": "Số 24 đường Hoàng Diệu, khối 3, phường Điện Bàn",
         "latitude": 15.88874597234782,
         "longitude": 108.25467430902272
+      },
+      "local_government_headquarters": {
+        "address": "22 Hoàng Diệu, khối 3, phường Điện Bàn (Trụ sở thị xã Điện Bàn cũ)",
+        "location": {
+          "latitude": 15.888925234826589,
+          "longitude": 108.25511951194237
+        },
+        "phone": "0917027555"
       }
     },
     {
@@ -258,6 +394,14 @@
         "address": "Số 845 đường Trần Thủ Độ, Khối phố Quảng Lăng B, Phường Điện Bàn Đông",
         "latitude": 15.91291147372988,
         "longitude": 108.26995846784983
+      },
+      "local_government_headquarters": {
+        "address": "Số 845 đường Trần Thủ Độ, Khối phố Quảng Lăng B, Phường Điện Bàn Đông (Trụ sở phường Điện Nam Trung cũ)",
+        "location": {
+          "latitude": 15.91291147372988,
+          "longitude": 108.26995846784983
+        },
+        "phone": "0935028629"
       }
     },
     {
@@ -271,6 +415,14 @@
         "address": "Khối Phong Nhị, phường Điện Thắng (Trụ sở phường Điện An cũ)",
         "latitude": 15.902955926867204,
         "longitude": 108.23788591147446
+      },
+      "local_government_headquarters": {
+        "address": "Khối Phong Nhị, phường Điện Thắng (Trụ sở phường Điện An cũ)",
+        "location": {
+          "latitude": 15.902955926867204,
+          "longitude": 108.23788591147446
+        },
+        "phone": "0905661999"
       }
     },
     {
@@ -284,6 +436,14 @@
         "address": "Thôn Xóm Bùng, phường Điện Bàn Bắc (Trụ sở xã Điện Hòa cũ)",
         "latitude": 15.934104147256866,
         "longitude": 108.19669603889739
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Xóm Bùng, phường Điện Bàn Bắc (Trụ sở xã Điện Hòa cũ)",
+        "location": {
+          "latitude": 15.934104147256866,
+          "longitude": 108.19669603889739
+        },
+        "phone": "0916521767"
       }
     },
     {
@@ -297,6 +457,14 @@
         "address": "Số 02 đường Hoàng Diệu, phường Hội An",
         "latitude": 15.879401236179584,
         "longitude": 108.3319657488581
+      },
+      "local_government_headquarters": {
+        "address": "Số 09 đường Trần Hưng Đạo, phường Hội An (Trụ sở thành phố Hội An cũ)",
+        "location": {
+          "latitude": 15.879221187673759,
+          "longitude": 108.33292492541423
+        },
+        "phone": "0948157868"
       }
     },
     {
@@ -310,6 +478,14 @@
         "address": "Số 456 đường Cửa Đại, phường Hội An Đông,",
         "latitude": 15.880725189133944,
         "longitude": 108.34256049272628
+      },
+      "local_government_headquarters": {
+        "address": "Số 456 đường Cửa Đại, phường Hội An Đông (Trụ sở Phường Cẩm Châu cũ)",
+        "location": {
+          "latitude": 15.880725189133944,
+          "longitude": 108.34256049272628
+        },
+        "phone": "0989639724"
       }
     },
     {
@@ -323,6 +499,14 @@
         "address": "Số 544 đường Hai Bà Trưng, phường Hội An Tây",
         "latitude": 15.88664390366524,
         "longitude": 108.32727111927191
+      },
+      "local_government_headquarters": {
+        "address": "Số 54 đường Nguyễn Công Trứ, phường Hội An Tây (Trụ sở Phòng Văn hóa, Khoa học & Thông tin và Phòng GD&ĐT TP Hội An cũ)",
+        "location": {
+          "latitude": 15.885084187127916,
+          "longitude": 108.32790846168497
+        },
+        "phone": "0988620700"
       }
     },
     {
@@ -336,6 +520,14 @@
         "address": "Quốc lộ 14B, thôn Dương Lâm 1, xã Hòa Vang,",
         "latitude": 15.988536819404482,
         "longitude": 108.13917753912484
+      },
+      "local_government_headquarters": {
+        "address": "Quốc lộ 14B, thôn Dương Lâm 1, xã Hòa Vang (Trụ sở TTHC huyện Hòa Vang cũ)",
+        "location": {
+          "latitude": 15.988536819404482,
+          "longitude": 108.13917753912484
+        },
+        "phone": "0905323445"
       }
     },
     {
@@ -349,6 +541,14 @@
         "address": "Thôn Phú Sơn Tây (Quốc lộ 14B), xã Hòa Tiến",
         "latitude": 15.960965130756609,
         "longitude": 108.13975063204553
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Phú Sơn Tây (Quốc lộ 14B), xã Hòa Tiến (Trụ sở xã Hòa Khương cũ)",
+        "location": {
+          "latitude": 15.960965130756609,
+          "longitude": 108.13975063204553
+        },
+        "phone": "0905006789"
       }
     },
     {
@@ -362,6 +562,14 @@
         "address": "Đường ĐH 2, thôn Thạch Nham Tây, xã Bà Nà",
         "latitude": 16.00582571137964,
         "longitude": 108.13544883499469
+      },
+      "local_government_headquarters": {
+        "address": "Đường ĐH 2, thôn Thạch Nham Tây, xã Bà Nà (Trụ sở xã Hòa Nhơn cũ)",
+        "location": {
+          "latitude": 16.00582571137964,
+          "longitude": 108.13544883499469
+        },
+        "phone": "0946000234"
       }
     },
     {
@@ -375,6 +583,14 @@
         "address": "Khối 3, xã Núi Thành",
         "latitude": 15.433650671430883,
         "longitude": 108.65543591141436
+      },
+      "local_government_headquarters": {
+        "address": "Khối 3, Thị Trấn Núi Thành, xã Núi Thành (Trụ sở Thị trấn Núi Thành cũ)",
+        "location": {
+          "latitude": 15.433650671430883,
+          "longitude": 108.65543591141436
+        },
+        "phone": "0905981195"
       }
     },
     {
@@ -388,6 +604,14 @@
         "address": "Thôn Tịnh Sơn, xã Tam Mỹ",
         "latitude": 15.410755616178111,
         "longitude": 108.61324796446749
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Tịnh Sơn, xã Tam Mỹ (Trụ sở Xã Tam Mỹ Tây cũ)",
+        "location": {
+          "latitude": 15.410755616178111,
+          "longitude": 108.61324796446749
+        },
+        "phone": "0982090704"
       }
     },
     {
@@ -401,6 +625,14 @@
         "address": "Thôn Nam Định, xã Tam Anh",
         "latitude": 15.484405042199336,
         "longitude": 108.58341425074717
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Nam Định, xã Tam Anh (Trụ sở Xã Tam Anh Nam cũ)",
+        "location": {
+          "latitude": 15.484405042199336,
+          "longitude": 108.58341425074717
+        },
+        "phone": "0973551072"
       }
     },
     {
@@ -414,6 +646,14 @@
         "address": "Thôn Thuận Yên Đông, xã Đức Phú",
         "latitude": 15.439909723335512,
         "longitude": 108.47175464977262
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Thuận Yên Đông, xã Đức Phú (Trụ sở Xã Tam Sơn cũ)",
+        "location": {
+          "latitude": 15.439909723335512,
+          "longitude": 108.47175464977262
+        },
+        "phone": "0914020538"
       }
     },
     {
@@ -427,6 +667,14 @@
         "address": "Thôn Phú Khê, xã Tam Xuân",
         "latitude": 15.53392689605803,
         "longitude": 108.53884891386126
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Phú Khê, xã Tam Xuân (Trụ sở Xã Tam Xuân II cũ)",
+        "location": {
+          "latitude": 15.53392689605803,
+          "longitude": 108.53884891386126
+        },
+        "phone": "0988951776"
       }
     },
     {
@@ -440,6 +688,14 @@
         "address": "Thôn Cẩm Khê, xã Tây Hồ",
         "latitude": 15.569716929240787,
         "longitude": 108.40655664209989
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Cẩm Khê, xã Tây Hồ (Trụ sở Xã Tam Phước cũ)",
+        "location": {
+          "latitude": 15.569716929240787,
+          "longitude": 108.40655664209989
+        },
+        "phone": "0913430656"
       }
     },
     {
@@ -453,6 +709,14 @@
         "address": "Số 01 đường Hà Đông, xã Chiên Đàn",
         "latitude": 15.54779127568345,
         "longitude": 108.40819789812976
+      },
+      "local_government_headquarters": {
+        "address": "Số 01 đường Hà Đông, xã Chiên Đàn (Trụ sở Thị trấn Phú Thịnh cũ)",
+        "location": {
+          "latitude": 15.54779127568345,
+          "longitude": 108.40819789812976
+        },
+        "phone": "0911323888"
       }
     },
     {
@@ -466,6 +730,14 @@
         "address": "Thôn Cây Sanh, xã Phú Ninh (Trụ sở Xã Tam Dân cũ)",
         "latitude": 15.523347530336125,
         "longitude": 108.41931453749511
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Cây Sanh, xã Phú Ninh (Trụ sở Xã Tam Dân cũ)",
+        "location": {
+          "latitude": 15.523347530336125,
+          "longitude": 108.41931453749511
+        },
+        "phone": "0918793754"
       }
     },
     {
@@ -479,6 +751,14 @@
         "address": "ĐT 616, thôn 4, xã Lãnh Ngọc (Trụ sở Xã Tiên Hiệp cũ)",
         "latitude": 15.424539038263376,
         "longitude": 108.26203537207921
+      },
+      "local_government_headquarters": {
+        "address": "ĐT 616, thôn 4, xã Lãnh Ngọc (Trụ sở Xã Tiên Hiệp cũ)",
+        "location": {
+          "latitude": 15.424539038263376,
+          "longitude": 108.26203537207921
+        },
+        "phone": "0983716353"
       }
     },
     {
@@ -492,6 +772,14 @@
         "address": "81 Huỳnh Thúc Kháng, xã Tiên Phước (Trụ sở TTHC huyện Tiên Phước cũ)",
         "latitude": 15.488458243568976,
         "longitude": 108.30725863827963
+      },
+      "local_government_headquarters": {
+        "address": "81 Huỳnh Thúc Kháng, xã Tiên Phước (Trụ sở TTHC huyện Tiên Phước cũ)",
+        "location": {
+          "latitude": 15.488458243568976,
+          "longitude": 108.30725863827963
+        },
+        "phone": "0905444998"
       }
     },
     {
@@ -505,6 +793,14 @@
         "address": "QL40B, xã Thạnh Bình (Trụ sở Xã Tiên Cảnh cũ)",
         "latitude": 15.462264213806263,
         "longitude": 108.29563861483412
+      },
+      "local_government_headquarters": {
+        "address": "QL40B, xã Thạnh Bình (Trụ sở Xã Tiên Cảnh cũ)",
+        "location": {
+          "latitude": 15.462264213806263,
+          "longitude": 108.29563861483412
+        },
+        "phone": "0935202065"
       }
     },
     {
@@ -518,6 +814,14 @@
         "address": "Thôn Cẩm Tây, xã Sơn Cẩm Hà (trụ sở xã Tiên Cẩm cũ trước 01/2025)",
         "latitude": 15.555417479976787,
         "longitude": 108.29608431672396
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Cẩm Tây, xã Sơn Cẩm Hà (trụ sở xã Tiên Cẩm cũ trước 01/2025)",
+        "location": {
+          "latitude": 15.555417479976787,
+          "longitude": 108.29608431672396
+        },
+        "phone": "0903426456"
       }
     },
     {
@@ -531,6 +835,14 @@
         "address": "Thôn Định Yên, xã Trà Liên (Trụ sở Xã Trà Đông cũ)",
         "latitude": 15.374509741293194,
         "longitude": 108.32165493471419
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Định Yên, xã Trà Liên (Trụ sở Xã Trà Đông cũ)",
+        "location": {
+          "latitude": 15.374509741293194,
+          "longitude": 108.32165493471419
+        },
+        "phone": "0968078959"
       }
     },
     {
@@ -544,6 +856,14 @@
         "address": "Thôn 2, xã Trà Giáp",
         "latitude": 15.222508506635213,
         "longitude": 108.25434989836646
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 2, xã Trà Giáp (Trụ sở Xã Trà Giáp cũ)",
+        "location": {
+          "latitude": 15.222508506635213,
+          "longitude": 108.25434989836646
+        },
+        "phone": "0984673444"
       }
     },
     {
@@ -557,6 +877,14 @@
         "address": "Thôn 1, Xã Trà Tân",
         "latitude": 15.318760255618098,
         "longitude": 108.16475947471234
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 1, Xã Trà Tân (Trụ sở Xã Trà Tân cũ)",
+        "location": {
+          "latitude": 15.318760255618098,
+          "longitude": 108.16475947471234
+        },
+        "phone": "0985601388"
       }
     },
     {
@@ -570,6 +898,14 @@
         "address": "Thôn 2, xã Trà Đốc",
         "latitude": 15.368551081372805,
         "longitude": 108.14802978377038
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 2, xã Trà Đốc (Trụ sở Xã Trà Đốc cũ)",
+        "location": {
+          "latitude": 15.368551081372805,
+          "longitude": 108.14802978377038
+        },
+        "phone": "0914021921"
       }
     },
     {
@@ -583,6 +919,14 @@
         "address": "Thôn Dương Hoà, xã Trà My",
         "latitude": 15.332826976737305,
         "longitude": 108.21726366530719
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Dương Hoà, xã Trà My (Trụ sở TTHC huyện Bắc Trà My cũ)",
+        "location": {
+          "latitude": 15.332826976737305,
+          "longitude": 108.21726366530719
+        },
+        "phone": "0903086820"
       }
     },
     {
@@ -596,6 +940,14 @@
         "address": "Thôn 1, Xã Nam Trà My",
         "latitude": 15.132267453208847,
         "longitude": 108.13273538505577
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 1, Xã Nam Trà My (Trụ sở Xã Trà Mai cũ)",
+        "location": {
+          "latitude": 15.132267453208847,
+          "longitude": 108.13273538505577
+        },
+        "phone": "0914083308"
       }
     },
     {
@@ -609,6 +961,14 @@
         "address": "Thôn 1, Xã Trà Tập",
         "latitude": 15.152621207527295,
         "longitude": 108.09918905043016
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 1, Xã Trà Tập (Trụ sở Xã Trà Tập cũ)",
+        "location": {
+          "latitude": 15.152621207527295,
+          "longitude": 108.09918905043016
+        },
+        "phone": "0914012509"
       }
     },
     {
@@ -622,6 +982,14 @@
         "address": "Thôn 2, Xã Trà Vân",
         "latitude": 15.11292733901125,
         "longitude": 108.18001700322145
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 2, Xã Trà Vân (Trụ sở Xã Trà Vân cũ)",
+        "location": {
+          "latitude": 15.11292733901125,
+          "longitude": 108.18001700322145
+        },
+        "phone": "0979889891"
       }
     },
     {
@@ -635,6 +1003,14 @@
         "address": "Thôn 3, Xã Trà Linh",
         "latitude": 15.03532512429612,
         "longitude": 108.01849502765695
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 3, Xã Trà Linh (Trụ sở Xã Trà Linh cũ)",
+        "location": {
+          "latitude": 15.03532512429612,
+          "longitude": 108.01849502765695
+        },
+        "phone": "0987243565"
       }
     },
     {
@@ -648,6 +1024,14 @@
         "address": "Thôn 2, Xã Trà Leng",
         "latitude": 15.243729426034212,
         "longitude": 108.08595175136442
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 2, Xã Trà Leng (Trụ sở Xã Trà Dơn cũ)",
+        "location": {
+          "latitude": 15.243729426034212,
+          "longitude": 108.08595175136442
+        },
+        "phone": "0986100060"
       }
     },
     {
@@ -661,6 +1045,14 @@
         "address": "Số 37 đường Nguyễn Thuật, xã Thăng Bình",
         "latitude": 15.737578684773363,
         "longitude": 108.35184234927826
+      },
+      "local_government_headquarters": {
+        "address": "Số 282 đường Tiểu La, xã Thăng Bình (Trụ sở UBND huyện Thăng Bình cũ)",
+        "location": {
+          "latitude": 15.738306212441557,
+          "longitude": 108.35069861529561
+        },
+        "phone": "0905766369"
       }
     },
     {
@@ -674,6 +1066,14 @@
         "address": "Thôn Nam Hà, xã Thăng An",
         "latitude": 15.804736030609336,
         "longitude": 108.38080436587575
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Nam Hà, xã Thăng An (Trụ sở Xã Bình Dương cũ)",
+        "location": {
+          "latitude": 15.804736030609336,
+          "longitude": 108.38080436587575
+        },
+        "phone": "0905914740"
       }
     },
     {
@@ -687,6 +1087,14 @@
         "address": "Thôn Bình Trúc, xã Thăng Trường",
         "latitude": 15.699951216704525,
         "longitude": 108.44363385440343
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Bình Trúc, xã Thăng Trường (Trụ sở Xã Bình Sa cũ)",
+        "location": {
+          "latitude": 15.699951216704525,
+          "longitude": 108.44363385440343
+        },
+        "phone": "0905859579"
       }
     },
     {
@@ -700,6 +1108,14 @@
         "address": "Thôn Kế Xuyên 2, xã Thăng Điền",
         "latitude": 15.676028095573287,
         "longitude": 108.40792884147693
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Kế Xuyên 2, xã Thăng Điền (Trụ sở Xã Bình Trung cũ)",
+        "location": {
+          "latitude": 15.676028095573287,
+          "longitude": 108.40792884147693
+        },
+        "phone": "0983065282"
       }
     },
     {
@@ -713,6 +1129,14 @@
         "address": "Thôn Tú Trà, xã Thăng Phú",
         "latitude": 15.664831969424924,
         "longitude": 108.35513431843617
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Tú Trà, xã Thăng Phú (Trụ sở Xã Bình chánh cũ)",
+        "location": {
+          "latitude": 15.664831969424924,
+          "longitude": 108.35513431843617
+        },
+        "phone": "0974912555"
       }
     },
     {
@@ -726,6 +1150,14 @@
         "address": "Thôn Châu Lâm, xã Đồng Dương",
         "latitude": 15.656788667446094,
         "longitude": 108.27774622059412
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Châu Lâm, xã Đồng Dương (Trụ sở Xã Bình Trị cũ)",
+        "location": {
+          "latitude": 15.656788667446094,
+          "longitude": 108.27774622059412
+        },
+        "phone": "0977034885"
       }
     },
     {
@@ -739,6 +1171,14 @@
         "address": "Thôn Phước Dương, xã Quế Sơn Trung",
         "latitude": 15.710809928609855,
         "longitude": 108.26796790294995
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Phước Dương, xã Quế Sơn Trung (Trụ sở Xã Quế Thuận cũ)",
+        "location": {
+          "latitude": 15.710809928609855,
+          "longitude": 108.26796790294995
+        },
+        "phone": "0977034442"
       }
     },
     {
@@ -752,6 +1192,14 @@
         "address": "Thôn Phước Dương, xã Quế Sơn Trung",
         "latitude": 15.710809928609855,
         "longitude": 108.26796790294995
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Phước Dương, xã Quế Sơn Trung (Trụ sở Xã Quế Thuận cũ)",
+        "location": {
+          "latitude": 15.710809928609855,
+          "longitude": 108.26796790294995
+        },
+        "phone": "0977034442"
       }
     },
     {
@@ -765,6 +1213,14 @@
         "address": "Thôn Mộc Bài, xã Xuân Phú",
         "latitude": 15.794641546555374,
         "longitude": 108.3148808518791
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Mộc Bài, xã Xuân Phú (Trụ sở Xã Quế Phú cũ)",
+        "location": {
+          "latitude": 15.794641546555374,
+          "longitude": 108.3148808518791
+        },
+        "phone": "0982100444"
       }
     },
     {
@@ -778,6 +1234,14 @@
         "address": "Thôn Trung Hạ, xã Nông Sơn",
         "latitude": 15.717836170300568,
         "longitude": 108.05898241050264
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Trung Hạ, xã Nông Sơn (Trụ sở Thị trấn Trung Phước cũ)",
+        "location": {
+          "latitude": 15.717836170300568,
+          "longitude": 108.05898241050264
+        },
+        "phone": "0912909121"
       }
     },
     {
@@ -791,6 +1255,14 @@
         "address": "Thôn Bình Yên, xã Quế Phước",
         "latitude": 15.681014555837343,
         "longitude": 108.00073197356568
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Bình Yên, xã Quế Phước (Trụ sở Xã Phước Ninh cũ)",
+        "location": {
+          "latitude": 15.681014555837343,
+          "longitude": 108.00073197356568
+        },
+        "phone": "0345779757"
       }
     },
     {
@@ -804,6 +1276,14 @@
         "address": "Thôn Thuận An,Xã Duy Nghĩa",
         "latitude": 15.855391652640762,
         "longitude": 108.37435341575933
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Thuận An, Xã Duy Nghĩa (Trụ sở xã Duy Nghĩa cũ)",
+        "location": {
+          "latitude": 15.855391652640762,
+          "longitude": 108.37435341575933
+        },
+        "phone": "0985921513"
       }
     },
     {
@@ -817,6 +1297,14 @@
         "address": "429 Hùng Vương, xã Nam Phước (Trụ sở thị trấn Nam Phước cũ)",
         "latitude": 15.830314408267247,
         "longitude": 108.27177834258336
+      },
+      "local_government_headquarters": {
+        "address": "429 Hùng Vương, xã Nam Phước (Trụ sở thị trấn Nam Phước cũ)",
+        "location": {
+          "latitude": 15.830314408267247,
+          "longitude": 108.27177834258336
+        },
+        "phone": "0905242458"
       }
     },
     {
@@ -830,6 +1318,14 @@
         "address": "Thôn An Hoà, Xã Duy Xuyên",
         "latitude": 15.803640295222573,
         "longitude": 108.25581376482826
+      },
+      "local_government_headquarters": {
+        "address": "Thôn An Hoà, Xã Duy Xuyên (Trụ sở xã Duy Trung cũ)\\",
+        "location": {
+          "latitude": 15.803640295222573,
+          "longitude": 108.25581376482826
+        },
+        "phone": "0905629979"
       }
     },
     {
@@ -843,6 +1339,14 @@
         "address": "Thôn Phú Lạc, xã Thu Bồn",
         "latitude": 15.829513048640429,
         "longitude": 108.12433036489787
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Phú Lạc, xã Thu Bồn (Trụ sở Xã Duy Hòa cũ)",
+        "location": {
+          "latitude": 15.829513048640429,
+          "longitude": 108.12433036489787
+        },
+        "phone": "0935347778"
       }
     },
     {
@@ -856,6 +1360,14 @@
         "address": "Thôn Phong Thử 1, xã Điện Bàn Tây (Trụ sở xã Điện Thọ cũ)",
         "latitude": 15.888438266363474,
         "longitude": 108.17991830388263
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Phong Thử 1, xã Điện Bàn Tây (Trụ sở xã Điện Thọ cũ)",
+        "location": {
+          "latitude": 15.888438266363474,
+          "longitude": 108.17991830388263
+        },
+        "phone": "0919800090"
       }
     },
     {
@@ -869,6 +1381,14 @@
         "address": "Thôn Đông Lãnh, xã Gò Nổi (Trụ sở xã Điện Trung cũ)",
         "latitude": 15.839702994651379,
         "longitude": 108.20824877144676
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Đông Lãnh, xã Gò Nổi (Trụ sở xã Điện Trung cũ)",
+        "location": {
+          "latitude": 15.839702994651379,
+          "longitude": 108.20824877144676
+        },
+        "phone": "0905030703"
       }
     },
     {
@@ -882,6 +1402,14 @@
         "address": "Số 11 Hùng Vương, xã Đại Lộc",
         "latitude": 15.88303229069894,
         "longitude": 108.11475807815327
+      },
+      "local_government_headquarters": {
+        "address": "15 Hùng Vương, xã Đại Lộc\n(Trụ sở huyện Đại Lộc cũ)",
+        "location": {
+          "latitude": 15.88300079318937,
+          "longitude": 108.11493588767676
+        },
+        "phone": "0906422213"
       }
     },
     {
@@ -895,6 +1423,14 @@
         "address": "Thôn Hà Nha, xã Hà Nha",
         "latitude": 15.851396579737175,
         "longitude": 108.01023710386515
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Hà Nha, xã Hà Nha (Trụ sở xã Đại Đồng cũ)",
+        "location": {
+          "latitude": 15.851396579737175,
+          "longitude": 108.01023710386515
+        },
+        "phone": "0905234556"
       }
     },
     {
@@ -908,6 +1444,14 @@
         "address": "Thôn Tân Hà, xã Thượng Đức",
         "latitude": 15.846108896133215,
         "longitude": 107.93307214189929
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Tân Hà, xã Thượng Đức (Trụ sở Xã Đại Lãnh cũ)",
+        "location": {
+          "latitude": 15.846108896133215,
+          "longitude": 107.93307214189929
+        },
+        "phone": "0967465777"
       }
     },
     {
@@ -921,6 +1465,14 @@
         "address": "Thôn Lâm Yên, xã Vu Gia",
         "latitude": 15.85354658978577,
         "longitude": 108.06647437989412
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Lâm Yên, xã Vu Gia (Trụ sở Xã Đại Minh cũ)",
+        "location": {
+          "latitude": 15.85354658978577,
+          "longitude": 108.06647437989412
+        },
+        "phone": "0983408934"
       }
     },
     {
@@ -934,6 +1486,14 @@
         "address": "Số 204 đường ĐH4 thôn Phú An, xã Phú Thuận (Trụ sở Xã Đại Thắng cũ)",
         "latitude": 15.826422309720398,
         "longitude": 108.0756520588899
+      },
+      "local_government_headquarters": {
+        "address": "Số 204 đường ĐH4 thôn Phú An, xã Phú Thuận (Trụ sở Xã Đại Thắng cũ)",
+        "location": {
+          "latitude": 15.826422309720398,
+          "longitude": 108.0756520588899
+        },
+        "phone": "0905152182"
       }
     },
     {
@@ -947,6 +1507,14 @@
         "address": "Thôn Mực, xã Thạnh Mỹ (Trụ sở thị trấn Thạnh Mỹ cũ)",
         "latitude": 15.747273513775294,
         "longitude": 107.83629012741793
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Mực, xã Thạnh Mỹ (Trụ sở thị trấn Thạnh Mỹ cũ)",
+        "location": {
+          "latitude": 15.747273513775294,
+          "longitude": 107.83629012741793
+        },
+        "phone": "0905344838"
       }
     },
     {
@@ -960,6 +1528,14 @@
         "address": "Thôn Bến Giằng, Xã Bến Giằng",
         "latitude": 15.690398726159335,
         "longitude": 107.76606686426656
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Bến Giằng, Xã Bến Giằng (Trụ sở xã Tà Bhing cũ)",
+        "location": {
+          "latitude": 15.690398726159335,
+          "longitude": 107.76606686426656
+        },
+        "phone": "0919769272"
       }
     },
     {
@@ -973,6 +1549,14 @@
         "address": "Thôn A Bát, xã Chà Vàl",
         "latitude": 15.62024251417955,
         "longitude": 107.50833094998362
+      },
+      "local_government_headquarters": {
+        "address": "Thôn A Bát, xã Chà Vàl (Trụ sở xã Chà Vài cũ)",
+        "location": {
+          "latitude": 15.62024251417955,
+          "longitude": 107.50833094998362
+        },
+        "phone": "0983519121"
       }
     },
     {
@@ -986,6 +1570,14 @@
         "address": "Thôn 56B, xã Đắc Pring",
         "latitude": 15.588707366600682,
         "longitude": 107.5373987440672
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 56B, xã Đắc Pring (Trụ sở xã Đắc Pre cũ)",
+        "location": {
+          "latitude": 15.588707366600682,
+          "longitude": 107.5373987440672
+        },
+        "phone": "0976291920"
       }
     },
     {
@@ -999,6 +1591,14 @@
         "address": "Thôn Đắc Ốc, xã La Dêê",
         "latitude": 15.598376786934226,
         "longitude": 107.45397868309362
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Đắc Ốc, xã La Dêê (Trụ sở xã La Dêê cũ)",
+        "location": {
+          "latitude": 15.598376786934226,
+          "longitude": 107.45397868309362
+        },
+        "phone": "0396113007"
       }
     },
     {
@@ -1012,6 +1612,14 @@
         "address": "Thôn Pà Ooi, xã La Êê",
         "latitude": 15.673991,
         "longitude": 107.346596
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Pà Ooi, xã La Êê (Trụ sở xã La Êê cũ)",
+        "location": {
+          "latitude": 15.673991,
+          "longitude": 107.346596
+        },
+        "phone": "0965134135"
       }
     },
     {
@@ -1025,6 +1633,14 @@
         "address": "Thôn Ban Mai, Xã Sông Vàng",
         "latitude": 15.957796636959332,
         "longitude": 107.9254658894496
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Ban Mai, Xã Sông Vàng (Trụ sở Xã Ba cũ)",
+        "location": {
+          "latitude": 15.957796636959332,
+          "longitude": 107.9254658894496
+        },
+        "phone": "0374631376"
       }
     },
     {
@@ -1038,6 +1654,14 @@
         "address": "Thôn Ra Lang, xã Sông Kôn",
         "latitude": 15.956110137694877,
         "longitude": 107.79972376125863
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Ra Lang, xã Sông Kôn (Trụ sở Xã Jơ Ngây cũ)",
+        "location": {
+          "latitude": 15.956110137694877,
+          "longitude": 107.79972376125863
+        },
+        "phone": "0915011323"
       }
     },
     {
@@ -1051,6 +1675,14 @@
         "address": "Thôn Ngã Ba, Xã Đông Giang",
         "latitude": 15.920847083296035,
         "longitude": 107.65230595101153
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Ngã Ba, Xã Đông Giang (Trụ sở Thị trấn Prao cũ)",
+        "location": {
+          "latitude": 15.920847083296035,
+          "longitude": 107.65230595101153
+        },
+        "phone": "0976193685"
       }
     },
     {
@@ -1064,6 +1696,14 @@
         "address": "Thôn AXờ, xã Bến Hiên",
         "latitude": 15.84431375174836,
         "longitude": 107.69105179302223
+      },
+      "local_government_headquarters": {
+        "address": "Thôn AXờ, xã Bến Hiên (Trụ sở Xã Mà Cooih cũ)",
+        "location": {
+          "latitude": 15.84431375174836,
+          "longitude": 107.69105179302223
+        },
+        "phone": "0987775619"
       }
     },
     {
@@ -1077,6 +1717,14 @@
         "address": "Thôn Azứt, xã Avương",
         "latitude": 15.928021392179351,
         "longitude": 107.53251732435375
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Azứt, xã Avương (Trụ sở xã Bhalêê cũ)",
+        "location": {
+          "latitude": 15.928021392179351,
+          "longitude": 107.53251732435375
+        },
+        "phone": "0876010009"
       }
     },
     {
@@ -1090,6 +1738,14 @@
         "address": "Thôn Agrồng, xã Tây Giang",
         "latitude": 15.903920981247767,
         "longitude": 107.49359571355818
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Agrồng, xã Tây Giang (Trụ sở xã Attêng cũ)",
+        "location": {
+          "latitude": 15.903920981247767,
+          "longitude": 107.49359571355818
+        },
+        "phone": "0979194199"
       }
     },
     {
@@ -1103,6 +1759,14 @@
         "address": "Thôn Arâng, xã Hùng Sơn",
         "latitude": 15.833832744053154,
         "longitude": 107.30664719236195
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Arâng, xã Hùng Sơn (Trụ sở Xã Axan cũ)",
+        "location": {
+          "latitude": 15.833832744053154,
+          "longitude": 107.30664719236195
+        },
+        "phone": "0981461119"
       }
     },
     {
@@ -1116,6 +1780,14 @@
         "address": "Số 125 đường Hùng Vương, xã Hiệp Đức",
         "latitude": 15.582333801890185,
         "longitude": 108.11435501652196
+      },
+      "local_government_headquarters": {
+        "address": "Số 125 đường Hùng Vương, xã Hiệp Đức (Trụ sở TTHC huyện Hiệp Đức cũ)",
+        "location": {
+          "latitude": 15.582333801890185,
+          "longitude": 108.11435501652196
+        },
+        "phone": "0983356922"
       }
     },
     {
@@ -1129,6 +1801,14 @@
         "address": "Thôn Việt An, xã Việt An",
         "latitude": 15.613617190332926,
         "longitude": 108.21890001550553
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Việt An, xã Việt An (Trụ sở Xã Bình Lâm cũ)",
+        "location": {
+          "latitude": 15.613617190332926,
+          "longitude": 108.21890001550553
+        },
+        "phone": "0982777125"
       }
     },
     {
@@ -1142,6 +1822,14 @@
         "address": "Thôn Trà Sơn, xã Phước Trà",
         "latitude": 15.54098434861613,
         "longitude": 108.04231216701973
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Trà Sơn, xã Phước Trà (Trụ sở Xã Sông Trà cũ)",
+        "location": {
+          "latitude": 15.54098434861613,
+          "longitude": 108.04231216701973
+        },
+        "phone": "0983747601"
       }
     },
     {
@@ -1155,6 +1843,14 @@
         "address": "Số 48 đường Hồ Chí Minh, xã Khâm Đức",
         "latitude": 15.444286761423399,
         "longitude": 107.79315758456323
+      },
+      "local_government_headquarters": {
+        "address": "Số 48 đường Hồ Chí Minh, xã Khâm Đức (Trụ sở huyện Phước Sơn cũ)",
+        "location": {
+          "latitude": 15.444286761423399,
+          "longitude": 107.79315758456323
+        },
+        "phone": "0941818858"
       }
     },
     {
@@ -1168,6 +1864,14 @@
         "address": "Thôn 2, xã Phước Năng",
         "latitude": 15.400637626375408,
         "longitude": 107.76180651925868
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 2, xã Phước Năng (Trụ sở Xã Phước Năng cũ)",
+        "location": {
+          "latitude": 15.400637626375408,
+          "longitude": 107.76180651925868
+        },
+        "phone": "0977440405"
       }
     },
     {
@@ -1181,6 +1885,14 @@
         "address": "Thôn 3, xã Phước Chánh",
         "latitude": 15.3671015451681,
         "longitude": 107.81909252911731
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 3, xã Phước Chánh (Trụ sở Xã Phước Chánh cũ)",
+        "location": {
+          "latitude": 15.3671015451681,
+          "longitude": 107.81909252911731
+        },
+        "phone": "0905234313"
       }
     },
     {
@@ -1194,6 +1906,14 @@
         "address": "Thôn 2, xã Phước Thành",
         "latitude": 15.286059621395788,
         "longitude": 107.89138346049837
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 2, xã Phước Thành (Trụ sở Xã Phước Thành cũ)",
+        "location": {
+          "latitude": 15.286059621395788,
+          "longitude": 107.89138346049837
+        },
+        "phone": "0914009933"
       }
     },
     {
@@ -1207,6 +1927,14 @@
         "address": "Thôn 1, xã Phước Hiệp",
         "latitude": 15.462765065945758,
         "longitude": 107.9382401314879
+      },
+      "local_government_headquarters": {
+        "address": "Thôn 1, xã Phước Hiệp (Trụ sở Xã Phước Hiệp cũ)",
+        "location": {
+          "latitude": 15.462765065945758,
+          "longitude": 107.9382401314879
+        },
+        "phone": "0905495229"
       }
     },
     {
@@ -1218,8 +1946,16 @@
       "is_commune": false,
       "location": {
         "address": "Đang cập nhật",
-        "latitude": 16.300000,
-        "longitude": 111.800000
+        "latitude": 16.3,
+        "longitude": 111.8
+      },
+      "local_government_headquarters": {
+        "address": "đường Hoàng Sa",
+        "location": {
+          "latitude": 16.09346727791525,
+          "longitude": 108.25134282322449
+        },
+        "phone": ""
       }
     },
     {
@@ -1233,6 +1969,14 @@
         "address": "thôn Tân Lập, xã Tam Hải",
         "latitude": 15.485983420110013,
         "longitude": 108.66955497147902
+      },
+      "local_government_headquarters": {
+        "address": "thôn Tân Lập, xã Tam Hải (Trụ sở Xã Tam Hải cũ)",
+        "location": {
+          "latitude": 15.485983420110013,
+          "longitude": 108.66955497147902
+        },
+        "phone": "0966604455"
       }
     },
     {
@@ -1246,6 +1990,14 @@
         "address": "Thôn Bãi Làng, Xã Tân Hiệp",
         "latitude": 15.958202558482517,
         "longitude": 108.5061879830367
+      },
+      "local_government_headquarters": {
+        "address": "Thôn Bãi Làng, Xã Tân Hiệp (Trụ sở xã Tân Hiệp cũ)",
+        "location": {
+          "latitude": 15.958202558482517,
+          "longitude": 108.5061879830367
+        },
+        "phone": "0981922029"
       }
     }
   ]
