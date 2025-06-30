@@ -28,7 +28,6 @@ import {
 } from "./ui/select";
 import { useAddressConversion } from "../hooks/use-address-conversion";
 import { toast } from "sonner";
-import { useIsMobile } from "../hooks/use-mobile";
 
 interface AppSidebarProps {
   onGetUserLocation: () => void;
@@ -51,8 +50,6 @@ export function AppSidebar({
   onWardSelect,
   danangPolygons,
 }: AppSidebarProps) {
-  const isMobile = useIsMobile();
-  
   // Add state for ward filter
   const [wardFilter, setWardFilter] = useState("");
 
@@ -131,11 +128,9 @@ export function AppSidebar({
   return (
     <Sidebar>
       <SidebarHeader>
-        <div className={`flex items-center space-x-2 ${isMobile ? 'px-3 py-3' : 'px-2 py-4'}`}>
+        <div className="flex items-center space-x-2 px-2 py-4">
           <div className="min-w-0 flex-1">
-            <h1 className={`font-bold leading-tight truncate ${isMobile ? 'text-base' : 'text-lg'}`}>
-              {DANANG_CITY_INFO.officialName}
-            </h1>
+            <h1 className="text-lg font-bold leading-tight truncate">{DANANG_CITY_INFO.officialName}</h1>
             <p className="text-xs text-muted-foreground leading-relaxed">
               {DANANG_CITY_INFO.totalAdministrativeUnits} đơn vị hành chính • {DANANG_CITY_INFO.populationFormatted} dân
             </p>
@@ -145,19 +140,13 @@ export function AppSidebar({
 
       <SidebarContent>
         <Tabs defaultValue="infor" className="h-full flex flex-col">
-          <div className={isMobile ? 'px-3' : 'px-4'}>
+          <div className="px-4">
             <TabsList className="grid w-full grid-cols-2 shrink-0">
-              <TabsTrigger 
-                value="infor" 
-                className={`text-xs min-w-0 flex-1 ${isMobile ? 'p-3' : 'p-2'}`}
-              >
+              <TabsTrigger value="infor" className="text-xs p-2 min-w-0 flex-1">
                 <Info className="w-4 h-4 mr-1 flex-shrink-0" />
                 <span className="truncate">Thông tin</span>
               </TabsTrigger>
-              <TabsTrigger 
-                value="search" 
-                className={`text-xs min-w-0 flex-1 ${isMobile ? 'p-3' : 'p-2'}`}
-              >
+              <TabsTrigger value="search" className="text-xs p-2 min-w-0 flex-1">
                 <Search className="w-4 h-4 mr-1 flex-shrink-0" />
                 <span className="truncate">Tra cứu</span>
               </TabsTrigger>
@@ -165,7 +154,7 @@ export function AppSidebar({
           </div>
 
           <div className="flex-1 overflow-y-auto">
-            <TabsContent value="search" className={`space-y-4 m-0 ${isMobile ? 'p-3' : 'p-4'}`}>
+            <TabsContent value="search" className="p-4 space-y-4 m-0">
               {/* Address Conversion Section */}
               <SidebarGroup>
                 <SidebarGroupLabel>
@@ -174,7 +163,7 @@ export function AppSidebar({
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <Card>
-                    <CardContent className={`space-y-3 ${isMobile ? 'p-3' : 'p-4'}`}>
+                    <CardContent className="p-4 space-y-3">
                       {/* Province Selection */}
                       <div>
                         <Label htmlFor="province-select" className="text-sm mb-1 block">
@@ -388,7 +377,7 @@ export function AppSidebar({
               </SidebarGroup>
             </TabsContent>
 
-            <TabsContent value="infor" className={`space-y-4 m-0 ${isMobile ? 'p-3' : 'p-4'}`}>
+            <TabsContent value="infor" className="p-4 space-y-4 m-0">
               <StatisticsPanel />
 
               {/* Administrative Areas Section */}
