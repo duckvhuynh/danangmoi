@@ -63,46 +63,7 @@ export function StatisticsPanel() {
           </div>
         </CardContent>
       </Card>
-
-      {/* Economic Information */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-base flex items-center gap-2">
-            <TrendingUp className="w-4 h-4" />
-            Thông tin kinh tế & hạ tầng
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-green-50 rounded-lg p-3 text-center">
-              <div className="text-lg font-bold text-green-600">{DANANG_CITY_INFO.grdpBillionVND.toLocaleString('vi-VN')}</div>
-              <div className="text-xs text-green-900/70">GRDP (tỷ VND)</div>
-            </div>
-            <div className="bg-blue-50 rounded-lg p-3 text-center">
-              <div className="flex items-center justify-center gap-2">
-                {DANANG_CITY_INFO.vehicleLicenseCodes.map(code => (
-                  <Badge key={code} variant="outline" className="bg-white text-blue-600 font-bold">{code}</Badge>
-                ))}
-              </div>
-              <div className="text-xs text-blue-900/70 mt-1">Biển số xe</div>
-            </div>
-          </div>
-          
-          {DANANG_CITY_INFO.hasSeaport && (
-            <div className="flex items-center justify-between p-3 bg-cyan-50 rounded-lg">
-              <div className="flex items-center gap-2">
-                <Ship className="w-4 h-4 text-cyan-600" />
-                <div>
-                  <div className="text-xs font-medium text-cyan-900">Cảng biển</div>
-                  <div className="text-[11px] text-cyan-900/70">Cảng nước sâu quốc tế</div>
-                </div>
-              </div>
-              <div className="text-sm font-semibold text-cyan-700">{DANANG_CITY_INFO.seaportCount} <span className="text-xs font-normal">cảng</span>, {DANANG_CITY_INFO.pierCount} <span className="text-xs font-normal">bến</span></div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
+      
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-base flex items-center gap-2">
