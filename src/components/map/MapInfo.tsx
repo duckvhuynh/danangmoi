@@ -1,5 +1,6 @@
 import { MapControl } from "@vis.gl/react-google-maps";
 import { useIsMobile } from "../../hooks/use-mobile";
+import { useSafeAreaInset } from "../../hooks/use-safe-area";
 import { Calendar, MapPin } from "lucide-react";
 
 interface MapFooterProps {
@@ -8,29 +9,39 @@ interface MapFooterProps {
 
 export function MapFooter({ className }: MapFooterProps) {
     const isMobile = useIsMobile();
+    const bottomInset = useSafeAreaInset('bottom');
+    const leftInset = useSafeAreaInset('left');
 
     return (
         <MapControl position={google.maps.ControlPosition.BOTTOM_LEFT}>
-            <div className={`bg-transparent opacity-70 rounded-t-lg pb-1 ${className}`}>
+            <div 
+                className={`bg-white/90 backdrop-blur-sm shadow-lg border border-white/20 rounded-lg p-2 ${className}`}
+                style={{
+                    // Add safe area padding for mobile devices
+                    marginBottom: isMobile ? `${Math.max(16, bottomInset + 8)}px` : '8px',
+                    marginLeft: isMobile ? `${Math.max(8, leftInset)}px` : '8px',
+                    // Ensure better visibility on mobile
+                    maxWidth: isMobile ? '200px' : '250px',
+                }}
+            >
                 <div className="flex items-center space-x-2">
                     <a
                         href="https://1022.vn"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="cursor-pointer flex items-center space-x-2"
-                        style={{ marginLeft: '-65px', marginBottom: isMobile ? '30px' : '0' }}
+                        className="cursor-pointer flex items-center space-x-2 hover:opacity-80 transition-opacity"
                     >
-                        <div className="w-16 h-8 flex items-center justify-center">
+                        <div className={`${isMobile ? 'w-12 h-6' : 'w-16 h-8'} flex items-center justify-center`}>
                             <img
                                 src="/logo.png"
                                 alt="1022 Logo"
                                 className="w-full h-full object-contain"
                             />
                         </div>
-                        <div className="max-w-[180px]">
-                            <p className="text-[0.7rem] text-muted-foreground leading-tight" style={{
-                                textShadow: '0 0 2px white, 0 0 2px white, 0 0 2px white',
-                            }}>
+                        <div className={`${isMobile ? 'max-w-[120px]' : 'max-w-[160px]'}`}>
+                            <p 
+                                className={`${isMobile ? 'text-[0.6rem]' : 'text-[0.65rem]'} text-gray-700 leading-tight font-medium`}
+                            >
                                 Trung tâm Thông tin và giám sát, điều hành thông minh Đà Nẵng
                             </p>
                         </div>
