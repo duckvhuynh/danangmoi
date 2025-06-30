@@ -156,6 +156,9 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
           onSearch={handleSearch}
           onGetUserLocation={handleGetUserLocation}
           isLocating={isLocating}
+          selectedWard={selectedWard}
+          onWardSelect={handlePolygonClick}
+          danangPolygons={danangPolygons as PolygonData[]}
         />
 
         <SidebarInset className="flex-1 h-full m-0 rounded-none shadow-none">

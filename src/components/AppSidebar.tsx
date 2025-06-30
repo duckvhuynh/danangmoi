@@ -1,4 +1,4 @@
-import { Search, Navigation, Loader2, Info, LocateIcon } from "lucide-react";
+import { Search, Navigation, Loader2, Info, LocateIcon, Map } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -8,12 +8,14 @@ import {
   SidebarGroupLabel,
   SidebarFooter,
 } from "./ui/sidebar";
+import type { PolygonData } from "../data/polygon-utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { Card, CardContent } from "./ui/card";
+import { Card, CardContent, CardHeader } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { StatisticsPanel } from "./statistics/StatisticsPanel";
+import { getWardColor } from "../lib/utils";
 import { DANANG_CITY_INFO } from "../data/danang-info";
 
 interface AppSidebarProps {
@@ -22,7 +24,16 @@ interface AppSidebarProps {
   onSearch: () => void;
   onGetUserLocation: () => void;
   isLocating: boolean;
+  selectedWard?: PolygonData | null;
+  onWardSelect?: (ward: PolygonData) => void;
+  danangPolygons?: PolygonData[];
 }
+
+// Selected polygon colors (gold/yellow)
+const SELECTED_COLORS = {
+  stroke: "#FFD700",
+  fill: "#FFD700",
+};
 
 export function AppSidebar({
   searchQuery,
@@ -30,6 +41,9 @@ export function AppSidebar({
   onSearch,
   onGetUserLocation,
   isLocating,
+  selectedWard,
+  onWardSelect,
+  danangPolygons,
 }: AppSidebarProps) {
   return (
     <Sidebar>
@@ -131,6 +145,66 @@ export function AppSidebar({
 
             <TabsContent value="infor" className="p-4 space-y-4 m-0">
               <StatisticsPanel />
+              
+              {/* Administrative Areas Section */}
+              {danangPolygons && danangPolygons.length > 0 && (
+                <Card>
+                  <CardHeader className="pb-2">
+                    <div className="text-base font-medium flex items-center gap-2">
+                      <Map className="w-4 h-4" />
+                      Đơn vị hành chính
+                    </div>
+                  </CardHeader>
+                  <CardContent className="max-h-[300px] overflow-y-auto p-1">
+                    <div className="space-y-1 pb-2">
+                      {/* Group by district */}
+                      {Object.entries(
+                        danangPolygons.reduce<Record<string, PolygonData[]>>((acc, polygon) => {
+                          if (!acc[polygon.district]) {
+                            acc[polygon.district] = [];
+                          }
+                          acc[polygon.district].push(polygon);
+                          return acc;
+                        }, {})
+                      ).map(([district, polygons]) => (
+                        <div key={district} className="mb-2">
+                          <div className="flex items-center px-2 py-1 bg-gray-50 rounded-md">
+                            <div 
+                              className="w-3 h-3 rounded-full mr-2"
+                              style={{ backgroundColor: getWardColor(district).fill }}
+                            ></div>
+                            <span className="text-sm font-medium">{district}</span>
+                          </div>
+                          <div className="mt-1 pl-2 space-y-1">
+                            {polygons.map((polygon) => (
+                              <div
+                                key={polygon.ward}
+                                className={`px-2 py-1 rounded-sm text-sm flex items-center cursor-pointer ${
+                                  selectedWard?.ward === polygon.ward
+                                    ? "bg-yellow-100 font-medium"
+                                    : "hover:bg-gray-50"
+                                }`}
+                                onClick={() => onWardSelect && onWardSelect(polygon)}
+                              >
+                                <div 
+                                  className="w-2 h-2 rounded-full mr-2" 
+                                  style={{ 
+                                    backgroundColor: selectedWard?.ward === polygon.ward
+                                      ? SELECTED_COLORS.fill
+                                      : getWardColor(polygon.ward).fill,
+                                    opacity: 0.7
+                                  }}
+                                ></div>
+                                {polygon.ward}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </TabsContent>
           </div>
         </Tabs>

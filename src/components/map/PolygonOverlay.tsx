@@ -1,6 +1,7 @@
 import { useMap } from "@vis.gl/react-google-maps";
 import { useEffect, useRef, useState, useCallback } from "react";
 import WardNameOverlay from "./WardNameOverlay";
+import { getWardColor } from "../../lib/utils";
 
 interface PolygonData {
   district: string;
@@ -17,18 +18,6 @@ interface PolygonOverlayProps {
   onPolygonClick?: (polygon: PolygonData) => void;
   interactive?: boolean; // New prop to control if the polygon is clickable and hoverable
 }
-
-// Color scheme for different districts
-const DISTRICT_COLORS: Record<string, { stroke: string; fill: string }> = {
-  "Hải Châu": { stroke: "#3B82F6", fill: "#3B82F6" },
-  "Cẩm Lệ": { stroke: "#10B981", fill: "#10B981" },
-  "Sơn Trà": { stroke: "#F59E0B", fill: "#F59E0B" },
-  "Ngũ Hành Sơn": { stroke: "#EF4444", fill: "#EF4444" },
-  "Liên Chiểu": { stroke: "#8B5CF6", fill: "#8B5CF6" },
-  "Thanh Khê": { stroke: "#EC4899", fill: "#EC4899" },
-  "Hoà Vang": { stroke: "#06B6D4", fill: "#06B6D4" },
-  default: { stroke: "#6B7280", fill: "#6B7280" },
-};
 
 // Selected polygon colors (gold/yellow)
 const SELECTED_COLORS = {
@@ -146,9 +135,10 @@ export function PolygonOverlay(
       const createPolygon = (path: Array<{ lat: number; lng: number }>) => {
         if (!path || path.length === 0) return null;
 
-        // Determine colors based on selection state
-        const strokeColor = isSelected ? SELECTED_COLORS.stroke : "#1872c5";
-        const fillColor = isSelected ? SELECTED_COLORS.fill : "#1872c5";
+        // Determine colors based on selection state and district
+        const districtColors = getWardColor(polygonData.ward);
+        const strokeColor = isSelected ? SELECTED_COLORS.stroke : districtColors.stroke;
+        const fillColor = isSelected ? SELECTED_COLORS.fill : districtColors.fill;
         const fillOpacity = isSelected ? 0.4 : 0.12;
         const strokeWeight = isSelected ? 2.5 : 1.5;
         const zIndex = isSelected ? 3 : 1;
@@ -238,7 +228,7 @@ export function PolygonOverlay(
                 // Reset to normal state
                 poly.setOptions({
                   fillOpacity: 0.12,
-                  strokeWeight: 1,
+                  strokeWeight: 1.5,
                   strokeOpacity: 0.8,
                   zIndex: 1,
                 });
@@ -289,7 +279,7 @@ export function PolygonOverlay(
           color={
             selectedPolygon?.ward === hoveredWard.ward
               ? SELECTED_COLORS.fill
-              : DISTRICT_COLORS[hoveredWard.district]?.fill || DISTRICT_COLORS.default.fill
+              : getWardColor(hoveredWard.ward).fill
           }
           visible={true}
         />
