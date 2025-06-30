@@ -39,6 +39,13 @@ export function MapFooter({ className }: MapFooterProps) {
 }
 
 export function MapHeader() {
+    const isMobile = useIsMobile();
+    
+    // Don't render the header on mobile devices
+    if (isMobile) {
+        return null;
+    }
+    
     return (
         <MapControl position={google.maps.ControlPosition.TOP_CENTER}>
             <div className="bg-white bg-opacity-90 rounded-lg shadow-md px-4 py-2 text-center mt-4">
