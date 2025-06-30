@@ -174,6 +174,7 @@ export const getOfficesFromAdministrativeData = (): Office[] => {
       name: `${prefix} ${administrativePrefix} ${displayName}`.trim(),
       type: officeType,
       address: item.location.address || '',
+      phone: item.location.phone, // Include phone number if available
       position: {
         lat: item.location.latitude,
         lng: item.location.longitude

@@ -3,7 +3,8 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Users, Globe, Copy, X, Navigation, Combine } from "lucide-react";
+import { MapPin, Users, Globe, Copy, X, Navigation, Combine, Phone } from "lucide-react";
+import { toast } from "sonner";
 import {
     Drawer,
     DrawerContent,
@@ -26,6 +27,7 @@ interface WardInfo {
         address: string;
         latitude: number;
         longitude: number;
+        phone?: string;
     };
 }
 
@@ -137,31 +139,79 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                             <p className="text-sm text-gray-700">{wardInfo.location.address}</p>
                             <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => {
                                 navigator.clipboard.writeText(wardInfo.location.address);
+                                toast.success("Đã sao chép địa chỉ", {
+                                    description: wardInfo.location.address,
+                                });
                             }}>
                                 <Copy className="h-4 w-4" />
                                 <span className="sr-only">Sao chép địa chỉ</span>
                             </Button>
                         </div>
-                        {wardInfo.location.latitude && wardInfo.location.longitude && (
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                className="w-full flex items-center justify-center gap-2 text-sm"
-                                onClick={() => {
-                                    let mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${wardInfo.location.latitude},${wardInfo.location.longitude}`;
-
-                                    // Add origin parameter if user location is available
-                                    if (userLocation) {
-                                        mapsUrl += `&origin=${userLocation.lat},${userLocation.lng}`;
-                                    }
-
-                                    window.open(mapsUrl, '_blank');
-                                }}
-                            >
-                                <Navigation className="h-4 w-4" />
-                                <span>Chỉ đường</span>
-                            </Button>
+                        
+                        {/* Phone number with copy button if available */}
+                        {wardInfo.location.phone && (
+                            <div className="flex items-center justify-between gap-2 bg-gray-50 p-3 rounded-lg">
+                                <div className="flex items-center gap-2">
+                                    <Phone className="h-4 w-4" />
+                                    <p className="text-sm text-gray-700">{wardInfo.location.phone}</p>
+                                </div>
+                                <Button 
+                                    variant="ghost" 
+                                    size="sm" 
+                                    className="h-8 w-8 p-0" 
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(wardInfo.location.phone || '');
+                                        toast.success("Đã sao chép số điện thoại", {
+                                            description: wardInfo.location.phone,
+                                        });
+                                    }}
+                                >
+                                    <Copy className="h-4 w-4" />
+                                    <span className="sr-only">Sao chép số điện thoại</span>
+                                </Button>
+                            </div>
                         )}
+                        
+                        {/* Action buttons container */}
+                        <div className="flex gap-2">
+                            {/* Directions button if coordinates available */}
+                            {wardInfo.location.latitude && wardInfo.location.longitude && (
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className={`${wardInfo.location.phone ? 'flex-1' : 'w-full'} flex items-center justify-center gap-2 text-sm`}
+                                    onClick={() => {
+                                        let mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${wardInfo.location.latitude},${wardInfo.location.longitude}`;
+
+                                        // Add origin parameter if user location is available
+                                        if (userLocation) {
+                                            mapsUrl += `&origin=${userLocation.lat},${userLocation.lng}`;
+                                        }
+
+                                        window.open(mapsUrl, '_blank');
+                                    }}
+                                >
+                                    <Navigation className="h-4 w-4" />
+                                    <span>Chỉ đường</span>
+                                </Button>
+                            )}
+
+                            {/* Call button if phone is available */}
+                            {wardInfo.location.phone && (
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="flex-1 flex items-center justify-center gap-2 text-sm text-green-600 border-green-200 hover:bg-green-50 hover:text-green-700"
+                                    onClick={() => {
+                                        window.location.href = `tel:${wardInfo.location.phone}`;
+                                    }}
+                                >
+                                    <Phone className="h-4 w-4" />
+                                    <span>Gọi điện</span>
+                                </Button>
+                            )}
+                            
+                        </div>
                     </div>
                 </div>
             )}

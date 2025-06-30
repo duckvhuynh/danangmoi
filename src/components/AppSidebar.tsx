@@ -128,14 +128,14 @@ export function AppSidebar({
               <SidebarGroup>
                 <SidebarGroupLabel>
                   <Search className="w-4 h-4 mr-2" />
-                  Tìm kiếm địa chỉ cũ
+                  Tra cứu địa chỉ hoặc phường/xã trước 01/07/2025
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <Card>
                     <CardContent className="p-4 space-y-3">
                       <div>
                         <Label htmlFor="address-search" className="text-sm">
-                          Nhập địa chỉ cũ
+                          Nhập địa chỉ
                         </Label>
                         <Input
                           id="address-search"

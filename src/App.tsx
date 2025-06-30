@@ -1,6 +1,6 @@
-
 import './App.css'
 import { MainInterface } from '@/components/MainInterface'
+import { Toaster } from '@/components/ui/sonner'
 
 function App() {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
@@ -31,7 +31,12 @@ function App() {
     );
   }
 
-  return <MainInterface apiKey={apiKey} />
+  return (
+    <div className="h-screen w-screen flex flex-col">
+      <MainInterface apiKey={apiKey} />
+      <Toaster position="top-right" closeButton richColors theme="light" />
+    </div>
+  );
 }
 
 export default App
