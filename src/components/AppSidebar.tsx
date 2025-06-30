@@ -146,7 +146,7 @@ export function AppSidebar({
             />
           </div>
           <div className="mt-1">
-            <p className="text-xs text-center text-muted-foreground">Hỗ trợ: <span className="font-medium">*1022 hoặc 0236.1022</span></p>
+            <p className="text-xs text-center text-muted-foreground">Hỗ trợ: <span className="font-medium">*1022 hoặc 0236.1022 (nhánh 3)</span></p>
           </div>
         </div>
       </SidebarFooter>
