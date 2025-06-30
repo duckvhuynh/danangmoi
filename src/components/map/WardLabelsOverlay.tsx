@@ -171,7 +171,7 @@ export default function WardLabelsOverlay({
           
           // Consistent scaling at zoom levels >= 11
           if (this.currentZoom >= 13) {
-            finalScale = 1.8; // Larger at high zoom (13+)
+            finalScale = 1.6; // Larger at high zoom (13+)
           } else if (this.currentZoom >= 11) {
             finalScale = 0.9; // Medium size at regular zoom (11-12)
           }
