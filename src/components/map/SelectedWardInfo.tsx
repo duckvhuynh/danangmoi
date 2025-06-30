@@ -3,7 +3,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { MapPin, Users, Globe, Copy, X, ArrowUpDown, Navigation } from "lucide-react";
+import { MapPin, Users, Globe, Copy, X, Navigation, Combine } from "lucide-react";
 import {
     Drawer,
     DrawerContent,
@@ -94,22 +94,13 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                     <Badge variant={wardType === 'Phường' ? "default" : wardType === 'Xã' ? "secondary" : "destructive"}>
                         {wardType}
                     </Badge>
-                     <h2 className="text-md font-bold">{wardInfo?.new_commune_ward || selectedWard.ward}</h2>
+                    <h2 className="text-md font-bold">{wardInfo?.new_commune_ward || selectedWard.ward}</h2>
                 </div>
                 {!isMobile && (
                     <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={handleClose}>
                         <X className="h-4 w-4" />
                         <span className="sr-only">Đóng</span>
                     </Button>
-                )}
-            </div>
-
-            <div>
-
-                {wardInfo?.old_commune_ward && wardInfo.old_commune_ward !== selectedWard.district && (
-                    <p className="text-sm text-muted-foreground mt-1">
-                        Thuộc phường/xã cũ: {wardInfo.old_commune_ward}
-                    </p>
                 )}
             </div>
 
@@ -135,20 +126,6 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                 )}
             </div>
 
-            {wardInfo?.merged_communes_wards && (
-                <div className="space-y-2 pt-2">
-                    <div className="flex items-center gap-2 text-sm font-medium">
-                        <ArrowUpDown className="h-4 w-4" />
-                        <span>Sáp nhập từ</span>
-                    </div>
-                    <div className="bg-gray-50 p-3 rounded-lg">
-                        <p className="text-sm text-gray-700">
-                            {wardInfo.merged_communes_wards}
-                        </p>
-                    </div>
-                </div>
-            )}
-
             {wardInfo?.location?.address && (
                 <div className="space-y-2 pt-2">
                     <div className="flex items-center gap-2 text-sm font-medium">
@@ -172,12 +149,12 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                                 className="w-full flex items-center justify-center gap-2 text-sm"
                                 onClick={() => {
                                     let mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${wardInfo.location.latitude},${wardInfo.location.longitude}`;
-                                    
+
                                     // Add origin parameter if user location is available
                                     if (userLocation) {
                                         mapsUrl += `&origin=${userLocation.lat},${userLocation.lng}`;
                                     }
-                                    
+
                                     window.open(mapsUrl, '_blank');
                                 }}
                             >
@@ -187,6 +164,24 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                         )}
                     </div>
                 </div>
+            )}
+            {wardInfo?.merged_communes_wards && (
+                <div className="space-y-2 pt-2">
+                    <div className="flex items-center gap-2 text-sm font-medium">
+                        <Combine className="h-4 w-4" />
+                        <span>Sắp xếp từ</span>
+                    </div>
+                    <div className="bg-gray-50 p-3 rounded-lg">
+                        <p className="text-sm text-gray-700">
+                            {wardInfo.merged_communes_wards}
+                        </p>
+                    </div>
+                </div>
+            )}
+            {wardInfo?.old_commune_ward && wardInfo.old_commune_ward !== selectedWard.district && (
+                <p className="text-xs text-muted-foreground mt-1">
+                    *Thuộc quận/huyện cũ: {wardInfo.old_commune_ward}
+                </p>
             )}
         </div>
     );

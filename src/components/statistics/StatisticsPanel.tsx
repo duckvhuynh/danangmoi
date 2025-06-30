@@ -14,7 +14,7 @@ export function StatisticsPanel() {
             {DANANG_CITY_INFO.officialName}
           </CardTitle>
           <CardDescription className="text-xs">
-            Sáp nhập từ {DANANG_CITY_INFO.mergedFrom.join(" và ")}
+            Sắp xếp từ {DANANG_CITY_INFO.mergedFrom.join(" và ")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -146,9 +146,6 @@ export function StatisticsPanel() {
                     <p className="text-xs text-gray-600">Không cần đổi giấy tờ ngay sau sáp nhập</p>
                   </div>
                 </div>
-              </div>
-              <div className="mt-3 pt-2 border-t border-gray-200">
-                <p className="text-xs text-center">Hỗ trợ: <span className="font-medium">*1022 hoặc 0236.1022</span></p>
               </div>
             </div>
           </div>

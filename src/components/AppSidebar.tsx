@@ -6,6 +6,7 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarFooter,
 } from "./ui/sidebar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Card, CardContent } from "./ui/card";
@@ -34,10 +35,10 @@ export function AppSidebar({
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center space-x-2 px-2 py-4">
-          <div className="w-20 h-10 flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
             <img
-              src="/logo.png"
-              alt="1022 Logo"
+              src="/danang-logo.webp"
+              alt="Da Nang Logo"
               className="w-full h-full object-contain"
             />
           </div>
@@ -134,6 +135,21 @@ export function AppSidebar({
           </div>
         </Tabs>
       </SidebarContent>
+
+      <SidebarFooter>
+        <div className="flex flex-col items-center p-1 border-t">
+          <div className="w-16 h-8 flex items-center justify-center border-b border-gray-200">
+            <img
+              src="/logo.png"
+              alt="1022 Logo"
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <div className="mt-1">
+            <p className="text-xs text-center text-muted-foreground">Hỗ trợ: <span className="font-medium">*1022 hoặc 0236.1022</span></p>
+          </div>
+        </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }
