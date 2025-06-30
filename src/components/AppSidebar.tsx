@@ -247,7 +247,7 @@ export function AppSidebar({
                         </Label>
                         <Input
                           id="detailed-address"
-                          placeholder={selectedDistrict === '498' ? '' : 'VD: 275 Phan Huỳnh Điểu hoặc Tầng 4 căn hộ 719'}
+                          placeholder={selectedDistrict === '498' ? '' : 'VD: 22 Phan Văn Định hoặc Tầng 4 căn hộ 719'}
                           value={detailedAddress}
                           onChange={(e) => setDetailedAddress(e.target.value)}
                           disabled={!selectedOldWard && (districtHasWards || !selectedDistrict)}
