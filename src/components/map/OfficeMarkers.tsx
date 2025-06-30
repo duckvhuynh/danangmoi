@@ -48,13 +48,13 @@ export function OfficeMarkers({ offices, visible, selectedWard, userLocation }: 
     // Default colors based on type
     switch (office.type) {
       case 'commune':
-        return '#6B7280'; // gray-500
+        return '#449432';
       case 'ward':
-        return '#2563EB'; // blue-600
+        return '#2563EB';
       case 'special':
-        return '#DC2626'; // red-600
+        return '#DC2626';
       default:
-        return '#6B7280'; // gray-500
+        return '#6B7280';
     }
   };
 
