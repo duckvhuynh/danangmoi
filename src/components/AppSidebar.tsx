@@ -237,7 +237,21 @@ export function AppSidebar({
                     <div className="max-h-[360px] overflow-y-auto space-y-1 pr-1">
                       {filteredPolygons
                         ?.slice() // make a copy to avoid mutating original array
-                        .sort((a, b) => a.ward.localeCompare(b.ward, "vi")) // sort alphabetically (Vietnamese)
+                        .sort((a, b) => {
+                          // First sort by type: Phường first, Xã second, others last
+                          const aIsWard = a.ward.startsWith("Phường");
+                          const bIsWard = b.ward.startsWith("Phường");
+                          const aIsCommune = a.ward.startsWith("Xã");
+                          const bIsCommune = b.ward.startsWith("Xã");
+
+                          if (aIsWard && !bIsWard) return -1; // a is Phường, b is not
+                          if (!aIsWard && bIsWard) return 1; // b is Phường, a is not
+                          if (aIsCommune && !bIsCommune && !bIsWard) return -1; // a is Xã, b is not (and b is not Phường)
+                          if (!aIsCommune && bIsCommune && !aIsWard) return 1; // b is Xã, a is not (and a is not Phường)
+                          
+                          // If they're the same type, sort alphabetically (Vietnamese)
+                          return a.ward.localeCompare(b.ward, "vi");
+                        })
                         .map((polygon) => (
                           <div
                             key={polygon.ward}
