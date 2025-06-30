@@ -21,7 +21,7 @@ function App() {
             </p>
           </div>
           <div className="text-sm text-gray-600 space-y-1">
-            <p><strong>94 đơn vị hành chính cấp xã</strong> (23 phường, 70 xã, 1 đặc khu Hoàng Sa)</p>
+            <p><strong>94 Đơn vị hành chính</strong> (23 phường, 70 xã, 1 đặc khu Hoàng Sa)</p>
             <p><strong>Diện tích:</strong> 11.867,18 km² • <strong>Dân số:</strong> 3.065.628 người</p>
             <p>Ứng dụng hỗ trợ người dân tra cứu thông tin phường xã mới sau sáp nhập</p>
             <p>Hiệu lực từ ngày 1/7/2025</p>

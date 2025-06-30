@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/card";
-import { Badge } from "../ui/badge";
-import { Users, Globe, BarChart } from "lucide-react";
+import { Globe, BarChart } from "lucide-react";
 import { DANANG_CITY_INFO} from "../../data/danang-info";
 
 export function StatisticsPanel() {
@@ -21,7 +20,7 @@ export function StatisticsPanel() {
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center">
               <div className="text-xl font-bold text-primary">{DANANG_CITY_INFO.totalAdministrativeUnits}</div>
-              <div className="text-xs text-muted-foreground">Đơn vị hành chính cấp xã</div>
+              <div className="text-xs text-muted-foreground">Đơn vị hành chính</div>
             </div>
             <div className="text-center">
               <div className="text-xl font-bold text-primary">{DANANG_CITY_INFO.populationFormatted}</div>
@@ -60,55 +59,6 @@ export function StatisticsPanel() {
               </div>
             </div>
 
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Users className="w-4 h-4" />
-            Thông báo quan trọng
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <div className="flex items-center gap-3 p-2 bg-blue-50 rounded-lg">
-              <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                <span className="text-lg">🗓️</span>
-              </div>
-              <div>
-                <p className="text-xs font-medium text-blue-800">Có hiệu lực từ ngày</p>
-                <p className="text-sm font-bold">{DANANG_CITY_INFO.effectiveDate}</p>
-              </div>
-            </div>
-            
-            <div className="bg-gray-50 rounded-lg p-3">
-              <h4 className="text-xs font-medium text-gray-800 mb-2">Thông tin đáng chú ý:</h4>
-              <div className="space-y-2">
-                <div className="flex items-start gap-2">
-                  <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-center justify-center text-blue-600">1</Badge>
-                  <div>
-                    <p className="text-xs text-gray-700 font-medium">Mọi thắc mắc xin liên hệ</p>
-                    <p className="text-xs text-gray-600">Đường dây nóng hỗ trợ tổ chức, công dân thực hiện thủ tục hành chính *1022 hoặc 0236 1022 (nhánh 3)</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-center justify-center text-blue-600">2</Badge>
-                  <div>
-                    <p className="text-xs text-gray-700 font-medium">Địa chỉ và mã đơn vị thay đổi</p>
-                    <p className="text-xs text-gray-600">Trụ sở các phường xã có sự điều chỉnh</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-center justify-center text-blue-600">3</Badge>
-                  <div>
-                    <p className="text-xs text-gray-700 font-medium">Giấy tờ cá nhân vẫn có giá trị</p>
-                    <p className="text-xs text-gray-600">Không cần đổi giấy tờ ngay sau sáp nhập</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </CardContent>
       </Card>

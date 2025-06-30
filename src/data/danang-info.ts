@@ -86,7 +86,7 @@ export const DANANG_CITY_INFO = {
   vehicleLicenseCodes: cityInfo.vehicle_license_codes,
   effectiveDate: "01/07/2025",
   description: "Tra cứu thông tin phường xã sau sáp nhập",
-  fullDescription: `${adminStructure.total_subdivisions} đơn vị hành chính cấp xã (${adminStructure.wards} phường, ${adminStructure.communes} xã và ${adminStructure.special_zones || 1} đặc khu Hoàng Sa)`,
+  fullDescription: `${adminStructure.total_subdivisions} Đơn vị hành chính (${adminStructure.wards} phường, ${adminStructure.communes} xã và ${adminStructure.special_zones || 1} đặc khu Hoàng Sa)`,
   
   // Detailed ward/commune information
   wardInfo: adminInfo.commune_ward_list

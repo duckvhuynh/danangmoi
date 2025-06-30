@@ -1,4 +1,4 @@
-import { Search, Navigation, Loader2, Info, LocateIcon, Map } from "lucide-react";
+import { Search, Navigation, Loader2, Info, LocateIcon, Map, X, User } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -10,13 +10,15 @@ import {
 } from "./ui/sidebar";
 import type { PolygonData } from "../data/polygon-utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { Card, CardContent, CardHeader } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { StatisticsPanel } from "./statistics/StatisticsPanel";
 import { getWardColor } from "../lib/utils";
 import { DANANG_CITY_INFO } from "../data/danang-info";
+import { useState, useMemo, useCallback, useEffect } from "react";
+import { Badge } from "./ui/badge";
 
 interface AppSidebarProps {
   searchQuery: string;
@@ -45,6 +47,54 @@ export function AppSidebar({
   onWardSelect,
   danangPolygons,
 }: AppSidebarProps) {
+  // Add state for ward filter
+  const [wardFilter, setWardFilter] = useState("");
+
+  // Function to normalize Vietnamese text by removing diacritics (accents)
+  const normalizeVietnameseText = useCallback((text: string): string => {
+    if (!text) return "";
+    return text
+      .normalize('NFD') // Normalize to decomposed form
+      .replace(/[\u0300-\u036f]/g, '') // Remove all diacritics/accents
+      .toLowerCase()
+      .trim();
+  }, []);
+
+  // Filter wards based on search input
+  const filteredPolygons = useMemo(() => {
+    if (!danangPolygons) return [];
+    if (!wardFilter.trim()) return danangPolygons;
+
+    // Regular filter with accent sensitivity
+    const normalizedFilter = wardFilter.toLowerCase().trim();
+
+    // Normalized filter without accents
+    const normalizedFilterNoAccents = normalizeVietnameseText(wardFilter);
+
+    return danangPolygons.filter(polygon => {
+      const wardName = polygon.ward.toLowerCase();
+      const districtName = polygon.district.toLowerCase();
+      const normalizedWard = normalizeVietnameseText(polygon.ward);
+      const normalizedDistrict = normalizeVietnameseText(polygon.district);
+
+      // Check with accents first (exact match)
+      if (wardName.includes(normalizedFilter) || districtName.includes(normalizedFilter)) {
+        return true;
+      }
+
+      // Then check without accents (more lenient match)
+      return normalizedWard.includes(normalizedFilterNoAccents) ||
+        normalizedDistrict.includes(normalizedFilterNoAccents);
+    });
+  }, [danangPolygons, wardFilter, normalizeVietnameseText]);
+
+  // Clear filter when selected ward changes
+  // This improves UX by showing all wards again after a selection
+  useEffect(() => {
+    if (selectedWard) {
+      setWardFilter("");
+    }
+  }, [selectedWard]);
   return (
     <Sidebar>
       <SidebarHeader>
@@ -59,7 +109,7 @@ export function AppSidebar({
           <div className="min-w-0 flex-1">
             <h1 className="text-lg font-bold leading-tight truncate">{DANANG_CITY_INFO.officialName}</h1>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              {DANANG_CITY_INFO.totalAdministrativeUnits} đơn vị hành chính cấp xã • {DANANG_CITY_INFO.populationFormatted} dân
+              {DANANG_CITY_INFO.totalAdministrativeUnits} đơn vị hành chính • {DANANG_CITY_INFO.populationFormatted} dân
             </p>
           </div>
         </div>
@@ -145,66 +195,135 @@ export function AppSidebar({
 
             <TabsContent value="infor" className="p-4 space-y-4 m-0">
               <StatisticsPanel />
-              
+
               {/* Administrative Areas Section */}
               {danangPolygons && danangPolygons.length > 0 && (
                 <Card>
-                  <CardHeader className="pb-2">
+                  <CardHeader>
                     <div className="text-base font-medium flex items-center gap-2">
                       <Map className="w-4 h-4" />
-                      Đơn vị hành chính
+                      Danh sách đơn vị hành chính
                     </div>
                   </CardHeader>
-                  <CardContent className="max-h-[300px] overflow-y-auto p-1">
-                    <div className="space-y-1 pb-2">
-                      {/* Group by district */}
-                      {Object.entries(
-                        danangPolygons.reduce<Record<string, PolygonData[]>>((acc, polygon) => {
-                          if (!acc[polygon.district]) {
-                            acc[polygon.district] = [];
-                          }
-                          acc[polygon.district].push(polygon);
-                          return acc;
-                        }, {})
-                      ).map(([district, polygons]) => (
-                        <div key={district} className="mb-2">
-                          <div className="flex items-center px-2 py-1 bg-gray-50 rounded-md">
-                            <div 
-                              className="w-3 h-3 rounded-full mr-2"
-                              style={{ backgroundColor: getWardColor(district).fill }}
-                            ></div>
-                            <span className="text-sm font-medium">{district}</span>
-                          </div>
-                          <div className="mt-1 pl-2 space-y-1">
-                            {polygons.map((polygon) => (
-                              <div
-                                key={polygon.ward}
-                                className={`px-2 py-1 rounded-sm text-sm flex items-center cursor-pointer ${
-                                  selectedWard?.ward === polygon.ward
-                                    ? "bg-yellow-100 font-medium"
-                                    : "hover:bg-gray-50"
-                                }`}
-                                onClick={() => onWardSelect && onWardSelect(polygon)}
-                              >
-                                <div 
-                                  className="w-2 h-2 rounded-full mr-2" 
-                                  style={{ 
-                                    backgroundColor: selectedWard?.ward === polygon.ward
-                                      ? SELECTED_COLORS.fill
-                                      : getWardColor(polygon.ward).fill,
-                                    opacity: 0.7
-                                  }}
-                                ></div>
-                                {polygon.ward}
-                              </div>
-                            ))}
-                          </div>
+                  <CardContent className="p-3 pt-2 space-y-3">
+                    {/* Ward search */}
+                    <div className="space-y-1">
+                      <div className="relative">
+                        <Input
+                          placeholder="Tìm phường, xã..."
+                          value={wardFilter}
+                          onChange={(e) => setWardFilter(e.target.value)}
+                          className="pl-8"
+                        />
+                        <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        {wardFilter && (
+                          <button
+                            onClick={() => setWardFilter("")}
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground hover:text-foreground"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Search stats */}
+                      {wardFilter.trim() && (
+                        <div className="flex justify-between items-center text-xs text-muted-foreground px-1">
+                          <span>
+                            Tìm thấy: {filteredPolygons?.length || 0}/{danangPolygons?.length || 0}
+                          </span>
+                          <span className="italic">
+                            {normalizeVietnameseText(wardFilter) !== wardFilter.toLowerCase().trim()
+                              ? "Đang tìm không dấu"
+                              : ""}
+                          </span>
                         </div>
-                      ))}
+                      )}
+                    </div>
+
+                    {/* Ward list */}
+                    <div className="max-h-[240px] overflow-y-auto space-y-1 pr-1">
+                      {filteredPolygons?.length === 0 ? (
+                        <div className="text-sm text-center text-muted-foreground py-4">
+                          {wardFilter.trim()
+                            ? `Không tìm thấy phường xã nào với từ khoá "${wardFilter}"`
+                            : "Không có dữ liệu phường xã"}
+                        </div>
+                      ) : (
+                        filteredPolygons?.map((polygon) => (
+                          <div
+                            key={polygon.ward}
+                            className={`px-3 py-2 rounded-sm flex items-center cursor-pointer transition-colors ${selectedWard?.ward === polygon.ward
+                                ? "bg-yellow-100 font-medium"
+                                : "hover:bg-gray-50"
+                              }`}
+                            onClick={() => onWardSelect && onWardSelect(polygon)}
+                          >
+                            <div
+                              className="w-3 h-3 rounded-full mr-2 flex-shrink-0"
+                              style={{
+                                backgroundColor: selectedWard?.ward === polygon.ward
+                                  ? SELECTED_COLORS.fill
+                                  : getWardColor(polygon.ward).fill
+                              }}
+                            ></div>
+                            <span className="text-sm">{polygon.ward}</span>
+                          </div>
+                        ))
+                      )}
                     </div>
                   </CardContent>
                 </Card>
               )}
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <User className="w-4 h-4" />
+                    Thông báo quan trọng
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 p-2 bg-blue-50 rounded-lg">
+                      <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span className="text-lg">🗓️</span>
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium text-blue-800">Có hiệu lực từ ngày</p>
+                        <p className="text-sm font-bold">{DANANG_CITY_INFO.effectiveDate}</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-gray-50 rounded-lg p-3">
+                      <h4 className="text-xs font-medium text-gray-800 mb-2">Thông tin đáng chú ý:</h4>
+                      <div className="space-y-2">
+                        <div className="flex items-start gap-2">
+                          <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-center justify-center text-blue-600">1</Badge>
+                          <div>
+                            <p className="text-xs text-gray-700 font-medium">Mọi thắc mắc xin liên hệ</p>
+                            <p className="text-xs text-gray-600">Đường dây nóng hỗ trợ tổ chức, công dân thực hiện thủ tục hành chính *1022 hoặc 0236 1022 (nhánh 3)</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-center justify-center text-blue-600">2</Badge>
+                          <div>
+                            <p className="text-xs text-gray-700 font-medium">Địa chỉ và mã đơn vị thay đổi</p>
+                            <p className="text-xs text-gray-600">Trụ sở các phường xã có sự điều chỉnh</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-center justify-center text-blue-600">3</Badge>
+                          <div>
+                            <p className="text-xs text-gray-700 font-medium">Giấy tờ cá nhân vẫn có giá trị</p>
+                            <p className="text-xs text-gray-600">Không cần đổi giấy tờ ngay sau sáp nhập</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </TabsContent>
           </div>
         </Tabs>

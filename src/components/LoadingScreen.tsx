@@ -18,7 +18,7 @@ export function LoadingScreen({ message = "Đang tải bản đồ..." }: Loadin
             />
           </div>
           <h1 className="text-2xl font-bold text-gray-800">Thành phố Đà Nẵng (mới)</h1>
-          <p className="text-gray-600 text-sm">94 đơn vị hành chính cấp xã • 3.065.628 dân</p>
+          <p className="text-gray-600 text-sm">94 Đơn vị hành chính • 3.065.628 dân</p>
           <p className="text-gray-600 text-sm">Tra cứu phường xã sau sáp nhập</p>
           
           <div className="flex items-center justify-center space-x-2 py-4">
