@@ -205,12 +205,12 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                   />
                 )}
 
-                {/* Ward name labels (shown when zoom >= ZOOM_THRESHOLD) */}
+                {/* Ward name labels (shown consistently when zoom >= 11) */}
                 <WardLabelsOverlay
                   polygons={danangPolygons as PolygonData[]}
                   visible={showPolygons}
                   zoomLevel={zoomLevel}
-                  zoomThreshold={ZOOM_THRESHOLD}
+                  zoomThreshold={10} // Fixed value of 11 to ensure consistent behavior
                 />
 
                 {/* Office markers (only visible at higher zoom levels) */}
