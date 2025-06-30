@@ -8,7 +8,7 @@ interface MapFooterProps {
 export function MapFooter({ className }: MapFooterProps) {
     return (
         <MapControl position={google.maps.ControlPosition.BOTTOM_LEFT}>
-            <div className={`bg-transparent bg-opacity-90 rounded-t-lg pb-1 ${className}`}>
+            <div className={`bg-transparent opacity-70 rounded-t-lg pb-1 ${className}`}>
                 <div className="flex items-center space-x-2">
                     <a 
                         href="https://1022.vn" 
@@ -24,8 +24,8 @@ export function MapFooter({ className }: MapFooterProps) {
                                 className="w-full h-full object-contain"
                             />
                         </div>
-                        <div className="max-w-[200px]">
-                            <p className="text-xs text-muted-foreground leading-tight" style={{
+                        <div className="max-w-[180px]">
+                            <p className="text-[0.7rem] text-muted-foreground leading-tight" style={{
                                 textShadow: '0 0 2px white, 0 0 2px white, 0 0 2px white',
                             }}>
                                 Trung tâm Thông tin và giám sát, điều hành thông minh Đà Nẵng

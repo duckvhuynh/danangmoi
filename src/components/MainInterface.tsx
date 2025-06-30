@@ -20,6 +20,7 @@ import { danangPolygons, isPointInPolygon as isPointInPolygonUtil } from "../dat
 import type { PolygonData } from "../data/polygon-utils";
 import { offices } from "../data/office-utils";
 import { getWholeDanangPolygon, getWholeDanangBounds } from "../data/whole-danang-utils";
+import { useIsMobile } from "../hooks/use-mobile";
 
 // Da Nang coordinates
 const DA_NANG_CENTER = { lat: 15.733009, lng: 108.060244 };
@@ -31,6 +32,9 @@ interface MainInterfaceProps {
 }
 
 export function MainInterface({ apiKey }: MainInterfaceProps) {
+  // Mobile detection
+  const isMobile = useIsMobile();
+  
   // Keep selectedWard state for map interactions (polygon highlighting, click handling)
   // even though it's no longer passed to AppSidebar after removing the "Thông tin" tab
   const [selectedWard, setSelectedWard] = useState<PolygonData | null>(null);
@@ -156,8 +160,18 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
         <SidebarInset className="flex-1 h-full m-0 rounded-none shadow-none">
           <div className="flex h-full w-full relative">
             {/* Header with sidebar trigger */}
-            <div className="absolute top-4 left-4 z-10">
-              <SidebarTrigger className="bg-white shadow-lg hover:bg-gray-50" />
+            <div className="fixed md:absolute top-4 left-4 z-50">
+              <SidebarTrigger 
+                className={`
+                  cursor-pointer bg-white/95 backdrop-blur-md shadow-lg hover:bg-white border border-gray-200/50
+                  transition-all duration-200 ease-in-out hover:shadow-xl
+                  ${isMobile 
+                    ? 'w-12 h-12 rounded-xl' 
+                    : 'w-10 h-10 rounded-lg'
+                  }
+                  hover:scale-105 active:scale-95
+                `} 
+              />
             </div>
 
             {/* Main Map */}
