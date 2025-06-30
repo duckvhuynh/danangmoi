@@ -28,7 +28,7 @@ export default function WardLabelsOverlay({
   // Helper function to filter polygons based on zoom level to avoid overcrowding
   const getFilteredPolygons = useCallback((polygons: PolygonData[], zoomLevel: number): PolygonData[] => {
     // If zoom level is >= 11, show all labels consistently
-    if (zoomLevel >= 11) {
+    if (zoomLevel >= 9) {
       return polygons;
     }
     
@@ -353,7 +353,7 @@ export default function WardLabelsOverlay({
               
               // Match the scaling logic from draw()
               if (this.currentZoom >= 13) {
-                finalScale = 1.0; // Larger at high zoom (13+)
+                finalScale = 1.1; // Larger at high zoom (13+)
               } else if (this.currentZoom >= 11) {
                 finalScale = 0.9; // Medium size at regular zoom (11-12)
               }
