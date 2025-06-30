@@ -99,7 +99,7 @@ export function OfficeMarkers({ offices, visible, selectedWard, userLocation }: 
           <div className="w-70 max-w-full p-0 bg-white rounded-lg overflow-hidden">
             <div className="relative">
               <div className="px-4 pb-2">
-                <h3 className="text-lg font-semibold truncate">Trung tâm hành chính công</h3>
+                <h2 className="font-semibold truncate">Trung tâm phục vụ hành chính công</h2>
                 <div className="text-xs text-gray-500 mt-1">
                   {selectedOffice.name}
                 </div>
@@ -127,19 +127,6 @@ export function OfficeMarkers({ offices, visible, selectedWard, userLocation }: 
                   <div className="flex-1">
                     <div className="text-xs text-gray-500 mb-0.5">Điện thoại</div>
                     <div className="text-sm">{selectedOffice.phone}</div>
-                  </div>
-                </div>
-              )}
-
-              {/* Working hours */}
-              {selectedOffice.workingHours && (
-                <div className="flex items-start gap-3">
-                  <div className="bg-gray-100 rounded-full p-2 flex-shrink-0">
-                    <Clock className="w-4 h-4 text-gray-600" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-xs text-gray-500 mb-0.5">Giờ làm việc</div>
-                    <div className="text-sm">{selectedOffice.workingHours}</div>
                   </div>
                 </div>
               )}
