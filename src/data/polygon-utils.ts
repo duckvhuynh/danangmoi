@@ -157,12 +157,13 @@ export function calculatePolygonCentroid(polygon: Array<{ lat: number; lng: numb
 // Calculate the centroid for a multipolygon (largest polygon in the set)
 export function calculateMultiPolygonCentroid(polygonData: PolygonData): { lat: number; lng: number } {
   let centroid: { lat: number; lng: number };
+  let largestPolygon: Array<{ lat: number; lng: number }>;
   
   // For multipolygons, use the largest polygon's centroid
   if (polygonData.polygons && polygonData.polygons.length > 0) {
     // Find the largest polygon by area
     let largestArea = 0;
-    let largestPolygon = polygonData.polygons[0];
+    largestPolygon = polygonData.polygons[0];
     
     for (const poly of polygonData.polygons) {
       const area = calculatePolygonArea(poly);
@@ -175,17 +176,16 @@ export function calculateMultiPolygonCentroid(polygonData: PolygonData): { lat: 
     centroid = calculatePolygonCentroid(largestPolygon);
   } else {
     // Regular polygon
+    largestPolygon = polygonData.polygon;
     centroid = calculatePolygonCentroid(polygonData.polygon);
   }
   
   // Check if the calculated centroid is actually inside the polygon
   // If not, use visual center (simple average) as a fallback
   if (!isPointInPolygon(centroid, polygonData.polygon, polygonData.polygons)) {
-    if (polygonData.polygons && polygonData.polygons.length > 0) {
-      return calculateSimpleAverageCenter(polygonData.polygon);
-    } else {
-      return calculateSimpleAverageCenter(polygonData.polygon);
-    }
+    // For multipolygons, use the simple average of the largest polygon
+    // For single polygons, use the simple average of the single polygon
+    return calculateSimpleAverageCenter(largestPolygon);
   }
   
   return centroid;
@@ -213,7 +213,7 @@ function calculateSimpleAverageCenter(polygon: Array<{ lat: number; lng: number 
   };
 }
 
-// Calculate the approximate area of a polygon
+// Calculate the approximate area of a polygon using the shoelace formula
 function calculatePolygonArea(polygon: Array<{ lat: number; lng: number }>): number {
   if (!polygon || polygon.length < 3) {
     return 0;
