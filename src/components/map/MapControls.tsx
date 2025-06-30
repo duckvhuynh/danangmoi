@@ -37,31 +37,43 @@ export function MapControls({
         )}
         {isLocating ? "Đang xác định..." : "Vị trí của tôi"}
       </Button>
-      
+
       {/* Layer Controls */}
       <Card className="p-3 space-y-3 shadow-lg min-w-[180px]">
         <div className="flex items-center justify-between">
-          <Label htmlFor="show-polygons" className="text-sm flex items-center gap-2">
+          <Label 
+            htmlFor="show-polygons" 
+            className="text-sm flex items-center gap-2 mr-2"
+          >
             <Layers className="w-4 h-4" />
-            Ranh giới P/X
+            <span className="inline-block">Ranh giới hành chính P/X</span>
           </Label>
-          <Switch
-            id="show-polygons"
-            checked={showPolygons}
-            onCheckedChange={onTogglePolygons}
-          />
+          <div className="flex items-center">
+            <Switch
+              id="show-polygons"
+              checked={showPolygons}
+              onCheckedChange={onTogglePolygons}
+              className="my-auto"
+            />
+          </div>
         </div>
-        
+
         <div className="flex items-center justify-between">
-          <Label htmlFor="show-offices" className="text-sm flex items-center gap-2">
+          <Label 
+            htmlFor="show-offices" 
+            className="text-sm flex items-center gap-2 my-auto"
+          >
             <Building2 className="w-4 h-4" />
-            Trung tâm HC
+            <span className="inline-block">Vị trí trung tâm PV HCC</span>
           </Label>
-          <Switch
-            id="show-offices"
-            checked={showOffices}
-            onCheckedChange={onToggleOffices}
-          />
+          <div className="flex items-center">
+            <Switch
+              id="show-offices"
+              checked={showOffices}
+              onCheckedChange={onToggleOffices}
+              className="my-auto"
+            />
+          </div>
         </div>
       </Card>
     </div>
