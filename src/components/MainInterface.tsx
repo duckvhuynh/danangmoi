@@ -13,6 +13,7 @@ import { PolygonOverlay } from "./map/PolygonOverlay";
 import { UserLocationMarker } from "./map/UserLocationMarker";
 import { OfficeMarkers } from "./map/OfficeMarkers";
 import { SelectedWardInfo } from "./map/SelectedWardInfo";
+import { MapHeader, MapFooter } from "./map/MapInfo";
 import { LoadingScreen } from "./LoadingScreen";
 import { danangPolygons, isPointInPolygon as isPointInPolygonUtil } from "../data/polygon-utils";
 import type { PolygonData } from "../data/polygon-utils";
@@ -214,6 +215,12 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                 {userLocation && (
                   <UserLocationMarker position={userLocation} />
                 )}
+                
+                {/* Map Header */}
+                <MapHeader />
+                
+                {/* Map Footer */}
+                <MapFooter />
               </ZoomAwareMap>
 
               {/* Map Controls */}

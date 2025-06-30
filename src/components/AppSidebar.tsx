@@ -6,7 +6,6 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarFooter,
 } from "./ui/sidebar";
 import type { PolygonData } from "../data/polygon-utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
@@ -99,13 +98,6 @@ export function AppSidebar({
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center space-x-2 px-2 py-4">
-          <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
-            <img
-              src="/danang-logo.webp"
-              alt="Da Nang Logo"
-              className="w-full h-full object-contain"
-            />
-          </div>
           <div className="min-w-0 flex-1">
             <h1 className="text-lg font-bold leading-tight truncate">{DANANG_CITY_INFO.officialName}</h1>
             <p className="text-xs text-muted-foreground leading-relaxed">
@@ -242,15 +234,11 @@ export function AppSidebar({
                     </div>
 
                     {/* Ward list */}
-                    <div className="max-h-[240px] overflow-y-auto space-y-1 pr-1">
-                      {filteredPolygons?.length === 0 ? (
-                        <div className="text-sm text-center text-muted-foreground py-4">
-                          {wardFilter.trim()
-                            ? `Không tìm thấy phường xã nào với từ khoá "${wardFilter}"`
-                            : "Không có dữ liệu phường xã"}
-                        </div>
-                      ) : (
-                        filteredPolygons?.map((polygon) => (
+                    <div className="max-h-[360px] overflow-y-auto space-y-1 pr-1">
+                      {filteredPolygons
+                        ?.slice() // make a copy to avoid mutating original array
+                        .sort((a, b) => a.ward.localeCompare(b.ward, "vi")) // sort alphabetically (Vietnamese)
+                        .map((polygon) => (
                           <div
                             key={polygon.ward}
                             className={`px-3 py-2 rounded-sm flex items-center cursor-pointer transition-colors ${selectedWard?.ward === polygon.ward
@@ -262,15 +250,16 @@ export function AppSidebar({
                             <div
                               className="w-3 h-3 rounded-full mr-2 flex-shrink-0"
                               style={{
-                                backgroundColor: selectedWard?.ward === polygon.ward
-                                  ? SELECTED_COLORS.fill
-                                  : getWardColor(polygon.ward).fill
+                                backgroundColor:
+                                  selectedWard?.ward === polygon.ward
+                                    ? SELECTED_COLORS.fill
+                                    : getWardColor(polygon.ward).fill,
                               }}
                             ></div>
                             <span className="text-sm">{polygon.ward}</span>
                           </div>
-                        ))
-                      )}
+                        ))}
+
                     </div>
                   </CardContent>
                 </Card>
@@ -328,28 +317,6 @@ export function AppSidebar({
           </div>
         </Tabs>
       </SidebarContent>
-
-      <SidebarFooter>
-        <div className="flex flex-col items-center p-1 border-t">
-          <div className="flex items-center space-x-2 border-b border-gray-200 pb-1 my-1">
-            <div className="w-16 h-8 flex items-center justify-center">
-              <img
-                src="/logo.png"
-                alt="1022 Logo"
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div className="max-w-[200px]">
-              <p className="text-xs text-muted-foreground leading-tight">
-                Trung tâm Thông tin và giám sát, điều hành thông minh Đà Nẵng
-              </p>
-            </div>
-          </div>
-          <div className="mt-1">
-            <p className="text-xs text-center text-muted-foreground">Hỗ trợ: <span className="font-medium">*1022 hoặc 0236.1022 (nhánh 3)</span></p>
-          </div>
-        </div>
-      </SidebarFooter>
     </Sidebar>
   );
 }
