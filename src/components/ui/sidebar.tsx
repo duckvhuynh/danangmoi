@@ -24,13 +24,15 @@ import {
 import { 
   SIDEBAR_COOKIE_NAME,
   SIDEBAR_COOKIE_MAX_AGE,
-  SIDEBAR_WIDTH,
-  SIDEBAR_WIDTH_MOBILE,
   SIDEBAR_WIDTH_ICON,
   SIDEBAR_KEYBOARD_SHORTCUT,
   sidebarMenuButtonVariants 
 } from "./sidebar-variants"
 import { SidebarContext, useSidebar, type SidebarContextProps } from "./use-sidebar"
+
+
+const SIDEBAR_WIDTH = "26rem"
+const SIDEBAR_WIDTH_MOBILE = "24rem"
 
 function SidebarProvider({
   defaultOpen = true,
