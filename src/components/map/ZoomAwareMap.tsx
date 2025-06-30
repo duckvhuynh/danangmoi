@@ -19,6 +19,7 @@ interface ZoomAwareMapProps {
         east: number;
         west: number;
     };
+    useDefaultZoom?: boolean; // Optional prop to control initial zoom behavior
 }
 
 export function ZoomAwareMap({
@@ -31,7 +32,8 @@ export function ZoomAwareMap({
     disableDefaultUI,
     children,
     onZoomChange,
-    initialBounds
+    initialBounds,
+    useDefaultZoom = false, // Default to false if not provided
 }: ZoomAwareMapProps) {
     return (
         <Map
@@ -54,7 +56,7 @@ export function ZoomAwareMap({
             }}
 
         >
-            <ZoomHandler onZoomChange={onZoomChange} initialBounds={initialBounds} />
+            <ZoomHandler onZoomChange={onZoomChange} initialBounds={initialBounds} useDefaultZoom={useDefaultZoom} zoom={defaultZoom} />
             {children}
         </Map>
     );
@@ -68,18 +70,25 @@ interface ZoomHandlerProps {
         east: number;
         west: number;
     };
+    useDefaultZoom?: boolean;
+    zoom?: number; // Optional prop to control initial zoom level
 }
 
-function ZoomHandler({ onZoomChange, initialBounds }: ZoomHandlerProps) {
+function ZoomHandler({ onZoomChange, initialBounds, useDefaultZoom, zoom = 11 }: ZoomHandlerProps) {
     const map = useMap();
     const initializedRef = useRef(false);
 
     useEffect(() => {
         if (!map) return;
 
-        // Fit to initial bounds if provided
-        if (initialBounds && !initializedRef.current) {
-            map.fitBounds(initialBounds);
+        // Set initial zoom to 11 and center instead of fitting bounds
+        if (!initializedRef.current) {
+            if (useDefaultZoom) {
+                map.setZoom(zoom); // Set fixed initial zoom level to 11 for showing all administrative boundaries
+            } else if (initialBounds) {
+                map.fitBounds(initialBounds);
+            }
+            
             initializedRef.current = true;
         }
 
@@ -94,7 +103,7 @@ function ZoomHandler({ onZoomChange, initialBounds }: ZoomHandlerProps) {
         return () => {
             google.maps.event.removeListener(listener);
         };
-    }, [map, onZoomChange, initialBounds]);
+    }, [map, onZoomChange, initialBounds, useDefaultZoom, zoom]);
 
     return null;
 }

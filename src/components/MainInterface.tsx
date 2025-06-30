@@ -21,7 +21,7 @@ import { offices } from "../data/office-utils";
 import { getWholeDanangPolygon, getWholeDanangBounds } from "../data/whole-danang-utils";
 
 // Da Nang coordinates
-const DA_NANG_CENTER = { lat: 16.047079, lng: 108.206230 };
+const DA_NANG_CENTER = { lat: 15.733009, lng: 108.060244 };
 // Zoom threshold for showing detailed polygons vs whole city polygon
 const ZOOM_THRESHOLD = 10;
 
@@ -37,7 +37,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
   const [showOffices, setShowOffices] = useState(false);
   
   // New state for zoom level and city boundary
-  const [zoomLevel, setZoomLevel] = useState<number>(9); // Start with a zoom level below threshold
+  const [zoomLevel, setZoomLevel] = useState<number>(11); // Start with a zoom level to show all administrative boundaries
   const [wholeDanangPolygon] = useState<PolygonData>(getWholeDanangPolygon());
   const [danangBounds] = useState(getWholeDanangBounds());
 
@@ -174,13 +174,14 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
               <ZoomAwareMap
                 id="danang-map"
                 defaultCenter={DA_NANG_CENTER}
-                defaultZoom={9}
+                defaultZoom={10}
                 mapId="8edea94d65887b5c9697477e"
                 onClick={handleMapClick}
                 className="w-full h-full"
                 disableDefaultUI={true}
                 onZoomChange={setZoomLevel}
                 initialBounds={danangBounds}
+                useDefaultZoom={true} // Use default zoom level to ensure boundaries are shown
               >
                 {/* Whole city polygon (shown when zoom < ZOOM_THRESHOLD) - non-interactive */}
                 {zoomLevel < ZOOM_THRESHOLD && (
