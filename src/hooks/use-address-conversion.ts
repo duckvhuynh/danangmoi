@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { getProvinces, getDistricts, getWards, convertAddress } from '../utils/address-converter';
+import { getProvinces, getDistricts, getWards, convertAddress, hasWards } from '../utils/address-converter';
 
 interface UseAddressConversionProps {
   onConversionComplete?: (newAddress: string) => void;
@@ -19,6 +19,12 @@ export function useAddressConversion({ onConversionComplete }: UseAddressConvers
   const provinces = useMemo(() => getProvinces(), []);
   const districts = useMemo(() => getDistricts(selectedProvince), [selectedProvince]);
   const wards = useMemo(() => getWards(selectedDistrict), [selectedDistrict]);
+  
+  // Check if the selected district has wards (Hoàng Sa does not)
+  const districtHasWards = useMemo(() => {
+    if (!selectedDistrict) return false;
+    return hasWards(selectedDistrict);
+  }, [selectedDistrict]);
 
   // Reset dependent fields when selections change
   useEffect(() => {
@@ -45,17 +51,31 @@ export function useAddressConversion({ onConversionComplete }: UseAddressConvers
     setConvertedAddress(null);
     setConversionError(null);
     
-    // Find selected ward and district names
+    // Find selected district and ward names
     const district = districts.find(d => d.code === selectedDistrict);
+    
+    // Special case for Hoàng Sa district which has no wards
+    if (district && district.code === '498') {
+      // In this case, we treat detailedAddress as the full location within Hoàng Sa
+      const hoangSaAddress = `${detailedAddress}, Huyện Hoàng Sa, Thành phố Đà Nẵng`;
+      setConvertedAddress(hoangSaAddress);
+      if (onConversionComplete) {
+        onConversionComplete(hoangSaAddress);
+      }
+      setIsConverting(false);
+      return;
+    }
+    
     const ward = wards.find(w => w.code === selectedOldWard);
     
-    if (!district || !ward) {
+    // Normal case requiring both district and ward
+    if (!district || (!ward && district.code !== '498')) {
       setConversionError("Vui lòng chọn đầy đủ thông tin quận/huyện và phường/xã");
       setIsConverting(false);
       return;
     }
     
-    const result = convertAddress(detailedAddress, ward.name, district.name);
+    const result = convertAddress(detailedAddress, ward ? ward.name : '', district.name);
     
     if (result.success && result.newAddress) {
       setConvertedAddress(result.newAddress);
@@ -92,6 +112,7 @@ export function useAddressConversion({ onConversionComplete }: UseAddressConvers
     provinces,
     districts,
     wards,
+    districtHasWards,
     
     // Form actions
     setSelectedProvince,

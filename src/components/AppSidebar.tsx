@@ -1,4 +1,4 @@
-import { Search, Navigation, Loader2, Info, LocateIcon, Map, X, User, ArrowRight } from "lucide-react";
+import { Search, Navigation, Loader2, Info, LocateIcon, Map, X, ArrowLeftRight, Megaphone, Copy } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -18,20 +18,18 @@ import { getWardColor } from "../lib/utils";
 import { DANANG_CITY_INFO } from "../data/danang-info";
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { Badge } from "./ui/badge";
-import { 
-  Select, 
-  SelectContent, 
-  SelectGroup, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
 } from "./ui/select";
 import { useAddressConversion } from "../hooks/use-address-conversion";
+import { toast } from "sonner";
 
 interface AppSidebarProps {
-  searchQuery: string;
-  onSearchQueryChange: (query: string) => void;
-  onSearch: () => void;
   onGetUserLocation: () => void;
   isLocating: boolean;
   selectedWard?: PolygonData | null;
@@ -46,9 +44,6 @@ const SELECTED_COLORS = {
 };
 
 export function AppSidebar({
-  searchQuery,
-  onSearchQueryChange,
-  onSearch,
   onGetUserLocation,
   isLocating,
   selectedWard,
@@ -57,8 +52,8 @@ export function AppSidebar({
 }: AppSidebarProps) {
   // Add state for ward filter
   const [wardFilter, setWardFilter] = useState("");
-  
-  // Use the address conversion hook
+
+  // Use the address conversion hook with optional callback for conversion completion
   const {
     selectedProvince,
     selectedDistrict,
@@ -70,14 +65,21 @@ export function AppSidebar({
     provinces,
     districts,
     wards,
+    districtHasWards,
     setSelectedProvince,
     setSelectedDistrict,
     setSelectedOldWard,
     setDetailedAddress,
     handleAddressConversion,
     resetConversion
-  } = useAddressConversion();
-  
+  } = useAddressConversion({
+    // Optional callback when conversion is complete
+    onConversionComplete: (newAddress) => {
+      // Here we could add toast notification or other feedback
+      console.log("Address conversion complete:", newAddress);
+    }
+  });
+
   // Function to normalize Vietnamese text by removing diacritics (accents)
   const normalizeVietnameseText = useCallback((text: string): string => {
     if (!text) return "";
@@ -153,41 +155,11 @@ export function AppSidebar({
 
           <div className="flex-1 overflow-y-auto">
             <TabsContent value="search" className="p-4 space-y-4 m-0">
-              {/* Search Section */}
-              <SidebarGroup>
-                <SidebarGroupLabel>
-                  <Search className="w-4 h-4 mr-2" />
-                  Tra cứu địa chỉ hoặc phường/xã trước 01/07/2025
-                </SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <Card>
-                    <CardContent className="p-4 space-y-3">
-                      <div>
-                        <Label htmlFor="address-search" className="text-sm">
-                          Nhập địa chỉ
-                        </Label>
-                        <Input
-                          id="address-search"
-                          placeholder="VD: 02 Quang Trung, Thạch Thang"
-                          value={searchQuery}
-                          onChange={(e) => onSearchQueryChange(e.target.value)}
-                          className="mt-1"
-                        />
-                      </div>
-                      <Button onClick={onSearch} className="w-full" size="sm">
-                        <Search className="w-4 h-4 mr-2" />
-                        Tìm kiếm
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </SidebarGroupContent>
-              </SidebarGroup>
-              
               {/* Address Conversion Section */}
               <SidebarGroup>
                 <SidebarGroupLabel>
-                  <ArrowRight className="w-4 h-4 mr-2" />
-                  Chuyển đổi địa chỉ cũ sang mới
+                  <Search className="w-4 h-4 mr-2" />
+                  Tra cứu địa chỉ hoặc quận/huyện trước 01/07/2025
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <Card>
@@ -215,36 +187,34 @@ export function AppSidebar({
                           </SelectContent>
                         </Select>
                       </div>
-                      
-                      {/* District Selection - Only show if province is selected */}
-                      {selectedProvince && (
-                        <div>
-                          <Label htmlFor="district-select" className="text-sm mb-1 block">
-                            Quận/Huyện
-                          </Label>
-                          <Select
-                            value={selectedDistrict}
-                            onValueChange={(value) => setSelectedDistrict(value)}
-                            disabled={districts.length === 0}
-                          >
-                            <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Chọn quận/huyện" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectGroup>
-                                {districts.map((district) => (
-                                  <SelectItem key={district.code} value={district.code}>
-                                    {district.fullName}
-                                  </SelectItem>
-                                ))}
-                              </SelectGroup>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      )}
-                      
-                      {/* Ward Selection - Only show if district is selected */}
-                      {selectedDistrict && (
+
+                      {/* District Selection - Always shown but disabled until province is selected */}
+                      <div>
+                        <Label htmlFor="district-select" className="text-sm mb-1 block">
+                          Quận/Huyện
+                        </Label>
+                        <Select
+                          value={selectedDistrict}
+                          onValueChange={(value) => setSelectedDistrict(value)}
+                          disabled={!selectedProvince || districts.length === 0}
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Chọn quận/huyện" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {districts.map((district) => (
+                                <SelectItem key={district.code} value={district.code}>
+                                  {district.fullName}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Ward Selection - Only shown if district has wards */}
+                      {(districtHasWards || !selectedDistrict) && (
                         <div>
                           <Label htmlFor="ward-select" className="text-sm mb-1 block">
                             Phường/Xã
@@ -252,7 +222,7 @@ export function AppSidebar({
                           <Select
                             value={selectedOldWard}
                             onValueChange={(value) => setSelectedOldWard(value)}
-                            disabled={wards.length === 0}
+                            disabled={!selectedDistrict || wards.length === 0}
                           >
                             <SelectTrigger className="w-full">
                               <SelectValue placeholder="Chọn phường/xã" />
@@ -269,70 +239,102 @@ export function AppSidebar({
                           </Select>
                         </div>
                       )}
-                      
-                      {/* Detailed Address Input - Only show if ward is selected */}
-                      {selectedOldWard && (
-                        <div>
-                          <Label htmlFor="detailed-address" className="text-sm mb-1 block">
-                            Địa chỉ chi tiết
-                          </Label>
-                          <Input
-                            id="detailed-address"
-                            placeholder="VD: 710 Trần Cao Vân"
-                            value={detailedAddress}
-                            onChange={(e) => setDetailedAddress(e.target.value)}
-                          />
+
+                      {/* Detailed Address Input - Always shown, enabled for selected ward or for special districts like Hoàng Sa */}
+                      <div>
+                        <Label htmlFor="detailed-address" className="text-sm mb-1 block">
+                          Địa chỉ chi tiết
+                        </Label>
+                        <Input
+                          id="detailed-address"
+                          placeholder={selectedDistrict === '498' ? '' : 'VD: 97 Phan Huỳnh Điểu hoặc Tầng 4 căn hộ 719'}
+                          value={detailedAddress}
+                          onChange={(e) => setDetailedAddress(e.target.value)}
+                          disabled={!selectedOldWard && (districtHasWards || !selectedDistrict)}
+                        />
+                      </div>
+
+                      {/* Address Preview - Display the full selected address */}
+                      {selectedProvince && (
+                        <div className="p-2 bg-gray-50 border border-gray-200 rounded-md mb-3">
+                          <p className="text-xs text-gray-600 font-medium mb-1">Địa chỉ trước 01/07/2025:</p>
+                          <p className="text-sm text-gray-800">
+                            {detailedAddress ? (
+                              <>
+                                <span className="font-medium">{detailedAddress}</span>
+                                {(selectedOldWard || selectedDistrict === '498') && <span>, </span>}
+                              </>
+                            ) : (selectedOldWard || (selectedDistrict === '498' && !districtHasWards)) ? (
+                              <span className="text-gray-400 italic">(Chưa nhập địa chỉ chi tiết), </span>
+                            ) : null}
+                            {selectedOldWard && (
+                              <>
+                                <span>{wards.find(w => w.code === selectedOldWard)?.fullName}</span>
+                                <span>, </span>
+                              </>
+                            )}
+                            {selectedDistrict && (
+                              <>
+                                <span>{districts.find(d => d.code === selectedDistrict)?.fullName}</span>
+                                <span>, </span>
+                              </>
+                            )}
+                            {selectedProvince && (
+                              <span>{provinces.find(p => p.code === selectedProvince)?.fullName}</span>
+                            )}
+                          </p>
                         </div>
                       )}
-                      
-                      {/* Convert Button - Only show if all required fields are filled */}
-                      {selectedOldWard && (
-                        <Button 
-                          onClick={handleAddressConversion} 
-                          className="w-full" 
-                          size="sm"
-                          disabled={isConverting || !detailedAddress.trim()}
-                        >
-                          {isConverting ? (
-                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          ) : (
-                            <ArrowRight className="w-4 h-4 mr-2" />
-                          )}
-                          {isConverting ? "Đang chuyển đổi..." : "Chuyển đổi địa chỉ"}
-                        </Button>
-                      )}
-                      
+
+                      {/* Convert Button - Always shown but disabled until all required fields are filled */}
+                      <Button
+                        onClick={handleAddressConversion}
+                        className="w-full mt-1"
+                        disabled={isConverting || !detailedAddress.trim() || (districtHasWards && !selectedOldWard)}
+                      >
+                        {isConverting ? (
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        ) : (
+                          <ArrowLeftRight className="w-4 h-4 mr-2" />
+                        )}
+                        {isConverting ? "Đang chuyển đổi..." : "Chuyển đổi địa chỉ"}
+                      </Button>
+
                       {/* Conversion Result */}
                       {convertedAddress && (
                         <div className="p-3 bg-green-50 border border-green-200 rounded-md">
                           <p className="text-xs text-green-700 font-medium mb-1">Địa chỉ mới:</p>
                           <p className="text-sm font-medium">{convertedAddress}</p>
                           <div className="mt-2 flex justify-between">
-                            <Button 
-                              variant="ghost" 
-                              size="sm" 
+                            <Button
+                              variant="ghost"
+                              size="sm"
                               className="text-xs h-6 text-gray-600"
                               onClick={resetConversion}
                             >
-                              <X className="w-3 h-3 mr-1" />
+                              <X className="w-3 h-3" />
                               Đặt lại
                             </Button>
-                            <Button 
-                              variant="ghost" 
-                              size="sm" 
+                            <Button
+                              variant="ghost"
+                              size="sm"
                               className="text-xs h-6 text-green-800"
                               onClick={() => {
                                 // Copy to clipboard
                                 navigator.clipboard.writeText(convertedAddress);
                                 // Could add toast notification here
+                                toast.success("Đã sao chép địa chỉ", {
+                                  description: convertedAddress,
+                                });
                               }}
                             >
+                              <Copy className="h-3 w-3" />
                               Sao chép
                             </Button>
                           </div>
                         </div>
                       )}
-                      
+
                       {/* Conversion Error */}
                       {conversionError && (
                         <div className="p-3 bg-red-50 border border-red-200 rounded-md">
@@ -438,7 +440,7 @@ export function AppSidebar({
                           if (!aIsWard && bIsWard) return 1; // b is Phường, a is not
                           if (aIsCommune && !bIsCommune && !bIsWard) return -1; // a is Xã, b is not (and b is not Phường)
                           if (!aIsCommune && bIsCommune && !aIsWard) return 1; // b is Xã, a is not (and a is not Phường)
-                          
+
                           // If they're the same type, sort alphabetically (Vietnamese)
                           return a.ward.localeCompare(b.ward, "vi");
                         })
@@ -446,8 +448,8 @@ export function AppSidebar({
                           <div
                             key={polygon.ward}
                             className={`px-3 py-2 rounded-sm flex items-center cursor-pointer transition-colors ${selectedWard?.ward === polygon.ward
-                                ? "bg-yellow-100 font-medium"
-                                : "hover:bg-gray-50"
+                              ? "bg-yellow-100 font-medium"
+                              : "hover:bg-gray-50"
                               }`}
                             onClick={() => onWardSelect && onWardSelect(polygon)}
                           >
@@ -472,7 +474,7 @@ export function AppSidebar({
               <Card>
                 <CardHeader className="pb-3">
                   <CardTitle className="text-base flex items-center gap-2">
-                    <User className="w-4 h-4" />
+                    <Megaphone className="w-4 h-4" />
                     Thông báo quan trọng
                   </CardTitle>
                 </CardHeader>

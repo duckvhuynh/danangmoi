@@ -132,7 +132,7 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                 <div className="space-y-2 pt-2">
                     <div className="flex items-center gap-2 text-sm font-medium">
                         <MapPin className="h-4 w-4" />
-                        <span>Trung tâm phục vụ hành chính công</span>
+                        <span>Trung tâm Phục vụ hành chính công</span>
                     </div>
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center justify-between gap-2 bg-gray-50 p-3 rounded-lg">

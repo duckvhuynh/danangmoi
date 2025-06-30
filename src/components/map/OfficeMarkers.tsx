@@ -99,7 +99,7 @@ export function OfficeMarkers({ offices, visible, selectedWard, userLocation }: 
           <div className="w-70 max-w-full p-0 bg-white rounded-lg overflow-hidden">
             <div className="relative">
               <div className="px-4 pb-2">
-                <h2 className="font-semibold truncate">Trung tâm phục vụ hành chính công</h2>
+                <h2 className="font-semibold truncate">Trung tâm Phục vụ hành chính công</h2>
                 <div className="text-xs text-gray-500 mt-1">
                   {selectedOffice.name}
                 </div>

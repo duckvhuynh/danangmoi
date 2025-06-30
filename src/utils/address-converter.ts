@@ -69,15 +69,37 @@ export const getDistricts = (provinceCode: string): { code: string; name: string
 export const getWards = (districtCode: string): { code: string; name: string; fullName: string }[] => {
   for (const province of typedOldAdminData) {
     const district = province.District.find(d => d.Code === districtCode);
-    if (district && district.Ward) {
-      return district.Ward.map(ward => ({
-        code: ward.Code,
-        name: ward.Name,
-        fullName: ward.FullName
-      }));
+    if (district) {
+      // Handle special case for Hoàng Sa
+      if (district.Code === '498') { // Hoàng Sa district code
+        return [];
+      }
+      
+      if (district.Ward) {
+        return district.Ward.map(ward => ({
+          code: ward.Code,
+          name: ward.Name,
+          fullName: ward.FullName
+        }));
+      }
     }
   }
   return [];
+};
+
+// Check if a district has wards (for Hoàng Sa special case)
+export const hasWards = (districtCode: string): boolean => {
+  for (const province of typedOldAdminData) {
+    const district = province.District.find(d => d.Code === districtCode);
+    if (district) {
+      // Special case for Hoàng Sa - no wards
+      if (district.Code === '498') {
+        return false;
+      }
+      return district.Ward !== null && Array.isArray(district.Ward) && district.Ward.length > 0;
+    }
+  }
+  return false;
 };
 
 // Convert old address to new address
@@ -94,6 +116,16 @@ export const convertAddress = (
   error?: string 
 } => {
   try {
+    // Special case for Hoàng Sa district
+    if (districtName === "Hoàng Sa") {
+      return {
+        success: true,
+        newAddress: `${detailedAddress}, Huyện Hoàng Sa, Thành phố Đà Nẵng`,
+        newWard: "Hoàng Sa",
+        adminUnitType: "huyện"
+      };
+    }
+    
     // Clean up inputs
     const cleanWardName = wardName.replace(/^(Phường|Xã|Thị trấn)\s+/, '').trim();
     const cleanDistrictName = districtName.replace(/^(Quận|Huyện|Thị xã|Thành phố)\s+/, '').trim();
@@ -120,17 +152,20 @@ export const convertAddress = (
       const mergedList = item.merged_communes_wards.split(', ');
       
       // Normalize all text for comparison to handle edge cases with different prefixes and accents
-      const normalizedWardName = wardName
+      const normalizedWardName = cleanWardName
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
         .toLowerCase()
-        .replace(/^(phuong|xa|thi tran)\s+/, '')
         .trim();
         
       return mergedList.some(mergedWard => {
         // We need to check both with and without administrative unit prefix
         // First check if it's exactly the same
-        if (mergedWard === wardName) return true;
+        if (mergedWard.includes(wardName)) return true;
+        
+        // Remove the administrative unit prefix for comparison
+        const cleanMergedWard = mergedWard.replace(/^(Phường|Xã|Thị trấn)\s+/, '').trim();
+        if (cleanMergedWard === cleanWardName) return true;
         
         // Then check if only the name part matches (without Phường/Xã prefix) with normalization
         const normalizedMergedWard = mergedWard
@@ -152,12 +187,12 @@ export const convertAddress = (
     }
     
     // Determine the administrative unit type based on is_commune flag
-    let adminUnitType = 'đặc khu'; // Default if is_commune is undefined
+    let adminUnitType = 'Đặc khu'; // Default if is_commune is undefined
     
     if (newWardInfo.is_commune === true) {
-      adminUnitType = 'xã';
+      adminUnitType = 'Xã';
     } else if (newWardInfo.is_commune === false) {
-      adminUnitType = 'phường';
+      adminUnitType = 'Phường';
     }
     
     // Format the new address

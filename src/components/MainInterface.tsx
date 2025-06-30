@@ -36,7 +36,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
   const [selectedWard, setSelectedWard] = useState<PolygonData | null>(null);
   const [showPolygons, setShowPolygons] = useState(true);
   const [showOffices, setShowOffices] = useState(false);
-  
+
   // New state for zoom level and city boundary
   const [zoomLevel, setZoomLevel] = useState<number>(11); // Start with a zoom level to show all administrative boundaries
   const [wholeDanangPolygon] = useState<PolygonData>(getWholeDanangPolygon());
@@ -47,7 +47,6 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
     console.log("Selected ward updated:", selectedWard?.ward || "None");
   }, [selectedWard]);
 
-  const [searchQuery, setSearchQuery] = useState("");
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [isLocating, setIsLocating] = useState(false);
   const [isMapLoading, setIsMapLoading] = useState(true);
@@ -71,13 +70,13 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
       // This prevents selecting administrative divisions when viewing the whole city
       if (zoomLevel >= ZOOM_THRESHOLD) {
         const clickedPoint = event.detail.latLng;
-        
+
         // Find which polygon contains the clicked point
         const foundWard = danangPolygons.find((ward) => {
           // Check both single polygon and multipolygon
           return isPointInPolygonUtil(clickedPoint, ward.polygon, ward.polygons);
         });
-  
+
         if (foundWard) {
           setSelectedWard(foundWard as PolygonData);
         }
@@ -135,12 +134,6 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
     tryGetLocation();
   };
 
-
-  const handleSearch = () => {
-    // TODO: Implement address search functionality
-    console.log("Searching for:", searchQuery);
-  };
-
   const clearSelectedWard = () => {
     setSelectedWard(null);
   };
@@ -153,9 +146,6 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
     <SidebarProvider>
       <div className="flex h-screen w-screen">
         <AppSidebar
-          searchQuery={searchQuery}
-          onSearchQueryChange={setSearchQuery}
-          onSearch={handleSearch}
           onGetUserLocation={handleGetUserLocation}
           isLocating={isLocating}
           selectedWard={selectedWard}
@@ -194,7 +184,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                     interactive={false} // Make the whole city polygon non-interactive
                   />
                 )}
-                
+
                 {/* Detailed ward polygons (shown when zoom >= ZOOM_THRESHOLD) */}
                 {zoomLevel >= ZOOM_THRESHOLD && (
                   <PolygonOverlay
@@ -225,10 +215,10 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                 {userLocation && (
                   <UserLocationMarker position={userLocation} />
                 )}
-                
+
                 {/* Map Header */}
                 <MapHeader />
-                
+
                 {/* Map Footer */}
                 <MapFooter />
               </ZoomAwareMap>
