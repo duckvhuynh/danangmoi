@@ -2,7 +2,7 @@ import { AdvancedMarker, Pin, InfoWindow } from "@vis.gl/react-google-maps";
 import { useState } from "react";
 import type { Office } from "../../data/office-utils";
 import { Button } from "../ui/button";
-import { MapPin, Phone, Clock, Navigation } from "lucide-react";
+import { MapPin, Phone, Navigation } from "lucide-react";
 import { isPointInPolygon } from "../../data/polygon-utils";
 import type { PolygonData } from "../../data/polygon-utils";
 

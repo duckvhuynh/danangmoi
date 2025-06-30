@@ -138,12 +138,19 @@ export function AppSidebar({
 
       <SidebarFooter>
         <div className="flex flex-col items-center p-1 border-t">
-          <div className="w-16 h-8 flex items-center justify-center border-b border-gray-200">
-            <img
-              src="/logo.png"
-              alt="1022 Logo"
-              className="w-full h-full object-contain"
-            />
+          <div className="flex items-center space-x-2 border-b border-gray-200 pb-1 my-1">
+            <div className="w-16 h-8 flex items-center justify-center">
+              <img
+                src="/logo.png"
+                alt="1022 Logo"
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <div className="max-w-[200px]">
+              <p className="text-xs text-muted-foreground leading-tight">
+                Trung tâm Thông tin và giám sát, điều hành thông minh Đà Nẵng
+              </p>
+            </div>
           </div>
           <div className="mt-1">
             <p className="text-xs text-center text-muted-foreground">Hỗ trợ: <span className="font-medium">*1022 hoặc 0236.1022 (nhánh 3)</span></p>
