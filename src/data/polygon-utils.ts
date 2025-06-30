@@ -119,3 +119,115 @@ export function isPointInPolygon(
   // Fall back to checking the single polygon
   return isPointInSinglePolygon(point, polygon);
 }
+
+// Calculate the centroid of a simple polygon using the weighted average method
+export function calculatePolygonCentroid(polygon: Array<{ lat: number; lng: number }>): { lat: number; lng: number } {
+  if (!polygon || polygon.length < 3) {
+    // Return default center of Da Nang if invalid polygon
+    return { lat: 16.0544, lng: 108.2022 };
+  }
+
+  let area = 0;
+  let lat = 0;
+  let lng = 0;
+  const n = polygon.length;
+
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    const factor = (polygon[i].lng * polygon[j].lat - polygon[j].lng * polygon[i].lat);
+    area += factor;
+    lat += (polygon[i].lat + polygon[j].lat) * factor;
+    lng += (polygon[i].lng + polygon[j].lng) * factor;
+  }
+
+  area /= 2;
+  area = Math.abs(area); // Ensure positive area
+
+  // If area is too small, use simple average to avoid division by very small numbers
+  if (area < 0.0000001) {
+    return calculateSimpleAverageCenter(polygon);
+  }
+
+  lat /= (6 * area);
+  lng /= (6 * area);
+
+  return { lat, lng };
+}
+
+// Calculate the centroid for a multipolygon (largest polygon in the set)
+export function calculateMultiPolygonCentroid(polygonData: PolygonData): { lat: number; lng: number } {
+  let centroid: { lat: number; lng: number };
+  
+  // For multipolygons, use the largest polygon's centroid
+  if (polygonData.polygons && polygonData.polygons.length > 0) {
+    // Find the largest polygon by area
+    let largestArea = 0;
+    let largestPolygon = polygonData.polygons[0];
+    
+    for (const poly of polygonData.polygons) {
+      const area = calculatePolygonArea(poly);
+      if (area > largestArea) {
+        largestArea = area;
+        largestPolygon = poly;
+      }
+    }
+    
+    centroid = calculatePolygonCentroid(largestPolygon);
+  } else {
+    // Regular polygon
+    centroid = calculatePolygonCentroid(polygonData.polygon);
+  }
+  
+  // Check if the calculated centroid is actually inside the polygon
+  // If not, use visual center (simple average) as a fallback
+  if (!isPointInPolygon(centroid, polygonData.polygon, polygonData.polygons)) {
+    if (polygonData.polygons && polygonData.polygons.length > 0) {
+      return calculateSimpleAverageCenter(polygonData.polygon);
+    } else {
+      return calculateSimpleAverageCenter(polygonData.polygon);
+    }
+  }
+  
+  return centroid;
+}
+
+// Calculate the simple average center of a polygon (sum of coordinates / count)
+function calculateSimpleAverageCenter(polygon: Array<{ lat: number; lng: number }>): { lat: number; lng: number } {
+  if (!polygon || polygon.length === 0) {
+    return { lat: 16.0544, lng: 108.2022 }; // Default Da Nang center
+  }
+
+  let totalLat = 0;
+  let totalLng = 0;
+  let count = 0;
+  
+  polygon.forEach(point => {
+    totalLat += point.lat;
+    totalLng += point.lng;
+    count++;
+  });
+  
+  return {
+    lat: totalLat / count,
+    lng: totalLng / count
+  };
+}
+
+// Calculate the approximate area of a polygon
+function calculatePolygonArea(polygon: Array<{ lat: number; lng: number }>): number {
+  if (!polygon || polygon.length < 3) {
+    return 0;
+  }
+
+  let area = 0;
+  const n = polygon.length;
+
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    area += polygon[i].lng * polygon[j].lat;
+    area -= polygon[j].lng * polygon[i].lat;
+  }
+
+  area = Math.abs(area) / 2;
+  return area;
+}

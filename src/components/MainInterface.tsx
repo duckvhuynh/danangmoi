@@ -14,6 +14,7 @@ import { UserLocationMarker } from "./map/UserLocationMarker";
 import { OfficeMarkers } from "./map/OfficeMarkers";
 import { SelectedWardInfo } from "./map/SelectedWardInfo";
 import { MapHeader, MapFooter } from "./map/MapInfo";
+import WardLabelsOverlay from "./map/WardLabelsOverlay";
 import { LoadingScreen } from "./LoadingScreen";
 import { danangPolygons, isPointInPolygon as isPointInPolygonUtil } from "../data/polygon-utils";
 import type { PolygonData } from "../data/polygon-utils";
@@ -203,6 +204,14 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                     onPolygonClick={handlePolygonClick}
                   />
                 )}
+
+                {/* Ward name labels (shown when zoom >= ZOOM_THRESHOLD) */}
+                <WardLabelsOverlay
+                  polygons={danangPolygons as PolygonData[]}
+                  visible={showPolygons}
+                  zoomLevel={zoomLevel}
+                  zoomThreshold={ZOOM_THRESHOLD}
+                />
 
                 {/* Office markers (only visible at higher zoom levels) */}
                 <OfficeMarkers
