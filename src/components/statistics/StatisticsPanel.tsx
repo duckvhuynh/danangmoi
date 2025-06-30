@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { Users, Globe, BarChart, Ship, TrendingUp } from "lucide-react";
+import { Users, Globe, BarChart } from "lucide-react";
 import { DANANG_CITY_INFO} from "../../data/danang-info";
 
 export function StatisticsPanel() {
@@ -63,7 +63,7 @@ export function StatisticsPanel() {
           </div>
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="text-base flex items-center gap-2">
