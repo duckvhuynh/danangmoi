@@ -1,4 +1,5 @@
 import { MapControl } from "@vis.gl/react-google-maps";
+import { useIsMobile } from "../../hooks/use-mobile";
 
 interface MapFooterProps {
     className?: string;
@@ -6,7 +7,7 @@ interface MapFooterProps {
 
 export function MapFooter({ className }: MapFooterProps) {
     return (
-        <MapControl position={google.maps.ControlPosition.BOTTOM_RIGHT}>
+        <MapControl position={google.maps.ControlPosition.BOTTOM_LEFT}>
             <div className={`bg-transparent bg-opacity-90 rounded-t-lg pb-1 ${className}`}>
                 <div className="flex items-center space-x-2">
                     <a 
@@ -14,6 +15,7 @@ export function MapFooter({ className }: MapFooterProps) {
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="cursor-pointer flex items-center space-x-2"
+                        style={{marginLeft: '-65px'}}
                     >
                         <div className="w-16 h-8 flex items-center justify-center">
                             <img
