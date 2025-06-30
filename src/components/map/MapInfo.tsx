@@ -7,6 +7,8 @@ interface MapFooterProps {
 }
 
 export function MapFooter({ className }: MapFooterProps) {
+    const isMobile = useIsMobile();
+
     return (
         <MapControl position={google.maps.ControlPosition.BOTTOM_LEFT}>
             <div className={`bg-transparent opacity-70 rounded-t-lg pb-1 ${className}`}>
@@ -16,17 +18,17 @@ export function MapFooter({ className }: MapFooterProps) {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="cursor-pointer flex items-center space-x-2"
-                        style={{ marginLeft: '-65px' }}
+                        style={{ marginLeft: isMobile ? '-10px' : '-65px' }}
                     >
-                        <div className="w-16 h-8 flex items-center justify-center">
+                        <div className={`${isMobile ? 'w-12 h-6' : 'w-16 h-8'} flex items-center justify-center`}>
                             <img
                                 src="/logo.png"
                                 alt="1022 Logo"
                                 className="w-full h-full object-contain"
                             />
                         </div>
-                        <div className="max-w-[180px]">
-                            <p className="text-[0.7rem] text-muted-foreground leading-tight" style={{
+                        <div className={`${isMobile ? 'max-w-[140px]' : 'max-w-[180px]'}`}>
+                            <p className={`${isMobile ? 'text-[0.6rem]' : 'text-[0.7rem]'} text-muted-foreground leading-tight`} style={{
                                 textShadow: '0 0 2px white, 0 0 2px white, 0 0 2px white',
                             }}>
                                 Trung tâm Thông tin và giám sát, điều hành thông minh Đà Nẵng
