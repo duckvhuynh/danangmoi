@@ -35,7 +35,7 @@ interface MainInterfaceProps {
 export function MainInterface({ apiKey }: MainInterfaceProps) {
   // Mobile detection
   const isMobile = useIsMobile();
-  
+
   // Keep selectedWard state for map interactions (polygon highlighting, click handling)
   // even though it's no longer passed to AppSidebar after removing the "Thông tin" tab
   const [selectedWard, setSelectedWard] = useState<PolygonData | null>(null);
@@ -120,7 +120,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
 
           setUserLocation(location);
           setIsLocating(false);
-          
+
           // Show success message
           toast.success("Đã xác định vị trí của bạn thành công", {
             description: "Đang hiển thị vị trí của bạn trên bản đồ"
@@ -136,7 +136,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
         },
         (error) => {
           setIsLocating(false);
-          
+
           // Handle specific geolocation errors with friendly Vietnamese messages
           switch (error.code) {
             case error.PERMISSION_DENIED:
@@ -194,14 +194,11 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
           <div className="flex h-full w-full relative">
             {/* Header with sidebar trigger */}
             <div className="fixed md:absolute top-4 left-4 z-50">
-              <SidebarTrigger 
+              <SidebarTrigger
                 className={`
                   cursor-pointer bg-white/95 backdrop-blur-md shadow-lg hover:bg-white border border-gray-200/50
                   transition-all duration-200 ease-in-out hover:shadow-xl
-                  ${isMobile 
-                    ? 'h-12 rounded-xl' 
-                    : 'h-10 rounded-lg'
-                  }
+                  h-10 rounded-xl
                   hover:scale-105 active:scale-95 group
                 `}
                 label="Tra cứu"
