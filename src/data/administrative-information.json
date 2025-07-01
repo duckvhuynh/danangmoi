@@ -1,9 +1,6 @@
 {
   "metadata": {
-    "merged_from": [
-      "TP Đà Nẵng",
-      "Tỉnh Quảng Nam"
-    ],
+    "merged_from": ["TP Đà Nẵng", "Tỉnh Quảng Nam"],
     "administrative_center": "Quận Hải Châu (TP Đà Nẵng)",
     "subdivision_reduction": "67,13%, từ 286 xuống 94 ĐVHC cấp xã",
     "administrative_structure": {
@@ -13,10 +10,7 @@
       "special_zones": 1,
       "merged_units": 92,
       "unmerged_units": 2,
-      "unmerged_communes": [
-        "Tam Hải",
-        "Tân Hiệp"
-      ]
+      "unmerged_communes": ["Tam Hải", "Tân Hiệp"]
     },
     "city_info": {
       "name": "TP Đà Nẵng",
@@ -28,10 +22,7 @@
       "has_seaport": true,
       "seaports": 2,
       "piers": 11,
-      "vehicle_license_codes": [
-        "43",
-        "92"
-      ]
+      "vehicle_license_codes": ["43", "92"]
     }
   },
   "commune_ward_list": [
@@ -57,9 +48,9 @@
       "population": 119363,
       "is_commune": false,
       "location": {
-        "address": "Số 338 đường Núi Thành, phường Hòa Cường",
-        "latitude": 16.038501989096403,
-        "longitude": 108.22202498093247,
+        "address": "Số 388 đường Núi Thành, phường Hòa Cường",
+        "latitude": 16.038544573026545,
+        "longitude": 108.22187291569671,
         "phone": "0905275908"
       }
     },
