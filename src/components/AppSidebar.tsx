@@ -159,11 +159,15 @@ export function AppSidebar({
           <div className="flex-1 overflow-y-auto">
             <TabsContent value="search" className="p-4 space-y-4 m-0">
               {/* Address Conversion Section */}
-              <SidebarGroup>
-                <SidebarGroupLabel>
-                  <Search className="w-4 h-4 mr-2" />
-                  Tra cứu địa chỉ hoặc phường, xã trước 01/07/2025
-                </SidebarGroupLabel>
+              <SidebarGroup>                  <SidebarGroupLabel className="flex items-center gap-2">
+                    <div className="flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full">
+                      <Search className="w-3.5 h-3.5 text-blue-700" />
+                    </div>
+                    <div>
+                      <span className="font-medium">Tra cứu địa chỉ</span>
+                      <span className="text-muted-foreground"> • Chuyển đổi địa chỉ trước 01/07/2025</span>
+                    </div>
+                  </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <Card>
                     <CardContent className="p-4 space-y-3">
@@ -286,63 +290,85 @@ export function AppSidebar({
                         </div>
                       )}
 
-                      {/* Convert Button - Always shown but disabled until all required fields are filled */}
+                      {/* Convert Button - Enhanced with gradient background and visual prominence */}
                       <Button
                         onClick={handleAddressConversion}
-                        className="w-full mt-1"
+                        className={`w-full mt-2 shadow-md transition-all duration-200 ${isConverting ? 'bg-gradient-to-r from-blue-500 to-blue-600' : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700'} hover:shadow-lg`}
                         disabled={isConverting || (districtHasWards && !selectedOldWard)}
                       >
-                        {isConverting ? (
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        ) : (
-                          <ArrowLeftRight className="w-4 h-4 mr-2" />
-                        )}
-                        {isConverting ? "Đang chuyển đổi..." : "Chuyển đổi địa chỉ"}
+                        <div className="flex items-center justify-center w-full">
+                          {isConverting ? (
+                            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                          ) : (
+                            <ArrowLeftRight className="w-5 h-5 mr-2" />
+                          )}
+                          <span className="font-medium text-sm">
+                            {isConverting ? "Đang chuyển đổi..." : "Chuyển đổi địa chỉ"}
+                          </span>
+                        </div>
                       </Button>
 
-                      {/* Conversion Result */}
+                      {/* Conversion Result - Enhanced with better visual design */}
                       {convertedAddress && (
-                        <div className="p-3 bg-green-50 border border-green-200 rounded-md">
-                          <p className="text-xs text-green-700 font-medium mb-1">Địa chỉ mới:</p>
-                          <p className="text-sm font-medium">{convertedAddress}</p>
-                          <div className="mt-2 flex justify-between">
+                        <div className="mt-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-md shadow-sm">
+                          <div className="flex items-center mb-2">
+                            <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-2">
+                              <ArrowLeftRight className="w-4 h-4 text-green-700" />
+                            </div>
+                            <div>
+                              <p className="text-xs text-green-600 font-medium">Kết quả chuyển đổi</p>
+                              <p className="text-sm font-semibold text-green-800">Địa chỉ mới từ 01/07/2025</p>
+                            </div>
+                          </div>
+                          <div className="p-3 bg-white border border-green-200 rounded-md mb-3">
+                            <p className="text-sm font-medium text-gray-800">{convertedAddress}</p>
+                          </div>
+                          <div className="flex justify-between">
                             <Button
-                              variant="ghost"
+                              variant="outline"
                               size="sm"
-                              className="text-xs h-6 text-gray-600"
+                              className="text-xs border-gray-300 text-gray-700 hover:bg-gray-100"
                               onClick={resetConversion}
                             >
-                              <X className="w-3 h-3" />
+                              <X className="w-3 h-3 mr-1" />
                               Đặt lại
                             </Button>
                             <Button
-                              variant="ghost"
+                              variant="outline"
                               size="sm"
-                              className="text-xs h-6 text-green-800"
+                              className="text-xs bg-green-100 border-green-300 text-green-800 hover:bg-green-200"
                               onClick={() => {
                                 // Copy to clipboard
                                 navigator.clipboard.writeText(convertedAddress);
-                                // Could add toast notification here
+                                // Toast notification
                                 toast.success("Đã sao chép địa chỉ", {
                                   description: convertedAddress,
                                 });
                               }}
                             >
-                              <Copy className="h-3 w-3" />
+                              <Copy className="h-3 w-3 mr-1" />
                               Sao chép
                             </Button>
                           </div>
                         </div>
                       )}
 
-                      {/* Conversion Error */}
+                      {/* Conversion Error - Enhanced with better visual design */}
                       {conversionError && (
-                        <div className="p-3 bg-red-50 border border-red-200 rounded-md">
-                          <p className="text-xs text-red-700 font-medium">Lỗi chuyển đổi:</p>
-                          <p className="text-xs text-red-700">{conversionError}</p>
-                          <p className="text-xs text-gray-600 mt-1">
-                            Vui lòng kiểm tra lại thông tin hoặc thử một địa chỉ khác.
-                          </p>
+                        <div className="mt-4 p-4 bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 rounded-md shadow-sm">
+                          <div className="flex items-start">
+                            <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center mr-3 flex-shrink-0">
+                              <X className="w-4 h-4 text-red-700" />
+                            </div>
+                            <div>
+                              <p className="text-sm font-medium text-red-800 mb-1">Lỗi chuyển đổi</p>
+                              <p className="text-sm text-red-700">{conversionError}</p>
+                              <p className="text-xs text-gray-700 mt-2 bg-white p-2 rounded border border-red-100">
+                                Vui lòng kiểm tra lại thông tin hoặc thử một địa chỉ khác. Nếu vấn đề vẫn tiếp diễn, 
+                                hãy liên hệ qua đường dây nóng <span className="font-semibold">0236 1022</span>.
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       )}
                     </CardContent>
@@ -352,34 +378,54 @@ export function AppSidebar({
 
               {/* Location Section */}
               <SidebarGroup>
-                <SidebarGroupLabel>
-                  <Navigation className="w-4 h-4 mr-2" />
-                  Vị trí hiện tại
+                <SidebarGroupLabel className="flex items-center gap-2">
+                  <div className="flex items-center justify-center w-6 h-6 bg-green-100 rounded-full">
+                    <Navigation className="w-3.5 h-3.5 text-green-700" />
+                  </div>
+                  <div>
+                    <span className="font-medium">Vị trí hiện tại</span>
+                    <span className="text-muted-foreground"> • Sử dụng GPS để định vị</span>
+                  </div>
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <Card>
                     <CardContent className="p-4 space-y-3">
-                      <p className="text-sm text-muted-foreground">
-                        Xác định vị trí để biết phường xã hiện tại
-                      </p>
+                      <div className="bg-green-50 p-3 rounded-md border border-green-100 mb-2">
+                        <h4 className="text-sm font-medium text-green-800 flex items-center mb-1">
+                          <Navigation className="w-4 h-4 mr-1" />
+                          Tính năng định vị
+                        </h4>
+                        <p className="text-xs text-green-700">
+                          Xác định vị trí chính xác của bạn để biết phường xã hiện tại và các thông tin liên quan
+                        </p>
+                      </div>
                       <div className="relative">
                         <Button
                           onClick={onGetUserLocation}
-                          className={`w-full ${isLocating ? 'animate-pulse' : ''}`}
-                          size="sm"
+                          className={`w-full transition-all duration-300 shadow-md py-5 ${
+                            isLocating 
+                              ? 'bg-gradient-to-r from-green-500 to-emerald-500 animate-pulse' 
+                              : 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700'
+                          } hover:shadow-lg`}
                           disabled={isLocating}
                           title="Cần cấp quyền truy cập vị trí trên trình duyệt"
                         >
-                          {isLocating ? (
-                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          ) : (
-                            <LocateIcon className="w-4 h-4 mr-2" />
-                          )}
-                          {isLocating ? "Đang xác định..." : "Xác định vị trí"}
+                          <div className="flex flex-col items-center justify-center">
+                            <div className="flex items-center mb-1">
+                              {isLocating ? (
+                                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                              ) : (
+                                <LocateIcon className="w-5 h-5 mr-2" />
+                              )}
+                              <span className="font-medium text-sm">
+                                {isLocating ? "Đang xác định..." : "Xác định vị trí hiện tại"}
+                              </span>
+                            </div>
+                          </div>
                         </Button>
                         {isLocating && (
-                          <div className="absolute -bottom-5 left-0 right-0 text-xs text-center text-gray-500">
-                            Vui lòng chấp nhận quyền truy cập
+                          <div className="absolute -bottom-6 left-0 right-0 text-xs text-center bg-yellow-100 text-yellow-800 py-1 px-2 rounded-md font-medium">
+                            Vui lòng chấp nhận quyền truy cập vị trí
                           </div>
                         )}
                       </div>
