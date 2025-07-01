@@ -65,7 +65,7 @@ export const DANANG_CITY_INFO = {
   
   // Population information
   population: cityInfo.population,
-  populationFormatted: cityInfo.population,
+  populationFormatted: formatPopulation(cityInfo.population),
   populationDensity: cityInfo.population_density,
   
   // Merger information
@@ -107,9 +107,7 @@ export function formatPopulation(population: number): string {
  * @returns Formatted area string
  */
 export function formatArea(areaKm2: number): string {
-  // Format with vi-VN locale and explicitly replace decimal point with comma if needed
-  const formattedNumber = areaKm2.toLocaleString('vi-VN').replace('.', ',');
-  return `${formattedNumber} km²`;
+  return `${areaKm2.toLocaleString('vi-VN')} km²`;
 }
 
 /**

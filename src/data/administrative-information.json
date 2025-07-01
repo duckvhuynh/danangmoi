@@ -15,9 +15,9 @@
     "city_info": {
       "name": "TP Đà Nẵng",
       "administrative_level": "Thành phố Trung Ương",
-      "area_km2": 11913,
-      "population": 3122915,
-      "population_density": 262,
+      "area_km2": 11859.59,
+      "population": 3065628,
+      "population_density": 258,
       "grdp_billion_vnd": 279926,
       "has_seaport": true,
       "seaports": 2,
