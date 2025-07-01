@@ -130,11 +130,14 @@ export function AppSidebar({
   }, [selectedWard]);
   return (
     <Sidebar>
-      <SidebarHeader>
-        <div className="flex items-center space-x-2 px-2 py-4">
+      <SidebarHeader className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+        <div className="flex items-center space-x-2 px-4 py-5">
+          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center flex-shrink-0">
+            <Map className="w-5 h-5 text-white" />
+          </div>
           <div className="min-w-0 flex-1">
-            <h1 className="text-lg font-bold leading-tight truncate">{DANANG_CITY_INFO.officialName}</h1>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <h1 className="text-lg font-bold leading-tight truncate text-white">{DANANG_CITY_INFO.officialName}</h1>
+            <p className="text-xs text-blue-100 leading-relaxed">
               {DANANG_CITY_INFO.totalAdministrativeUnits} đơn vị hành chính • {DANANG_CITY_INFO.populationFormatted} dân
             </p>
           </div>
@@ -143,15 +146,16 @@ export function AppSidebar({
 
       <SidebarContent>
         <Tabs defaultValue="infor" className="h-full flex flex-col">
-          <div className="px-4">
-            <TabsList className="grid w-full grid-cols-2 shrink-0">
-              <TabsTrigger value="infor" className="text-xs p-2 min-w-0 flex-1">
-                <Info className="w-4 h-4 mr-1 flex-shrink-0" />
-                <span className="truncate">Thông tin</span>
+          <div className="px-4 py-2 border-b border-gray-100">
+            <TabsList className="grid w-full grid-cols-2 shrink-0 bg-gray-100/70 p-1 rounded-xl">
+              <TabsTrigger value="infor" className="text-xs py-2.5 px-2 min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg">
+                <Info className="w-4 h-4 mr-1.5 flex-shrink-0" />
+                <span className="truncate font-medium">Thông tin</span>
               </TabsTrigger>
-              <TabsTrigger value="search" className="text-xs p-2 min-w-0 flex-1">
-                <Search className="w-4 h-4 mr-1 flex-shrink-0" />
-                <span className="truncate">Tra cứu</span>
+              <TabsTrigger value="search" className="text-xs py-2.5 px-2 min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg relative">
+                <Search className="w-4 h-4 mr-1.5 flex-shrink-0" />
+                <span className="truncate font-medium">Tra cứu</span>
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold animate-pulse">!</span>
               </TabsTrigger>
             </TabsList>
           </div>
@@ -160,14 +164,14 @@ export function AppSidebar({
             <TabsContent value="search" className="p-4 space-y-4 m-0">
               {/* Address Conversion Section */}
               <SidebarGroup>                  <SidebarGroupLabel className="flex items-center gap-2">
-                    <div className="flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full">
-                      <Search className="w-3.5 h-3.5 text-blue-700" />
-                    </div>
-                    <div>
-                      <span className="font-medium">Tra cứu địa chỉ</span>
-                      <span className="text-muted-foreground"> • Chuyển đổi địa chỉ trước 01/07/2025</span>
-                    </div>
-                  </SidebarGroupLabel>
+                <div className="flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full">
+                  <Search className="w-3.5 h-3.5 text-blue-700" />
+                </div>
+                <div>
+                  <span className="font-medium">Tra cứu địa chỉ</span>
+                  <span className="text-muted-foreground"> • Chuyển đổi địa chỉ trước 01/07/2025</span>
+                </div>
+              </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <Card>
                     <CardContent className="p-4 space-y-3">
@@ -364,7 +368,7 @@ export function AppSidebar({
                               <p className="text-sm font-medium text-red-800 mb-1">Lỗi chuyển đổi</p>
                               <p className="text-sm text-red-700">{conversionError}</p>
                               <p className="text-xs text-gray-700 mt-2 bg-white p-2 rounded border border-red-100">
-                                Vui lòng kiểm tra lại thông tin hoặc thử một địa chỉ khác. Nếu vấn đề vẫn tiếp diễn, 
+                                Vui lòng kiểm tra lại thông tin hoặc thử một địa chỉ khác. Nếu vấn đề vẫn tiếp diễn,
                                 hãy liên hệ qua đường dây nóng <span className="font-semibold">0236 1022</span>.
                               </p>
                             </div>
@@ -402,25 +406,40 @@ export function AppSidebar({
                       <div className="relative">
                         <Button
                           onClick={onGetUserLocation}
-                          className={`w-full transition-all duration-300 shadow-md py-5 ${
-                            isLocating 
-                              ? 'bg-gradient-to-r from-green-500 to-emerald-500 animate-pulse' 
+                          className={`
+                            w-full transition-all duration-300 shadow-md py-4
+                            relative overflow-hidden
+                            ${isLocating
+                              ? 'bg-gradient-to-r from-green-500 to-emerald-500'
                               : 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700'
-                          } hover:shadow-lg`}
+                            } hover:shadow-lg
+                          `}
                           disabled={isLocating}
                           title="Cần cấp quyền truy cập vị trí trên trình duyệt"
                         >
-                          <div className="flex flex-col items-center justify-center">
-                            <div className="flex items-center mb-1">
+                          {/* Animated pulse background for locating state */}
+                          {isLocating && (
+                            <div className="absolute inset-0 bg-white/10 animate-pulse"></div>
+                          )}
+
+                          {/* Location icon in a circle */}
+                          <div className="flex flex-col items-center justify-center relative z-10">
+                            <div className={`
+                              w-12 h-12 rounded-full flex items-center justify-center mb-2
+                              ${isLocating ? 'bg-white/30' : 'bg-white/20'}
+                            `}>
                               {isLocating ? (
-                                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                                <Loader2 className="w-6 h-6 animate-spin text-white" />
                               ) : (
-                                <LocateIcon className="w-5 h-5 mr-2" />
+                                <LocateIcon className="w-6 h-6 text-white" />
                               )}
-                              <span className="font-medium text-sm">
-                                {isLocating ? "Đang xác định..." : "Xác định vị trí hiện tại"}
-                              </span>
                             </div>
+                            <span className="font-medium text-sm">
+                              {isLocating ? "Đang xác định vị trí..." : "Xác định vị trí hiện tại"}
+                            </span>
+                            <span className="text-xs text-white/80 mt-1">
+                              {isLocating ? "Vui lòng chờ giây lát..." : "Hiển thị thông tin phường xã của bạn"}
+                            </span>
                           </div>
                         </Button>
                         {isLocating && (
@@ -440,9 +459,9 @@ export function AppSidebar({
 
               {/* Administrative Areas Section */}
               {danangPolygons && danangPolygons.length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <div className="text-base font-medium flex items-center gap-2">
+                <Card className="border-blue-100 shadow-sm">
+                  <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100/50 pb-2 pt-3">
+                    <div className="text-base font-medium flex items-center gap-2 text-blue-800">
                       <Map className="w-4 h-4" />
                       Danh sách đơn vị hành chính cấp xã
                     </div>
@@ -522,52 +541,56 @@ export function AppSidebar({
                             </div>
                           ))
                       )}
-
                     </div>
                   </CardContent>
                 </Card>
               )}
 
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-base flex items-center gap-2">
+              <Card className="border-amber-100 shadow-sm overflow-hidden">
+                <CardHeader className="pb-3 bg-gradient-to-r from-amber-50 to-amber-100/50 border-b border-amber-100">
+                  <CardTitle className="text-base flex items-center gap-2 text-amber-800">
                     <Megaphone className="w-4 h-4" />
                     Thông báo quan trọng
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-3 p-2 bg-blue-50 rounded-lg">
-                      <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                        <span className="text-lg">🗓️</span>
+                    <div className="relative overflow-hidden flex items-center gap-3 p-3 bg-amber-50 rounded-lg border border-amber-200">
+                      <div className="absolute -right-4 -top-4 w-16 h-16 bg-amber-200/30 rounded-full"></div>
+                      <div className="absolute right-2 -bottom-6 w-12 h-12 bg-amber-200/20 rounded-full"></div>
+                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-amber-300 to-amber-400 rounded-full flex items-center justify-center shadow-inner border border-amber-200">
+                        <span className="text-xl">🗓️</span>
                       </div>
-                      <div>
-                        <p className="text-xs font-medium text-blue-800">Có hiệu lực từ ngày</p>
-                        <p className="text-sm font-bold">{DANANG_CITY_INFO.effectiveDate}</p>
+                      <div className="relative z-10">
+                        <p className="text-xs font-medium text-amber-800">Có hiệu lực từ ngày</p>
+                        <p className="text-lg font-bold text-amber-900">{DANANG_CITY_INFO.effectiveDate}</p>
                       </div>
                     </div>
 
-                    <div className="bg-gray-50 rounded-lg p-3">
-                      <h4 className="text-xs font-medium text-gray-800 mb-2">Thông tin đáng chú ý:</h4>
-                      <div className="space-y-2">
-                        <div className="flex items-start gap-2">
-                          <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-center justify-center text-blue-600">1</Badge>
+                    <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-lg p-4 border border-gray-200">
+                      <h4 className="text-xs font-medium text-gray-800 mb-3 flex items-center">
+                        <Info className="w-3.5 h-3.5 mr-1 text-gray-600" />
+                        Thông tin đáng chú ý:
+                      </h4>
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3 bg-white p-2.5 rounded-md border border-gray-100 hover:border-blue-200 transition-colors">
+                          <Badge variant="outline" className="w-7 h-7 rounded-full p-0 flex items-center justify-center text-blue-600 bg-blue-50 border-blue-200">1</Badge>
                           <div>
-                            <p className="text-xs text-gray-700 font-medium">Mọi thắc mắc xin liên hệ</p>
-                            <p className="text-xs text-gray-600">Đường dây nóng hỗ trợ tổ chức, công dân thực hiện thủ tục hành chính *1022 hoặc 0236 1022 (nhánh 3)</p>
+                            <p className="text-xs text-blue-800 font-medium">Mọi thắc mắc xin liên hệ</p>
+                            <p className="text-xs text-gray-600">Đường dây nóng hỗ trợ tổ chức, công dân thực hiện thủ tục hành chính <span className="font-bold text-blue-700">*1022</span> hoặc <span className="font-bold text-blue-700">0236 1022</span> (nhánh 3)</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-2">
-                          <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-center justify-center text-blue-600">2</Badge>
+                        <div className="flex items-start gap-3 bg-white p-2.5 rounded-md border border-gray-100 hover:border-green-200 transition-colors">
+                          <Badge variant="outline" className="w-7 h-7 rounded-full p-0 flex items-center justify-center text-green-600 bg-green-50 border-green-200">2</Badge>
                           <div>
-                            <p className="text-xs text-gray-700 font-medium">Địa chỉ và mã đơn vị thay đổi</p>
-                            <p className="text-xs text-gray-600">Trụ sở các phường xã có sự điều chỉnh</p>
+                            <p className="text-xs text-green-800 font-medium">Địa chỉ và mã đơn vị thay đổi</p>
+                            <p className="text-xs text-gray-600">Trụ sở các phường xã có sự điều chỉnh theo quy định mới</p>
                           </div>
                         </div>
-                        <div className="flex items-start gap-2">
-                          <Badge variant="outline" className="w-6 h-6 rounded-full p-0 flex items-center justify-center text-blue-600">3</Badge>
+                        <div className="flex items-start gap-3 bg-white p-2.5 rounded-md border border-gray-100 hover:border-amber-200 transition-colors">
+                          <Badge variant="outline" className="w-7 h-7 rounded-full p-0 flex items-center justify-center text-amber-600 bg-amber-50 border-amber-200">3</Badge>
                           <div>
-                            <p className="text-xs text-gray-700 font-medium">Giấy tờ cá nhân vẫn có giá trị</p>
+                            <p className="text-xs text-amber-800 font-medium">Giấy tờ cá nhân vẫn có giá trị</p>
                             <p className="text-xs text-gray-600">Không cần đổi giấy tờ ngay sau sáp nhập</p>
                           </div>
                         </div>

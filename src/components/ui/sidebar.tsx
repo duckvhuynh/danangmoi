@@ -237,25 +237,57 @@ function Sidebar({
 function SidebarTrigger({
   className,
   onClick,
+  label = "Menu",
+  showLabel = true,
+  animatePulse = true,
   ...props
-}: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar()
+}: React.ComponentProps<typeof Button> & {
+  label?: string;
+  showLabel?: boolean;
+  animatePulse?: boolean;
+}) {
+  const { toggleSidebar, state } = useSidebar()
+  const isMobile = useIsMobile()
+  const isCollapsed = state === "collapsed"
 
   return (
     <Button
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
       variant="ghost"
-      size="icon"
-      className={cn("size-7", className)}
+      size={showLabel ? "sm" : "icon"}
+      className={cn(
+        showLabel ? "flex items-center gap-2 px-3" : "size-7",
+        animatePulse && isCollapsed && !isMobile ? "animate-pulse" : "",
+        className
+      )}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
       }}
       {...props}
     >
-      <PanelLeftIcon />
-      <span className="sr-only">Toggle Sidebar</span>
+      {showLabel ? (
+        <>
+          <div className="flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full relative">
+            <PanelLeftIcon className="h-3.5 w-3.5 text-blue-700" />
+            {isCollapsed && !isMobile && (
+              <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-red-500"></span>
+              </span>
+            )}
+          </div>
+          <span className="text-sm font-medium group-hover:text-blue-700 transition-colors">
+            {isMobile ? label : label || "Toggle Sidebar"}
+          </span>
+        </>
+      ) : (
+        <>
+          <PanelLeftIcon className="h-4 w-4" />
+          <span className="sr-only">Toggle Sidebar</span>
+        </>
+      )}
     </Button>
   )
 }

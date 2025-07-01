@@ -199,11 +199,14 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                   cursor-pointer bg-white/95 backdrop-blur-md shadow-lg hover:bg-white border border-gray-200/50
                   transition-all duration-200 ease-in-out hover:shadow-xl
                   ${isMobile 
-                    ? 'w-12 h-12 rounded-xl' 
-                    : 'w-10 h-10 rounded-lg'
+                    ? 'h-12 rounded-xl' 
+                    : 'h-10 rounded-lg'
                   }
-                  hover:scale-105 active:scale-95
-                `} 
+                  hover:scale-105 active:scale-95 group
+                `}
+                label={isMobile ? "Menu" : "Tra cứu"}
+                showLabel={true}
+                animatePulse={true}
               />
             </div>
 
