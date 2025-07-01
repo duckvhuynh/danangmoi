@@ -24,35 +24,35 @@ export function MapControls({
 }: MapControlsProps) {
   const [expanded, setExpanded] = useState(true);
   const isMobile = useIsMobile();
-  
+
   // Collapse controls on mobile by default
   useEffect(() => {
     setExpanded(!isMobile);
   }, [isMobile]);
-  
+
   return (
     <div className="fixed md:absolute top-4 right-4 z-10 flex flex-col items-end">
       {/* Control panel - Enhanced with better visual design */}
-      <div 
+      <div
         className={`
           bg-white backdrop-blur-md rounded-xl shadow-lg transition-all duration-300 ease-in-out
           border border-gray-200 overflow-hidden
-          ${expanded 
-            ? 'max-h-[400px] md:max-h-[400px] opacity-100 shadow-md' 
+          ${expanded
+            ? 'max-h-[400px] md:max-h-[400px] opacity-100 shadow-md'
             : 'max-h-12 opacity-95 shadow-sm'
           }
         `}
       >
         <div className={`
           flex flex-col gap-3 
-          ${expanded 
-            ? 'p-2 md:p-3 min-w-[190px] md:min-w-[250px]' 
+          ${expanded
+            ? 'p-2 md:p-3 min-w-[190px] md:min-w-[250px]'
             : 'p-2 min-w-[130px] md:min-w-[180px]'
           }
         `}>
           {/* Header with toggle button - Enhanced styling */}
-          <div 
-            className="flex items-center justify-between cursor-pointer" 
+          <div
+            className="flex items-center justify-between cursor-pointer"
             onClick={() => setExpanded(!expanded)}
           >
             <div className="flex items-center gap-2">
@@ -65,12 +65,12 @@ export function MapControls({
                 </span>
               </div>
             </div>
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="h-6 w-6 p-0 rounded-full"
             >
-              <ChevronUp 
+              <ChevronUp
                 className={`w-4 h-4 transition-transform duration-300 ${expanded ? 'rotate-180' : 'rotate-0'}`}
               />
             </Button>
@@ -81,14 +81,14 @@ export function MapControls({
             <div className="space-y-3 md:space-y-4">
               {/* Location Button - Enhanced with consistent styling from AppSidebar */}
               <div className="relative">
-                
+
                 {/* Location button with gradient matching AppSidebar */}
                 <Button
                   onClick={onGetUserLocation}
                   className={`
                     w-full transition-all duration-300 shadow-md py-2 md:py-3 
-                    ${isLocating 
-                      ? 'bg-gradient-to-r from-green-500 to-emerald-500 animate-pulse' 
+                    ${isLocating
+                      ? 'bg-gradient-to-r from-green-500 to-emerald-500 animate-pulse'
                       : 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700'
                     } hover:shadow-lg
                   `}
@@ -102,14 +102,14 @@ export function MapControls({
                       <LocateIcon className="w-4 h-4 mr-1 md:mr-2" />
                     )}
                     <span className="font-medium text-xs md:text-sm">
-                      {isLocating 
-                        ? (isMobile ? "Đang xác định..." : "Đang xác định...") 
+                      {isLocating
+                        ? (isMobile ? "Đang xác định..." : "Đang xác định...")
                         : (isMobile ? "Vị trí hiện tại" : "Xác định vị trí")
                       }
                     </span>
                   </div>
                 </Button>
-                
+
                 {/* Permission notification */}
                 {isLocating && (
                   <div className="absolute -bottom-6 left-0 right-0 text-xs text-center bg-yellow-100 text-yellow-800 py-1 px-2 rounded-md font-medium">
@@ -117,7 +117,7 @@ export function MapControls({
                   </div>
                 )}
               </div>
-              
+
               {/* Divider */}
               <div className="h-px bg-gray-200/70 w-full"></div>
 
@@ -125,8 +125,8 @@ export function MapControls({
               <div className="space-y-2 md:space-y-3">
                 <div className="p-1.5 md:p-2 bg-indigo-50 rounded-lg border border-indigo-100 transition-all hover:bg-indigo-100/70">
                   <div className="flex items-center justify-between group">
-                    <Label 
-                      htmlFor="show-polygons" 
+                    <Label
+                      htmlFor="show-polygons"
                       className="flex-1 flex items-center gap-2 cursor-pointer"
                     >
                       <div className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center bg-indigo-100 rounded-full">
@@ -135,7 +135,7 @@ export function MapControls({
                       <div>
                         <p className={`text-xs md:text-sm font-medium text-indigo-900 ${isMobile ? "mr-2" : ""}`}>Ranh giới hành chính</p>
                         {(!isMobile || (isMobile && expanded)) && (
-                          <p className="text-xs text-indigo-700 hidden md:block">Phường, xã, đặc khu</p>
+                          <p className="text-xs text-indigo-700 md:text-xs text-[10px]">Phường, xã, đặc khu</p>
                         )}
                       </div>
                     </Label>
@@ -150,8 +150,8 @@ export function MapControls({
 
                 <div className="p-1.5 md:p-2 bg-emerald-50 rounded-lg border border-emerald-100 transition-all hover:bg-emerald-100/70">
                   <div className="flex items-center justify-between group">
-                    <Label 
-                      htmlFor="show-offices" 
+                    <Label
+                      htmlFor="show-offices"
                       className="flex-1 flex items-center gap-2 cursor-pointer mr-2"
                     >
                       <div className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center bg-emerald-100 rounded-full">
@@ -160,7 +160,7 @@ export function MapControls({
                       <div>
                         <p className="text-xs md:text-sm font-medium text-emerald-900">Vị trí trụ sở</p>
                         {(!isMobile || (isMobile && expanded)) && (
-                          <p className="text-xs text-emerald-700 hidden md:block">Trung tâm PV hành chính công</p>
+                          <p className="text-xs text-emerald-700 md:text-xs text-[10px]">Trung tâm PV hành chính công</p>
                         )}
                       </div>
                     </Label>
