@@ -450,7 +450,7 @@ export function AppSidebar({
               {/* Administrative Areas Section */}
               {danangPolygons && danangPolygons.length > 0 && (
                 <Card className="border-blue-100 shadow-sm">
-                  <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100/50 pb-2 pt-3">
+                  <CardHeader className="pb-2 pt-3">
                     <div className="text-base font-medium flex items-center gap-2 text-blue-800">
                       <Map className="w-4 h-4" />
                       Danh sách đơn vị hành chính cấp xã
@@ -537,7 +537,7 @@ export function AppSidebar({
               )}
 
               <Card className="border-amber-100 shadow-sm overflow-hidden">
-                <CardHeader className="pb-3 bg-gradient-to-r from-amber-50 to-amber-100/50 border-b border-amber-100">
+                <CardHeader className="pb-3 border-b border-amber-100">
                   <CardTitle className="text-base flex items-center gap-2 text-amber-800">
                     <Megaphone className="w-4 h-4" />
                     Thông báo quan trọng
