@@ -1023,7 +1023,7 @@
     {
       "old_commune_ward": "Nam Giang",
       "new_commune_ward": "Bến Giằng",
-      "merged_communes_wards": "Xã Cà Dy, Xã Tà Bhing, Xã Tà Pơơ",
+      "merged_communes_wards": "Xã Cà Dy, Xã Tà Bhinh, Xã Tà Pơơ",
       "area_km2": 8.277,
       "population": 535960.0,
       "is_commune": true,
@@ -1037,7 +1037,7 @@
     {
       "old_commune_ward": "Nam Giang",
       "new_commune_ward": "Nam Giang",
-      "merged_communes_wards": "Xã Zuôih, Xã Chà Vàl",
+      "merged_communes_wards": "Xã Zuôich, Xã Chà Vàl",
       "area_km2": 4.979,
       "population": 262940.0,
       "is_commune": true,
@@ -1079,12 +1079,12 @@
     {
       "old_commune_ward": "Nam Giang",
       "new_commune_ward": "La Êê",
-      "merged_communes_wards": "Xã Chơ Chun, Xã La Êê",
+      "merged_communes_wards": "Xã Chơ Chun, Xã Laêê",
       "area_km2": 2.371,
       "population": 243120.0,
       "is_commune": true,
       "location": {
-        "address": "Thôn Pà Ooi, xã La Êê",
+        "address": "Thôn Pà Ooi, xã Laêê",
         "latitude": 15.673991,
         "longitude": 107.346596,
         "phone": "0965134135"
@@ -1121,7 +1121,7 @@
     {
       "old_commune_ward": "Đông Giang",
       "new_commune_ward": "Đông Giang",
-      "merged_communes_wards": "Thị trấn Prao, Xã Tà Lu, Xã A Rooi, Xã Zà Hung",
+      "merged_communes_wards": "Thị trấn P Rao, Xã Tà Lu, Xã A Rooi, Xã Za Hung",
       "area_km2": 8.87,
       "population": 169430.0,
       "is_commune": true,
@@ -1135,7 +1135,7 @@
     {
       "old_commune_ward": "Đông Giang",
       "new_commune_ward": "Bến Hiên",
-      "merged_communes_wards": "Xã Kà Dăng, Xã Mà Cooih",
+      "merged_communes_wards": "Xã Ka Dăng, Xã Mà Cooi",
       "area_km2": 4.588,
       "population": 255850.0,
       "is_commune": true,
@@ -1149,7 +1149,7 @@
     {
       "old_commune_ward": "Tây Giang",
       "new_commune_ward": "Avương",
-      "merged_communes_wards": "Xã Bhalêê, Xã Avương",
+      "merged_communes_wards": "Xã Bha Lê, Xã A Vương",
       "area_km2": 5.463,
       "population": 225300.0,
       "is_commune": true,
@@ -1163,7 +1163,7 @@
     {
       "old_commune_ward": "Tây Giang",
       "new_commune_ward": "Tây Giang",
-      "merged_communes_wards": "Xã Atiêng, Xã Dang, Xã Anông, Xã Lăng",
+      "merged_communes_wards": "Xã A Tiêng, Xã Dang, Xã A Nông, Xã Lăng",
       "area_km2": 8.629,
       "population": 400450.0,
       "is_commune": true,
@@ -1177,7 +1177,7 @@
     {
       "old_commune_ward": "Tây Giang",
       "new_commune_ward": "Hùng Sơn",
-      "merged_communes_wards": "Xã Ch’ơm, Xã Gari, Xã Tr’hy, Xã A Xan",
+      "merged_communes_wards": "Xã Ch’ơm, Xã Ga Ri, Xã Tr’Hy, Xã A Xan",
       "area_km2": 7.958,
       "population": 287950.0,
       "is_commune": true,
