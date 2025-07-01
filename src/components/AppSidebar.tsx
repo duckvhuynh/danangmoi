@@ -151,11 +151,11 @@ export function AppSidebar({
         <Tabs defaultValue="infor" className="h-full flex flex-col">
           <div className="px-4 py-2 border-b border-gray-100">
             <TabsList className="grid w-full grid-cols-2 shrink-0 bg-gray-100/70 p-1 rounded-xl">
-              <TabsTrigger value="infor" className="text-xs p-2 min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg">
+              <TabsTrigger value="infor" className="text-xs min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg">
                 <Info className="w-4 h-4 mr-1.5 flex-shrink-0" />
                 <span className="truncate font-medium">Thông tin</span>
               </TabsTrigger>
-              <TabsTrigger value="search" className="text-xs p-2 min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg relative">
+              <TabsTrigger value="search" className="text-xs min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg relative">
                 <Search className="w-4 h-4 mr-1.5 flex-shrink-0" />
                 <span className="truncate font-medium">Tra cứu địa chỉ</span>
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold animate-pulse">!</span>
