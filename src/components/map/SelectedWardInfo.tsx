@@ -132,7 +132,7 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                 <div className="space-y-2 pt-2">
                     <div className="flex items-center gap-2 text-sm font-medium">
                         <MapPin className="h-4 w-4" />
-                        <span>Trung tâm Phục vụ hành chính công</span>
+                        <span>{`${selectedWard.ward.toLowerCase().includes("hoàng sa") ? "Trụ sở UBND" : "Trung tâm Phục vụ hành chính công"}`}</span>
                     </div>
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center justify-between gap-2 bg-gray-50 p-3 rounded-lg">
@@ -147,7 +147,7 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                                 <span className="sr-only">Sao chép địa chỉ</span>
                             </Button>
                         </div>
-                        
+
                         {/* Phone number with copy button if available */}
                         {wardInfo.location.phone && (
                             <div className="flex items-center justify-between gap-2 bg-gray-50 p-3 rounded-lg">
@@ -155,10 +155,10 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                                     <Phone className="h-4 w-4" />
                                     <p className="text-sm text-gray-700">{wardInfo.location.phone}</p>
                                 </div>
-                                <Button 
-                                    variant="ghost" 
-                                    size="sm" 
-                                    className="h-8 w-8 p-0" 
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-8 w-8 p-0"
                                     onClick={() => {
                                         navigator.clipboard.writeText(wardInfo.location.phone || '');
                                         toast.success("Đã sao chép số điện thoại", {
@@ -171,7 +171,7 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                                 </Button>
                             </div>
                         )}
-                        
+
                         {/* Action buttons container */}
                         <div className="flex gap-2">
                             {/* Directions button if coordinates available */}
@@ -210,7 +210,7 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                                     <span>Gọi điện</span>
                                 </Button>
                             )}
-                            
+
                         </div>
                     </div>
                 </div>
