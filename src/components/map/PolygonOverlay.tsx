@@ -34,6 +34,8 @@ export function PolygonOverlay(
   const polygonRefs = useRef<google.maps.Polygon[]>([]);
   const [hoveredWard, setHoveredWard] = useState<PolygonData | null>(null);
   const [overlayPosition, setOverlayPosition] = useState<google.maps.LatLng | null>(null);
+  // Add a ref to track if we've already fit bounds for the current selected polygon
+  const fittedPolygonRef = useRef<string | null>(null);
 
   // Function to calculate bounds for a polygon with error handling
   const calculatePolygonBounds = useCallback((polygonData: PolygonData): google.maps.LatLngBounds | null => {
@@ -73,31 +75,39 @@ export function PolygonOverlay(
     }
   }, []);
 
-  // Effect to fit map bounds to selected polygon
+  // Effect to fit map bounds to selected polygon only when it changes
   useEffect(() => {
     if (map && selectedPolygon && visible) {
-      // Add a small delay to ensure polygons are rendered
-      const timeoutId = setTimeout(() => {
-        const bounds = calculatePolygonBounds(selectedPolygon);
-        
-        if (bounds) {
-          // Add padding around the polygon for better visualization
-          const paddingOptions = {
-            top: 80,
-            bottom: 80,
-            left: 80,
-            right: 80
-          };
+      // Only fit bounds if the selected polygon has changed
+      if (fittedPolygonRef.current !== selectedPolygon.ward) {
+        // Add a small delay to ensure polygons are rendered
+        const timeoutId = setTimeout(() => {
+          const bounds = calculatePolygonBounds(selectedPolygon);
           
-          try {
-            map.fitBounds(bounds, paddingOptions);
-          } catch (error) {
-            console.error('Error fitting map bounds:', error);
+          if (bounds) {
+            // Add padding around the polygon for better visualization
+            const paddingOptions = {
+              top: 80,
+              bottom: 80,
+              left: 80,
+              right: 80
+            };
+            
+            try {
+              map.fitBounds(bounds, paddingOptions);
+              // Mark this polygon as fitted
+              fittedPolygonRef.current = selectedPolygon.ward;
+            } catch (error) {
+              console.error('Error fitting map bounds:', error);
+            }
           }
-        }
-      }, 100); // Small delay to ensure polygons are rendered
+        }, 100); // Small delay to ensure polygons are rendered
 
-      return () => clearTimeout(timeoutId);
+        return () => clearTimeout(timeoutId);
+      }
+    } else if (!selectedPolygon) {
+      // Reset the fitted polygon ref when there's no selected polygon
+      fittedPolygonRef.current = null;
     }
   }, [map, selectedPolygon, visible, calculatePolygonBounds]);
 
