@@ -151,7 +151,7 @@ export function MapControls({
                     </div>
                     <div>
                       <p className="text-sm font-medium text-emerald-900">Vị trí trụ sở</p>
-                      <p className="text-xs text-emerald-700">Điểm phục vụ hành chính công</p>
+                      <p className="text-xs text-emerald-700">Trung tâm phục vụ hành chính công</p>
                     </div>
                   </Label>
                   <Switch
