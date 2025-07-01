@@ -204,7 +204,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                   }
                   hover:scale-105 active:scale-95 group
                 `}
-                label={isMobile ? "Menu" : "Tra cứu"}
+                label="Tra cứu"
                 showLabel={true}
                 animatePulse={true}
               />

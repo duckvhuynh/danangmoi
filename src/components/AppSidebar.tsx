@@ -155,7 +155,7 @@ export function AppSidebar({
               <TabsTrigger value="search" className="text-xs py-2.5 px-2 min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg relative">
                 <Search className="w-4 h-4 mr-1.5 flex-shrink-0" />
                 <span className="truncate font-medium">Tra cứu</span>
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold animate-pulse">!</span>
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold animate-pulse">!</span>
               </TabsTrigger>
             </TabsList>
           </div>
@@ -407,7 +407,7 @@ export function AppSidebar({
                         <Button
                           onClick={onGetUserLocation}
                           className={`
-                            w-full transition-all duration-300 shadow-md py-4
+                            w-full transition-all duration-300 shadow-md py-4 mb-2
                             relative overflow-hidden
                             ${isLocating
                               ? 'bg-gradient-to-r from-green-500 to-emerald-500'
@@ -417,29 +417,19 @@ export function AppSidebar({
                           disabled={isLocating}
                           title="Cần cấp quyền truy cập vị trí trên trình duyệt"
                         >
-                          {/* Animated pulse background for locating state */}
-                          {isLocating && (
-                            <div className="absolute inset-0 bg-white/10 animate-pulse"></div>
-                          )}
-
-                          {/* Location icon in a circle */}
-                          <div className="flex flex-col items-center justify-center relative z-10">
-                            <div className={`
-                              w-12 h-12 rounded-full flex items-center justify-center mb-2
-                              ${isLocating ? 'bg-white/30' : 'bg-white/20'}
-                            `}>
-                              {isLocating ? (
-                                <Loader2 className="w-6 h-6 animate-spin text-white" />
-                              ) : (
-                                <LocateIcon className="w-6 h-6 text-white" />
-                              )}
+                          {isLocating && <div className="absolute inset-0 bg-white/10 animate-pulse" />}
+                          
+                          <div className="flex items-center justify-center relative z-10">
+                            {isLocating ? (
+                              <Loader2 className="w-5 h-5 mr-2 animate-spin text-white" />
+                            ) : (
+                              <LocateIcon className="w-5 h-5 mr-2 text-white" />
+                            )}
+                            <div className="flex flex-col">
+                              <span className="font-medium text-sm">
+                                {isLocating ? "Đang xác định vị trí..." : "Xác định vị trí hiện tại"}
+                              </span>
                             </div>
-                            <span className="font-medium text-sm">
-                              {isLocating ? "Đang xác định vị trí..." : "Xác định vị trí hiện tại"}
-                            </span>
-                            <span className="text-xs text-white/80 mt-1">
-                              {isLocating ? "Vui lòng chờ giây lát..." : "Hiển thị thông tin phường xã của bạn"}
-                            </span>
                           </div>
                         </Button>
                         {isLocating && (

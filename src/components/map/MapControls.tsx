@@ -1,7 +1,7 @@
 import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
 import { Label } from "../ui/label";
-import { Layers, Building2, Loader2, LocateIcon, ChevronUp, InfoIcon } from "lucide-react";
+import { Layers, Building2, Loader2, LocateIcon, ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useIsMobile } from "../../hooks/use-mobile";
 
@@ -61,7 +61,7 @@ export function MapControls({
               </div>
               <div>
                 <span className="text-sm font-medium">
-                  {isMobile && !expanded ? "Tùy chỉnh" : "Tùy chỉnh bản đồ"}
+                  Tùy chỉnh
                 </span>
               </div>
             </div>
@@ -81,15 +81,6 @@ export function MapControls({
             <div className="space-y-3 md:space-y-4">
               {/* Location Button - Enhanced with consistent styling from AppSidebar */}
               <div className="relative">
-                {/* Info banner - more compact on mobile */}
-                <div className="bg-green-50 p-1.5 md:p-2 rounded-md border border-green-100 mb-2">
-                  <div className="flex items-center">
-                    <InfoIcon className="w-3 h-3 md:w-3.5 md:h-3.5 text-green-700 mr-1.5 flex-shrink-0" />
-                    <p className="text-xs text-green-700">
-                      {isMobile ? "Xác định vị trí hiện tại" : "Xác định vị trí để xem thông tin phường, xã"}
-                    </p>
-                  </div>
-                </div>
                 
                 {/* Location button with gradient matching AppSidebar */}
                 <Button
@@ -142,9 +133,9 @@ export function MapControls({
                         <Layers className="w-4 h-4 text-indigo-700" />
                       </div>
                       <div>
-                        <p className="text-xs md:text-sm font-medium text-indigo-900">Ranh giới hành chính</p>
+                        <p className={`text-xs md:text-sm font-medium text-indigo-900 ${isMobile ? "mr-2" : ""}`}>Ranh giới hành chính</p>
                         {(!isMobile || (isMobile && expanded)) && (
-                          <p className="text-xs text-indigo-700 hidden md:block">Hiển thị ranh giới các phường, xã</p>
+                          <p className="text-xs text-indigo-700 hidden md:block">Phường, xã, đặc khu</p>
                         )}
                       </div>
                     </Label>
@@ -169,7 +160,7 @@ export function MapControls({
                       <div>
                         <p className="text-xs md:text-sm font-medium text-emerald-900">Vị trí trụ sở</p>
                         {(!isMobile || (isMobile && expanded)) && (
-                          <p className="text-xs text-emerald-700 hidden md:block">Trung tâm phục vụ hành chính công</p>
+                          <p className="text-xs text-emerald-700 hidden md:block">Trung tâm PV hành chính công</p>
                         )}
                       </div>
                     </Label>
