@@ -21,7 +21,6 @@ import { danangPolygons, isPointInPolygon as isPointInPolygonUtil } from "../dat
 import type { PolygonData } from "../data/polygon-utils";
 import { offices } from "../data/office-utils";
 import { getWholeDanangPolygon, getWholeDanangBounds } from "../data/whole-danang-utils";
-import { useIsMobile } from "../hooks/use-mobile";
 
 // Da Nang coordinates
 const DA_NANG_CENTER = { lat: 15.733009, lng: 108.060244 };
@@ -33,8 +32,6 @@ interface MainInterfaceProps {
 }
 
 export function MainInterface({ apiKey }: MainInterfaceProps) {
-  // Mobile detection
-  const isMobile = useIsMobile();
 
   // Keep selectedWard state for map interactions (polygon highlighting, click handling)
   // even though it's no longer passed to AppSidebar after removing the "Thông tin" tab
