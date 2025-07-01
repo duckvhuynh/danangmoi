@@ -121,7 +121,7 @@ export function MapControls({
                 <div className="flex items-center justify-between group">
                   <Label 
                     htmlFor="show-polygons" 
-                    className="flex-1 flex items-center gap-2 cursor-pointer mr-2"
+                    className="flex-1 flex items-center gap-2 cursor-pointer"
                   >
                     <div className="w-8 h-8 flex items-center justify-center bg-indigo-100 rounded-full">
                       <Layers className="w-4 h-4 text-indigo-700" />
@@ -144,7 +144,7 @@ export function MapControls({
                 <div className="flex items-center justify-between group">
                   <Label 
                     htmlFor="show-offices" 
-                    className="flex-1 flex items-center gap-2 cursor-pointer"
+                    className="flex-1 flex items-center gap-2 cursor-pointer mr-2"
                   >
                     <div className="w-8 h-8 flex items-center justify-center bg-emerald-100 rounded-full">
                       <Building2 className="w-4 h-4 text-emerald-700" />
