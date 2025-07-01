@@ -205,7 +205,7 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
             </div>
 
             {/* Main Map */}
-            <APIProvider apiKey={apiKey}>
+            <APIProvider apiKey={apiKey} language="vi" region="VN">
               <ZoomAwareMap
                 id="danang-map"
                 defaultCenter={DA_NANG_CENTER}
