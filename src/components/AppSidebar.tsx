@@ -159,7 +159,7 @@ export function AppSidebar({
               <SidebarGroup>
                 <SidebarGroupLabel>
                   <Search className="w-4 h-4 mr-2" />
-                  Tra cứu địa chỉ hoặc quận/huyện trước 01/07/2025
+                  Tra cứu địa chỉ hoặc phường, xã trước 01/07/2025
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <Card>
@@ -243,14 +243,13 @@ export function AppSidebar({
                       {/* Detailed Address Input - Always shown, enabled for selected ward or for special districts like Hoàng Sa */}
                       <div>
                         <Label htmlFor="detailed-address" className="text-sm mb-1 block">
-                          Địa chỉ chi tiết
+                          Địa chỉ chi tiết (nếu có)
                         </Label>
                         <Input
                           id="detailed-address"
                           placeholder={selectedDistrict === '498' ? '' : 'VD: 22 Phan Văn Định hoặc Tầng 4 căn hộ 719'}
                           value={detailedAddress}
                           onChange={(e) => setDetailedAddress(e.target.value)}
-                          disabled={!selectedOldWard && (districtHasWards || !selectedDistrict)}
                         />
                       </div>
 
@@ -264,8 +263,6 @@ export function AppSidebar({
                                 <span className="font-medium">{detailedAddress}</span>
                                 {(selectedOldWard || selectedDistrict === '498') && <span>, </span>}
                               </>
-                            ) : (selectedOldWard || (selectedDistrict === '498' && !districtHasWards)) ? (
-                              <span className="text-gray-400 italic">(Chưa nhập địa chỉ chi tiết), </span>
                             ) : null}
                             {selectedOldWard && (
                               <>
@@ -290,7 +287,7 @@ export function AppSidebar({
                       <Button
                         onClick={handleAddressConversion}
                         className="w-full mt-1"
-                        disabled={isConverting || !detailedAddress.trim() || (districtHasWards && !selectedOldWard)}
+                        disabled={isConverting || (districtHasWards && !selectedOldWard)}
                       >
                         {isConverting ? (
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />

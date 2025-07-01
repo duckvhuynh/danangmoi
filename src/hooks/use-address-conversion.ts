@@ -57,7 +57,8 @@ export function useAddressConversion({ onConversionComplete }: UseAddressConvers
     // Special case for Hoàng Sa district which has no wards
     if (district && district.code === '498') {
       // In this case, we treat detailedAddress as the full location within Hoàng Sa
-      const hoangSaAddress = `${detailedAddress}, Huyện Hoàng Sa, Thành phố Đà Nẵng`;
+      const addressDetail = detailedAddress.trim() ? `${detailedAddress}, ` : '';
+      const hoangSaAddress = `${addressDetail}Huyện Hoàng Sa, Thành phố Đà Nẵng`;
       setConvertedAddress(hoangSaAddress);
       if (onConversionComplete) {
         onConversionComplete(hoangSaAddress);

@@ -196,7 +196,8 @@ export const convertAddress = (
     }
     
     // Format the new address
-    const newAddress = `${detailedAddress}, ${adminUnitType} ${newWardInfo.new_commune_ward}, Thành phố Đà Nẵng`;
+    const addressDetail = detailedAddress.trim() ? `${detailedAddress}, ` : '';
+    const newAddress = `${addressDetail}${adminUnitType} ${newWardInfo.new_commune_ward}, Thành phố Đà Nẵng`;
     
     return { 
       success: true, 
