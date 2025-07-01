@@ -65,7 +65,7 @@ export const DANANG_CITY_INFO = {
   
   // Population information
   population: cityInfo.population,
-  populationFormatted: formatPopulation(cityInfo.population),
+  populationFormatted: cityInfo.population,
   populationDensity: cityInfo.population_density,
   
   // Merger information

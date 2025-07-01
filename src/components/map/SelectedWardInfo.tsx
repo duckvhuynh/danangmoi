@@ -10,7 +10,6 @@ import {
     DrawerContent,
     DrawerFooter,
 } from "@/components/ui/drawer";
-import { formatPopulation } from '@/data/danang-info';
 import type { PolygonData } from "@/data/polygon-utils";
 
 // Import the administrative data
@@ -113,7 +112,7 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                             <Users className="h-3.5 w-3.5" />
                             <span>Dân số</span>
                         </div>
-                        <div className="font-semibold text-blue-900">{formatPopulation(wardInfo.population)}</div>
+                        <div className="font-semibold text-blue-900">{wardInfo.population}</div>
                     </div>
                 ) : (<></>)}
 
