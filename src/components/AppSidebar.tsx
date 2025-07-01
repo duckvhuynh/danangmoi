@@ -394,7 +394,7 @@ export function AppSidebar({
                     <div className="space-y-1">
                       <div className="relative">
                         <Input
-                          placeholder="Tìm phường, xã..."
+                          placeholder="Tìm phường, xã, đặc khu"
                           value={wardFilter}
                           onChange={(e) => setWardFilter(e.target.value)}
                           className="pl-8"
