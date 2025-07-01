@@ -273,8 +273,8 @@ function SidebarTrigger({
             <PanelLeftIcon className="h-3.5 w-3.5 text-blue-700" />
             {isCollapsed && !isMobile && (
               <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex h-3 w-3 rounded-full bg-red-500"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-blue-500"></span>
               </span>
             )}
           </div>
