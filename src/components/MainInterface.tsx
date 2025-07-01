@@ -195,7 +195,9 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                     visible={showPolygons}
                     selectedPolygon={selectedWard}
                     onPolygonClick={handlePolygonClick}
+                    onUnselectWard={clearSelectedWard}
                     interactive={false} // Make the whole city polygon non-interactive
+                    zoomThreshold={ZOOM_THRESHOLD}
                   />
                 )}
 
@@ -206,6 +208,8 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
                     visible={showPolygons}
                     selectedPolygon={selectedWard}
                     onPolygonClick={handlePolygonClick}
+                    onUnselectWard={clearSelectedWard}
+                    zoomThreshold={ZOOM_THRESHOLD}
                   />
                 )}
 

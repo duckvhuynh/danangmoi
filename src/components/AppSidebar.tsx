@@ -386,7 +386,7 @@ export function AppSidebar({
                   <CardHeader>
                     <div className="text-base font-medium flex items-center gap-2">
                       <Map className="w-4 h-4" />
-                      Danh sách đơn vị hành chính
+                      Danh sách đơn vị hành chính cấp xã
                     </div>
                   </CardHeader>
                   <CardContent className="p-3 pt-2 space-y-3">

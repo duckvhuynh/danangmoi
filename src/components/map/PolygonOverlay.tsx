@@ -17,7 +17,9 @@ interface PolygonOverlayProps {
   visible: boolean;
   selectedPolygon?: PolygonData | null;
   onPolygonClick?: (polygon: PolygonData) => void;
+  onUnselectWard?: () => void; // New prop to unselect the current ward
   interactive?: boolean; // New prop to control if the polygon is clickable and hoverable
+  zoomThreshold?: number; // Threshold below which the ward is unselected
 }
 
 // Selected polygon colors (gold/yellow)
@@ -27,7 +29,7 @@ const SELECTED_COLORS = {
 };
 
 export function PolygonOverlay(
-  { polygons, visible, selectedPolygon, onPolygonClick, interactive = true }: PolygonOverlayProps
+  { polygons, visible, selectedPolygon, onPolygonClick, onUnselectWard, interactive = true, zoomThreshold = 9.5 }: PolygonOverlayProps
 ) {
   const map = useMap();
   const isMobile = useIsMobile();
@@ -36,6 +38,8 @@ export function PolygonOverlay(
   const [overlayPosition, setOverlayPosition] = useState<google.maps.LatLng | null>(null);
   // Add a ref to track if we've already fit bounds for the current selected polygon
   const fittedPolygonRef = useRef<string | null>(null);
+  // Add a ref to track if we're currently handling a manual zoom operation
+  const userZoomingRef = useRef<boolean>(false);
 
   // Function to calculate bounds for a polygon with error handling
   const calculatePolygonBounds = useCallback((polygonData: PolygonData): google.maps.LatLngBounds | null => {
@@ -75,11 +79,39 @@ export function PolygonOverlay(
     }
   }, []);
 
-  // Effect to fit map bounds to selected polygon only when it changes
+  // Setup zoom listeners to detect when user is manually zooming
+  useEffect(() => {
+    if (!map) return;
+
+    const zoomStartListener = map.addListener('zoom_changed', () => {
+      // Mark that user has manually zoomed
+      userZoomingRef.current = true;
+      
+      // Check if zoom level is below threshold and there is a selected polygon
+      const currentZoom = map.getZoom();
+      if (currentZoom !== undefined && currentZoom < zoomThreshold && selectedPolygon && onUnselectWard) {
+        // Unselect ward when zoomed out enough
+        onUnselectWard();
+      }
+    });
+    
+    return () => {
+      // Clean up listener
+      if (zoomStartListener) {
+        google.maps.event.removeListener(zoomStartListener);
+      }
+    };
+  }, [map, zoomThreshold, selectedPolygon, onUnselectWard]);
+
+  // Effect to fit map bounds to selected polygon only when it INITIALLY changes
   useEffect(() => {
     if (map && selectedPolygon && visible) {
-      // Only fit bounds if the selected polygon has changed
-      if (fittedPolygonRef.current !== selectedPolygon.ward) {
+      // Only fit bounds if:
+      // 1. The selected polygon has changed
+      // 2. We haven't fitted this polygon already
+      // 3. User isn't currently manually zooming
+      const currentSelectedWard = selectedPolygon.ward;
+      if (fittedPolygonRef.current !== currentSelectedWard && !userZoomingRef.current) {
         // Add a small delay to ensure polygons are rendered
         const timeoutId = setTimeout(() => {
           const bounds = calculatePolygonBounds(selectedPolygon);
@@ -95,8 +127,8 @@ export function PolygonOverlay(
             
             try {
               map.fitBounds(bounds, paddingOptions);
-              // Mark this polygon as fitted
-              fittedPolygonRef.current = selectedPolygon.ward;
+              // Mark this polygon as fitted so we don't zoom to it again
+              fittedPolygonRef.current = currentSelectedWard;
             } catch (error) {
               console.error('Error fitting map bounds:', error);
             }
@@ -108,6 +140,8 @@ export function PolygonOverlay(
     } else if (!selectedPolygon) {
       // Reset the fitted polygon ref when there's no selected polygon
       fittedPolygonRef.current = null;
+      // Also reset the user zooming flag
+      userZoomingRef.current = false;
     }
   }, [map, selectedPolygon, visible, calculatePolygonBounds]);
 
