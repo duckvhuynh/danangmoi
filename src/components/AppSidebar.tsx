@@ -416,55 +416,54 @@ export function AppSidebar({
                           <span>
                             Tìm thấy: {filteredPolygons?.length || 0}/{danangPolygons?.length || 0}
                           </span>
-                          <span className="italic">
-                            {normalizeVietnameseText(wardFilter) !== wardFilter.toLowerCase().trim()
-                              ? "Đang tìm không dấu"
-                              : ""}
-                          </span>
                         </div>
                       )}
                     </div>
 
                     {/* Ward list */}
                     <div className="max-h-[360px] overflow-y-auto space-y-1 pr-1">
-                      {filteredPolygons
-                        ?.slice() // make a copy to avoid mutating original array
-                        .sort((a, b) => {
-                          // First sort by type: Phường first, Xã second, others last
-                          const aIsWard = a.ward.startsWith("Phường");
-                          const bIsWard = b.ward.startsWith("Phường");
-                          const aIsCommune = a.ward.startsWith("Xã");
-                          const bIsCommune = b.ward.startsWith("Xã");
+                      {filteredPolygons.length === 0 ? (
+                        <div className="text-xs text-muted-foreground px-2 py-2 italic text-center">
+                          Không tìm thấy đơn vị hành chính cấp xã phù hợp.
+                        </div>
+                      ) : (
+                        filteredPolygons
+                          .slice()
+                          .sort((a, b) => {
+                            const aIsWard = a.ward.startsWith("Phường");
+                            const bIsWard = b.ward.startsWith("Phường");
+                            const aIsCommune = a.ward.startsWith("Xã");
+                            const bIsCommune = b.ward.startsWith("Xã");
 
-                          if (aIsWard && !bIsWard) return -1; // a is Phường, b is not
-                          if (!aIsWard && bIsWard) return 1; // b is Phường, a is not
-                          if (aIsCommune && !bIsCommune && !bIsWard) return -1; // a is Xã, b is not (and b is not Phường)
-                          if (!aIsCommune && bIsCommune && !aIsWard) return 1; // b is Xã, a is not (and a is not Phường)
+                            if (aIsWard && !bIsWard) return -1;
+                            if (!aIsWard && bIsWard) return 1;
+                            if (aIsCommune && !bIsCommune && !bIsWard) return -1;
+                            if (!aIsCommune && bIsCommune && !aIsWard) return 1;
 
-                          // If they're the same type, sort alphabetically (Vietnamese)
-                          return a.ward.localeCompare(b.ward, "vi");
-                        })
-                        .map((polygon) => (
-                          <div
-                            key={polygon.ward}
-                            className={`px-3 py-2 rounded-sm flex items-center cursor-pointer transition-colors ${selectedWard?.ward === polygon.ward
-                              ? "bg-yellow-100 font-medium"
-                              : "hover:bg-gray-50"
-                              }`}
-                            onClick={() => onWardSelect && onWardSelect(polygon)}
-                          >
+                            return a.ward.localeCompare(b.ward, "vi");
+                          })
+                          .map((polygon) => (
                             <div
-                              className="w-3 h-3 rounded-full mr-2 flex-shrink-0"
-                              style={{
-                                backgroundColor:
-                                  selectedWard?.ward === polygon.ward
-                                    ? SELECTED_COLORS.fill
-                                    : getWardColor(polygon.ward).fill,
-                              }}
-                            ></div>
-                            <span className="text-sm">{polygon.ward}</span>
-                          </div>
-                        ))}
+                              key={polygon.ward}
+                              className={`px-3 py-2 rounded-sm flex items-center cursor-pointer transition-colors ${selectedWard?.ward === polygon.ward
+                                ? "bg-yellow-100 font-medium"
+                                : "hover:bg-gray-50"
+                                }`}
+                              onClick={() => onWardSelect && onWardSelect(polygon)}
+                            >
+                              <div
+                                className="w-3 h-3 rounded-full mr-2 flex-shrink-0"
+                                style={{
+                                  backgroundColor:
+                                    selectedWard?.ward === polygon.ward
+                                      ? SELECTED_COLORS.fill
+                                      : getWardColor(polygon.ward).fill,
+                                }}
+                              ></div>
+                              <span className="text-sm">{polygon.ward}</span>
+                            </div>
+                          ))
+                      )}
 
                     </div>
                   </CardContent>
