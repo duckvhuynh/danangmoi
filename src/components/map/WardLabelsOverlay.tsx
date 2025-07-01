@@ -319,7 +319,7 @@ export default function WardLabelsOverlay({
           // Add ward name
           const nameElement = document.createElement('div');
           nameElement.className = 'ward-name';
-          nameElement.textContent = this.wardName;
+          nameElement.textContent = this.wardName.replace(/Phường /, 'P. ').replace(/Xã /, 'X. ');
           container.appendChild(nameElement);
           
           // Add district name if different from "Đà Nẵng"
@@ -391,7 +391,7 @@ export default function WardLabelsOverlay({
       });
       overlaysRef.current = [];
     };
-  }, [map, polygons, visible, zoomLevel, zoomThreshold, createCentroids, getFilteredPolygons]);
+  }, [map, polygons, visible, zoomLevel, zoomThreshold, createCentroids, getFilteredPolygons, isMobile]);
 
   // Add an early warning if somehow rendered below the proper threshold
   useEffect(() => {
