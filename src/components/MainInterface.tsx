@@ -16,6 +16,7 @@ import { SelectedWardInfo } from "./map/SelectedWardInfo";
 import { MapHeader, MapFooter } from "./map/MapInfo";
 import WardLabelsOverlay from "./map/WardLabelsOverlay";
 import { LoadingScreen } from "./LoadingScreen";
+import { toast } from "sonner";
 import { danangPolygons, isPointInPolygon as isPointInPolygonUtil } from "../data/polygon-utils";
 import type { PolygonData } from "../data/polygon-utils";
 import { offices } from "../data/office-utils";
@@ -89,7 +90,12 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
   }, [zoomLevel]);
 
   const handleGetUserLocation = () => {
-    if (!navigator.geolocation) return;
+    if (!navigator.geolocation) {
+      toast.error("Trình duyệt của bạn không hỗ trợ định vị.", {
+        description: "Vui lòng sử dụng trình duyệt hiện đại hơn hoặc cập nhật phiên bản."
+      });
+      return;
+    }
 
     setIsLocating(true);
 
@@ -114,6 +120,11 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
 
           setUserLocation(location);
           setIsLocating(false);
+          
+          // Show success message
+          toast.success("Đã xác định vị trí của bạn thành công", {
+            description: "Đang hiển thị vị trí của bạn trên bản đồ"
+          });
 
           const userWard = danangPolygons.find((ward) =>
             isPointInPolygonUtil(location, ward.polygon, ward.polygons)
@@ -123,9 +134,31 @@ export function MainInterface({ apiKey }: MainInterfaceProps) {
             setSelectedWard(userWard);
           }
         },
-        () => {
-          // console.error("Error getting location:", error);
+        (error) => {
           setIsLocating(false);
+          
+          // Handle specific geolocation errors with friendly Vietnamese messages
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              toast.error("Không có quyền truy cập vị trí", {
+                description: "Vui lòng cấp quyền truy cập vị trí trong cài đặt trình duyệt của bạn"
+              });
+              break;
+            case error.POSITION_UNAVAILABLE:
+              toast.error("Không thể xác định vị trí", {
+                description: "Thông tin vị trí hiện không khả dụng. Vui lòng thử lại sau."
+              });
+              break;
+            case error.TIMEOUT:
+              toast.error("Hết thời gian xác định vị trí", {
+                description: "Quá trình xác định vị trí đã hết thời gian. Vui lòng thử lại."
+              });
+              break;
+            default:
+              toast.error("Lỗi không xác định", {
+                description: "Đã xảy ra lỗi khi xác định vị trí của bạn. Vui lòng thử lại sau."
+              });
+          }
         },
         {
           enableHighAccuracy: true,

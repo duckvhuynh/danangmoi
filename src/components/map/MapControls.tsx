@@ -64,22 +64,31 @@ export function MapControls({
           {/* Controls (visible when expanded) */}
           <div className={`space-y-4 transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0'}`}>
             {/* Location Button */}
-            <Button
-              onClick={onGetUserLocation}
-              className={`
-                w-full h-9 bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200/60 border
-                font-medium rounded-lg transition-all flex items-center justify-center
-                hover:shadow-md disabled:opacity-70 disabled:pointer-events-none
-              `}
-              disabled={isLocating}
-            >
-              {isLocating ? (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              ) : (
-                <LocateIcon className="w-4 h-4 mr-2" />
+            <div className="relative">
+              <Button
+                onClick={onGetUserLocation}
+                className={`
+                  w-full h-9 bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200/60 border
+                  font-medium rounded-lg transition-all flex items-center justify-center
+                  hover:shadow-md disabled:opacity-70 disabled:pointer-events-none
+                  ${isLocating ? 'animate-pulse' : ''}
+                `}
+                disabled={isLocating}
+                title="Cần cấp quyền truy cập vị trí trên trình duyệt"
+              >
+                {isLocating ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <LocateIcon className="w-4 h-4 mr-2" />
+                )}
+                {isLocating ? "Đang xác định..." : "Vị trí của tôi"}
+              </Button>
+              {isLocating && (
+                <div className="absolute -bottom-6 left-0 right-0 text-xs text-center text-gray-500">
+                  Vui lòng chấp nhận quyền truy cập
+                </div>
               )}
-              {isLocating ? "Đang xác định..." : "Vị trí của tôi"}
-            </Button>
+            </div>
             
             {/* Divider */}
             <div className="h-px bg-gray-200/70 w-full"></div>

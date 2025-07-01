@@ -358,19 +358,27 @@ export function AppSidebar({
                       <p className="text-sm text-muted-foreground">
                         Xác định vị trí để biết phường xã hiện tại
                       </p>
-                      <Button
-                        onClick={onGetUserLocation}
-                        className="w-full"
-                        size="sm"
-                        disabled={isLocating}
-                      >
-                        {isLocating ? (
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        ) : (
-                          <LocateIcon className="w-4 h-4 mr-2" />
+                      <div className="relative">
+                        <Button
+                          onClick={onGetUserLocation}
+                          className={`w-full ${isLocating ? 'animate-pulse' : ''}`}
+                          size="sm"
+                          disabled={isLocating}
+                          title="Cần cấp quyền truy cập vị trí trên trình duyệt"
+                        >
+                          {isLocating ? (
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          ) : (
+                            <LocateIcon className="w-4 h-4 mr-2" />
+                          )}
+                          {isLocating ? "Đang xác định..." : "Xác định vị trí"}
+                        </Button>
+                        {isLocating && (
+                          <div className="absolute -bottom-5 left-0 right-0 text-xs text-center text-gray-500">
+                            Vui lòng chấp nhận quyền truy cập
+                          </div>
                         )}
-                        {isLocating ? "Đang xác định..." : "Xác định vị trí"}
-                      </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 </SidebarGroupContent>
