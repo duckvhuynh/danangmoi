@@ -148,11 +148,11 @@ export function AppSidebar({
         <Tabs defaultValue="infor" className="h-full flex flex-col">
           <div className="px-4 py-2 border-b border-gray-100">
             <TabsList className="grid w-full grid-cols-2 shrink-0 bg-gray-100/70 p-1 rounded-xl">
-              <TabsTrigger value="infor" className="text-xs py-2.5 px-2 min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg">
+              <TabsTrigger value="infor" className="text-xs p-2 min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg">
                 <Info className="w-4 h-4 mr-1.5 flex-shrink-0" />
                 <span className="truncate font-medium">Thông tin</span>
               </TabsTrigger>
-              <TabsTrigger value="search" className="text-xs py-2.5 px-2 min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg relative">
+              <TabsTrigger value="search" className="text-xs p-2 min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg relative">
                 <Search className="w-4 h-4 mr-1.5 flex-shrink-0" />
                 <span className="truncate font-medium">Tra cứu</span>
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold animate-pulse">!</span>
@@ -163,15 +163,16 @@ export function AppSidebar({
           <div className="flex-1 overflow-y-auto">
             <TabsContent value="search" className="p-4 space-y-4 m-0">
               {/* Address Conversion Section */}
-              <SidebarGroup>                  <SidebarGroupLabel className="flex items-center gap-2">
-                <div className="flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full">
-                  <Search className="w-3.5 h-3.5 text-blue-700" />
-                </div>
-                <div>
-                  <span className="font-medium">Tra cứu địa chỉ</span>
-                  <span className="text-muted-foreground"> • Chuyển đổi địa chỉ trước 01/07/2025</span>
-                </div>
-              </SidebarGroupLabel>
+              <SidebarGroup>
+                <SidebarGroupLabel className="flex items-center gap-2">
+                  <div className="flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full">
+                    <Search className="w-3.5 h-3.5 text-blue-700" />
+                  </div>
+                  <div>
+                    <span className="font-medium">Tra cứu địa chỉ</span>
+                    <span className="text-muted-foreground"> • Chuyển đổi địa chỉ trước 01/07/2025</span>
+                  </div>
+                </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <Card>
                     <CardContent className="p-4 space-y-3">
@@ -418,7 +419,7 @@ export function AppSidebar({
                           title="Cần cấp quyền truy cập vị trí trên trình duyệt"
                         >
                           {isLocating && <div className="absolute inset-0 bg-white/10 animate-pulse" />}
-                          
+
                           <div className="flex items-center justify-center relative z-10">
                             {isLocating ? (
                               <Loader2 className="w-5 h-5 mr-2 animate-spin text-white" />

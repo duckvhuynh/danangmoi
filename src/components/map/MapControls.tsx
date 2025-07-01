@@ -86,7 +86,7 @@ export function MapControls({
                 <Button
                   onClick={onGetUserLocation}
                   className={`
-                    w-full transition-all duration-300 shadow-md py-2 md:py-3
+                    w-full transition-all duration-300 shadow-md py-2 md:py-3 
                     ${isLocating 
                       ? 'bg-gradient-to-r from-green-500 to-emerald-500 animate-pulse' 
                       : 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700'
