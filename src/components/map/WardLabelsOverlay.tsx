@@ -319,7 +319,7 @@ export default function WardLabelsOverlay({
           // Add ward name
           const nameElement = document.createElement('div');
           nameElement.className = 'ward-name';
-          nameElement.textContent = this.wardName.replace(/Phường /, 'P. ').replace(/Xã /, 'X. ');
+          nameElement.textContent = this.wardName.replace(/Phường /, 'P. ');
           container.appendChild(nameElement);
           
           // Add district name if different from "Đà Nẵng"
