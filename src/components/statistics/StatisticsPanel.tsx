@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/card";
 import { Globe, BarChart } from "lucide-react";
-import { DANANG_CITY_INFO} from "../../data/danang-info";
+import { DANANG_CITY_INFO, formatPopulation} from "../../data/danang-info";
 
 export function StatisticsPanel() {
   return (
@@ -23,7 +23,7 @@ export function StatisticsPanel() {
               <div className="text-xs text-muted-foreground">Đơn vị hành chính</div>
             </div>
             <div className="text-center">
-              <div className="text-xl font-bold text-primary">{DANANG_CITY_INFO.populationFormatted}</div>
+              <div className="text-xl font-bold text-primary">{formatPopulation(DANANG_CITY_INFO.populationFormatted)}</div>
               <div className="text-xs text-muted-foreground">Dân số (người)</div>
             </div>
           </div>
@@ -34,7 +34,7 @@ export function StatisticsPanel() {
               <div className="text-xs text-muted-foreground">Diện tích</div>
             </div>
             <div className="text-center">
-              <div className="text-xl font-bold text-primary">{DANANG_CITY_INFO.populationDensity}/km²</div>
+              <div className="text-xl font-bold text-primary">{DANANG_CITY_INFO.populationDensity} người/km²</div>
               <div className="text-xs text-muted-foreground">Mật độ dân số</div>
             </div>
           </div>

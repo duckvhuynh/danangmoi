@@ -14,6 +14,7 @@ import type { PolygonData } from "@/data/polygon-utils";
 
 // Import the administrative data
 import adminInfo from '@/data/administrative-information.json';
+import { formatArea, formatPopulation } from '@/data/danang-info';
 
 interface WardInfo {
     old_commune_ward: string;
@@ -112,7 +113,7 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                             <Users className="h-3.5 w-3.5" />
                             <span>Dân số</span>
                         </div>
-                        <div className="font-semibold text-blue-900">{wardInfo.population}</div>
+                        <div className="font-semibold text-blue-900">{formatPopulation(wardInfo.population)}</div>
                     </div>
                 ) : (<></>)}
 
@@ -122,7 +123,7 @@ export function SelectedWardInfo({ selectedWard, onClose, userLocation }: Select
                             <Globe className="h-3.5 w-3.5" />
                             <span>Diện tích</span>
                         </div>
-                        <div className="font-semibold text-green-900">{wardInfo.area_km2} km²</div>
+                        <div className="font-semibold text-green-900">{formatArea(wardInfo.area_km2)}</div>
                     </div>
                 )}
             </div>

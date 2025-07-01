@@ -107,7 +107,9 @@ export function formatPopulation(population: number): string {
  * @returns Formatted area string
  */
 export function formatArea(areaKm2: number): string {
-  return `${areaKm2.toLocaleString('vi-VN')} km²`;
+  // Format with vi-VN locale and explicitly replace decimal point with comma if needed
+  const formattedNumber = areaKm2.toLocaleString('vi-VN').replace('.', ',');
+  return `${formattedNumber} km²`;
 }
 
 /**
