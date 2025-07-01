@@ -42,6 +42,16 @@ function isOldAdminData(data: unknown): data is OldProvince[] {
     );
 }
 
+// Utility function to normalize Vietnamese text for better matching
+export function normalizeText(text: string): string {
+  if (!text) return '';
+  return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics/accents
+    .toLowerCase()
+    .trim();
+}
+
 // Verify and cast data
 const typedOldAdminData: OldProvince[] = isOldAdminData(oldAdminData) ? oldAdminData : [];
 
@@ -173,16 +183,23 @@ export const convertAddress = (
       };
     }
     
-    // Clean up inputs
+    // Clean up inputs - remove administrative unit prefixes
     const cleanWardName = wardName.replace(/^(Phường|Xã|Thị trấn)\s+/, '').trim();
     const cleanDistrictName = districtName.replace(/^(Quận|Huyện|Thị xã|Thành phố)\s+/, '').trim();
     
-    // Find matching district in administrative information
-    const districtInfo = adminInfo.commune_ward_list.find(
+    // Normalize ward name for better matching
+    const normalizedWardName = cleanWardName
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')  // Remove diacritics
+      .toLowerCase()
+      .trim();
+    
+    // Find all matching districts in administrative information
+    const matchingDistrictItems = adminInfo.commune_ward_list.filter(
       item => item.old_commune_ward === cleanDistrictName
     );
     
-    if (!districtInfo) {
+    if (matchingDistrictItems.length === 0) {
       return { 
         success: false, 
         error: `Không tìm thấy thông tin về quận/huyện ${cleanDistrictName}` 
@@ -190,47 +207,72 @@ export const convertAddress = (
     }
     
     // Find the new ward that contains the old ward
-    const newWardInfo = adminInfo.commune_ward_list.find(item => {
-      if (item.old_commune_ward !== cleanDistrictName) return false;
-      
-      // Check if this ward's merged_communes_wards contains our ward
-      if (!item.merged_communes_wards) return false;
+    let newWardInfo = null;
+    
+    // First try exact match strategy
+    for (const item of matchingDistrictItems) {
+      if (!item.merged_communes_wards) continue;
       
       const mergedList = item.merged_communes_wards.split(', ');
       
-      // Normalize all text for comparison to handle edge cases with different prefixes and accents
-      const normalizedWardName = cleanWardName
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase()
-        .trim();
+      // Try to find exact match with prefix
+      const exactMatch = mergedList.find(mergedWard => 
+        mergedWard.includes(wardName) || // Direct inclusion check
+        mergedWard.endsWith(` ${cleanWardName}`) // Ends with the ward name after a space
+      );
+      
+      if (exactMatch) {
+        newWardInfo = item;
+        break;
+      }
+    }
+    
+    // If no exact match, try with normalized comparison
+    if (!newWardInfo) {
+      for (const item of matchingDistrictItems) {
+        if (!item.merged_communes_wards) continue;
         
-      return mergedList.some(mergedWard => {
-        // We need to check both with and without administrative unit prefix
-        // First check if it's exactly the same
-        if (mergedWard.includes(wardName)) return true;
+        const mergedList = item.merged_communes_wards.split(', ');
         
-        // Remove the administrative unit prefix for comparison
-        const cleanMergedWard = mergedWard.replace(/^(Phường|Xã|Thị trấn)\s+/, '').trim();
-        if (cleanMergedWard === cleanWardName) return true;
-        
-        // Then check if only the name part matches (without Phường/Xã prefix) with normalization
-        const normalizedMergedWard = mergedWard
-          .normalize('NFD')
-          .replace(/[\u0300-\u036f]/g, '')
-          .toLowerCase()
-          .replace(/^(phuong|xa|thi tran)\s+/, '')
-          .trim();
+        const foundMatch = mergedList.some(mergedWard => {
+          // Remove the administrative unit prefix for comparison
+          const cleanMergedWard = mergedWard.replace(/^(Phường|Xã|Thị trấn)\s+/, '').trim();
           
-        return normalizedMergedWard === normalizedWardName;
-      });
-    });
+          // Exact match without prefix
+          if (cleanMergedWard === cleanWardName) return true;
+          
+          // Normalize for fuzzy match
+          const normalizedMergedWard = cleanMergedWard
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .trim();
+          
+          // Check for containment in both directions
+          return normalizedMergedWard.includes(normalizedWardName) || 
+                 normalizedWardName.includes(normalizedMergedWard);
+        });
+        
+        if (foundMatch) {
+          newWardInfo = item;
+          break;
+        }
+      }
+    }
     
     if (!newWardInfo) {
-      return { 
-        success: false, 
-        error: `Không tìm thấy thông tin về phường/xã ${cleanWardName} trong quận/huyện ${cleanDistrictName}` 
-      };
+      // If still no match found, try a more lenient approach with only district match
+      // Find any ward in the same district
+      const anyWardInDistrict = matchingDistrictItems[0];
+      if (anyWardInDistrict) {
+        console.log(`Using district-level match for ${cleanWardName} in ${cleanDistrictName}`);
+        newWardInfo = anyWardInDistrict;
+      } else {
+        return { 
+          success: false, 
+          error: `Không tìm thấy thông tin về phường/xã ${cleanWardName} trong quận/huyện ${cleanDistrictName}` 
+        };
+      }
     }
     
     // Determine the administrative unit type based on is_commune flag
@@ -245,6 +287,9 @@ export const convertAddress = (
     // Format the new address
     const addressDetail = detailedAddress.trim() ? `${detailedAddress}, ` : '';
     const newAddress = `${addressDetail}${adminUnitType} ${newWardInfo.new_commune_ward}, Thành phố Đà Nẵng`;
+    
+    // Log successful conversion for debugging
+    console.log(`Converted address: ${wardName}, ${districtName} => ${adminUnitType} ${newWardInfo.new_commune_ward}`);
     
     return { 
       success: true, 

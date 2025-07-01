@@ -73,9 +73,12 @@ export function AppSidebar({
     handleAddressConversion,
     resetConversion
   } = useAddressConversion({
-    // Optional callback when conversion is complete
+    // Callback when conversion is complete
     onConversionComplete: (newAddress) => {
-      // Here we could add toast notification or other feedback
+      // Show toast notification on successful conversion
+      toast.success("Chuyển đổi địa chỉ thành công", {
+        description: "Đã tìm thấy địa chỉ mới tương ứng",
+      });
       console.log("Address conversion complete:", newAddress);
     }
   });
@@ -335,7 +338,11 @@ export function AppSidebar({
                       {/* Conversion Error */}
                       {conversionError && (
                         <div className="p-3 bg-red-50 border border-red-200 rounded-md">
+                          <p className="text-xs text-red-700 font-medium">Lỗi chuyển đổi:</p>
                           <p className="text-xs text-red-700">{conversionError}</p>
+                          <p className="text-xs text-gray-600 mt-1">
+                            Vui lòng kiểm tra lại thông tin hoặc thử một địa chỉ khác.
+                          </p>
                         </div>
                       )}
                     </CardContent>

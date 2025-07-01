@@ -76,15 +76,37 @@ export function useAddressConversion({ onConversionComplete }: UseAddressConvers
       return;
     }
     
-    const result = convertAddress(detailedAddress, ward ? ward.name : '', district.name);
-    
-    if (result.success && result.newAddress) {
-      setConvertedAddress(result.newAddress);
-      if (onConversionComplete) {
-        onConversionComplete(result.newAddress);
+    try {
+      // At this point, we've already checked that ward and district exist
+      if (ward && district) {
+        console.log(`Converting address: ${ward.name}, ${district.name}`);
+        const result = convertAddress(detailedAddress, ward.name, district.name);
+        
+        if (result.success && result.newAddress) {
+          setConvertedAddress(result.newAddress);
+          if (onConversionComplete) {
+            onConversionComplete(result.newAddress);
+          }
+        } else {
+          // If conversion fails, try with the full name that includes administrative unit prefix
+          console.log(`Retrying with full ward name: ${ward.fullName}`);
+          const retryResult = convertAddress(detailedAddress, ward.fullName, district.fullName);
+          
+          if (retryResult.success && retryResult.newAddress) {
+            setConvertedAddress(retryResult.newAddress);
+            if (onConversionComplete) {
+              onConversionComplete(retryResult.newAddress);
+            }
+          } else {
+            setConversionError(result.error || "Không thể chuyển đổi địa chỉ");
+          }
+        }
+      } else {
+        setConversionError("Không tìm thấy thông tin phường/xã hoặc quận/huyện");
       }
-    } else {
-      setConversionError(result.error || "Không thể chuyển đổi địa chỉ");
+    } catch (error) {
+      console.error("Error during address conversion:", error);
+      setConversionError("Đã xảy ra lỗi trong quá trình chuyển đổi địa chỉ");
     }
     
     setIsConverting(false);
