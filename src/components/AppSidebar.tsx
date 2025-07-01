@@ -157,7 +157,7 @@ export function AppSidebar({
               </TabsTrigger>
               <TabsTrigger value="search" className="text-xs p-2 min-w-0 flex-1 data-[state=active]:bg-white data-[state=active]:text-blue-700 data-[state=active]:shadow-sm rounded-lg relative">
                 <Search className="w-4 h-4 mr-1.5 flex-shrink-0" />
-                <span className="truncate font-medium">Tra cứu</span>
+                <span className="truncate font-medium">Tra cứu địa chỉ</span>
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold animate-pulse">!</span>
               </TabsTrigger>
             </TabsList>
