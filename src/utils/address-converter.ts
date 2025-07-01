@@ -16,6 +16,7 @@ export interface OldDistrict {
   Name: string;
   FullName: string;
   ProvinceCode: string;
+  AdministrativeUnitShortName: string;
   Ward: OldWard[];
 }
 
@@ -58,11 +59,35 @@ export const getDistricts = (provinceCode: string): { code: string; name: string
   const province = typedOldAdminData.find(p => p.Code === provinceCode);
   if (!province) return [];
   
-  return province.District.map(district => ({
-    code: district.Code,
-    name: district.Name,
-    fullName: district.FullName
-  }));
+  // Sort districts by type: Thành phố -> Quận -> Thị xã -> Huyện, and then alphabetically by name
+  return province.District
+    .map(district => ({
+      code: district.Code,
+      name: district.Name,
+      fullName: district.FullName,
+      type: district.AdministrativeUnitShortName // Store type for sorting
+    }))
+    .sort((a, b) => {
+      // Define order of administrative unit types
+      const typeOrder: { [key: string]: number } = {
+        'Thành phố': 1,
+        'Quận': 2,
+        'Thị xã': 3,
+        'Huyện': 4
+      };
+      
+      // Sort by administrative unit type first
+      const typeA = typeOrder[a.type] || 999;
+      const typeB = typeOrder[b.type] || 999;
+      
+      if (typeA !== typeB) {
+        return typeA - typeB;
+      }
+      
+      // Then sort alphabetically by name
+      return a.name.localeCompare(b.name, 'vi');
+    })
+    .map(({ code, name, fullName }) => ({ code, name, fullName })); // Remove the temporary type property
 };
 
 // Get wards for a specific district
@@ -76,11 +101,33 @@ export const getWards = (districtCode: string): { code: string; name: string; fu
       }
       
       if (district.Ward) {
-        return district.Ward.map(ward => ({
-          code: ward.Code,
-          name: ward.Name,
-          fullName: ward.FullName
-        }));
+        // Sort wards: Phường first, then Xã, then others, and then alphabetically by name
+        return district.Ward
+          .map(ward => ({
+            code: ward.Code,
+            name: ward.Name,
+            fullName: ward.FullName,
+            type: ward.AdministrativeUnitShortName
+          }))
+          .sort((a, b) => {
+            // Define order of ward types
+            const typeOrder: { [key: string]: number } = {
+              'Phường': 1,
+              'Xã': 2
+            };
+            
+            // Get the type order, default to 3 for any other types
+            const typeA = typeOrder[a.type] || 3;
+            const typeB = typeOrder[b.type] || 3;
+            
+            if (typeA !== typeB) {
+              return typeA - typeB;
+            }
+            
+            // Then sort alphabetically by name
+            return a.name.localeCompare(b.name, 'vi');
+          })
+          .map(({ code, name, fullName }) => ({ code, name, fullName })); // Remove the temporary type property
       }
     }
   }
