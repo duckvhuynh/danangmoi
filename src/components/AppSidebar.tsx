@@ -350,12 +350,6 @@ export function AppSidebar({
                                 <p className="text-sm font-medium text-gray-800">{convertedAddress[0]}</p>
                                 {locationInfo && locationInfo[0] && (
                                   <div className="mt-2 pt-2 border-t border-green-100">
-                                    <p className="text-xs text-gray-600">
-                                      <span className="font-medium">Trung tâm phục vụ hành chính công:</span> {locationInfo[0].address}
-                                    </p>
-                                    <p className="text-xs text-gray-600">
-                                      <span className="font-medium">Điện thoại:</span> {locationInfo[0].phone}
-                                    </p>
                                     <Button
                                       variant="outline"
                                       size="sm"
@@ -380,12 +374,6 @@ export function AppSidebar({
                                 <p className="text-sm font-medium text-gray-800">{convertedAddress[1]}</p>
                                 {locationInfo && locationInfo[1] && (
                                   <div className="mt-2 pt-2 border-t border-green-100">
-                                    <p className="text-xs text-gray-600">
-                                      <span className="font-medium">Trung tâm phục vụ hành chính công:</span> {locationInfo[1].address}
-                                    </p>
-                                    <p className="text-xs text-gray-600">
-                                      <span className="font-medium">Điện thoại:</span> {locationInfo[1].phone}
-                                    </p>
                                     <Button
                                       variant="outline"
                                       size="sm"
