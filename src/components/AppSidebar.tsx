@@ -138,7 +138,7 @@ export function AppSidebar({
           <div className="min-w-0 flex-1">
             <h1 className="text-lg font-bold leading-tight truncate text-white">{DANANG_CITY_INFO.officialName}</h1>
             <p className="text-xs text-blue-100 leading-relaxed">
-              {DANANG_CITY_INFO.totalAdministrativeUnits} đơn vị hành chính • {DANANG_CITY_INFO.populationFormatted} dân
+              {DANANG_CITY_INFO.totalAdministrativeUnits} đơn vị hành chính • {DANANG_CITY_INFO.populationFormatted} dân số (người)
             </p>
             <p className="text-[10px] text-blue-200 leading-tight mt-0.5 italic opacity-80">
               dữ liệu cập nhật đến tháng 6/2025

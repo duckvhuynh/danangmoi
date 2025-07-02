@@ -27,7 +27,7 @@ export function LoadingScreen({ message = "Đang tải bản đồ..." }: Loadin
         <div className="space-y-3">
           <h1 className="text-3xl font-bold text-white">Thành phố Đà Nẵng</h1>
           <div className="h-1 w-20 bg-white/50 mx-auto rounded-full"></div>
-          <p className="text-white/90 text-sm font-medium">94 Đơn vị hành chính • 3.122.915 dân</p>
+          <p className="text-white/90 text-sm font-medium">3.065.628 dân số (người)</p>
           <p className="text-white/80 text-sm font-medium">Tra cứu phường xã sau sắp xếp</p>
         </div>
         

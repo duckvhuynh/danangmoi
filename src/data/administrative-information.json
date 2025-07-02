@@ -155,7 +155,7 @@
     {
       "old_commune_ward": "Liên Chiểu",
       "new_commune_ward": "Liên Chiểu",
-      "merged_communes_wards": "Phường Hòa Khánh Bắc, Xã Hòa Liên (phần còn lại sau khi sáp nhập vào phường Hải Vân)",
+      "merged_communes_wards": "Phường Hòa Khánh Bắc, Xã Hòa Liên",
       "area_km2": 41.19,
       "population": 70628.0,
       "is_commune": false,
@@ -169,7 +169,7 @@
     {
       "old_commune_ward": "Cẩm Lệ",
       "new_commune_ward": "Cẩm Lệ",
-      "merged_communes_wards": "Phường Hòa Thọ Tây, Phường Hòa Thọ Đông, Phường Khuê Trung",
+      "merged_communes_wards": "Phường Hòa Thọ Tây, Phường Hòa Thọ Đông, Phường Khuê Trung, Xã Hòa Phước, Xã Hòa Châu",
       "area_km2": 14.05,
       "population": 78837.0,
       "is_commune": false,
@@ -254,8 +254,8 @@
       "old_commune_ward": "Điện Bàn",
       "new_commune_ward": "Điện Bàn",
       "merged_communes_wards": "Phường Điện Phương, Phường Điện Minh, Phường Vĩnh Điện",
-      "area_km2": 43.31,
-      "population": 44473.0,
+      "area_km2": 19.78,
+      "population": 41270,
       "is_commune": false,
       "location": {
         "address": "Số 24 đường Hoàng Diệu, khối 3, phường Điện Bàn",
@@ -268,8 +268,8 @@
       "old_commune_ward": "Điện Bàn",
       "new_commune_ward": "Điện Bàn Đông",
       "merged_communes_wards": "Phường Điện Nam Đông, Phường Điện Nam Trung, Phường Điện Dương, Phường Điện Ngọc, Phường Điện Nam Bắc",
-      "area_km2": 72.273,
-      "population": 61020.0,
+      "area_km2": 61.02,
+      "population": 72273,
       "is_commune": false,
       "location": {
         "address": "Số 845 đường Trần Thủ Độ, Khối phố Quảng Lăng B, Phường Điện Bàn Đông",
@@ -296,8 +296,8 @@
       "old_commune_ward": "Điện Bàn",
       "new_commune_ward": "Điện Bàn Bắc",
       "merged_communes_wards": "Phường Điện Thắng Bắc, Xã Điện Hòa, Xã Điện Tiến",
-      "area_km2": 30.78,
-      "population": 36390.0,
+      "area_km2": 36.39,
+      "population": 30780.0,
       "is_commune": false,
       "location": {
         "address": "Thôn Xóm Bùng, phường Điện Bàn Bắc (Trụ sở xã Điện Hòa cũ)",
@@ -310,8 +310,8 @@
       "old_commune_ward": "Hội An",
       "new_commune_ward": "Hội An",
       "merged_communes_wards": "Phường Minh An, Phường Cẩm Phô, Phường Sơn Phong, Phường Cẩm Nam, Xã Cẩm Kim",
-      "area_km2": 18.09,
-      "population": 42370.0,
+      "area_km2": 10.81,
+      "population": 37222.0,
       "is_commune": false,
       "location": {
         "address": "Số 02 đường Hoàng Diệu, phường Hội An",
@@ -324,8 +324,8 @@
       "old_commune_ward": "Hội An",
       "new_commune_ward": "Hội An Đông",
       "merged_communes_wards": "Phường Cẩm Châu, Phường Cửa Đại, Xã Cẩm Thanh",
-      "area_km2": 31.109,
-      "population": 18220.0,
+      "area_km2": 18.22,
+      "population": 31109.0,
       "is_commune": false,
       "location": {
         "address": "Số 456 đường Cửa Đại, phường Hội An Đông,",
@@ -338,8 +338,8 @@
       "old_commune_ward": "Hội An",
       "new_commune_ward": "Hội An Tây",
       "merged_communes_wards": "Phường Thanh Hà, Phường Tân An, Phường Cẩm An, Xã Cẩm Hà",
-      "area_km2": 42.37,
-      "population": 18090.0,
+      "area_km2": 18.09,
+      "population": 42370.0,
       "is_commune": false,
       "location": {
         "address": "Số 544 đường Hai Bà Trưng, phường Hội An Tây",
@@ -562,8 +562,8 @@
       "old_commune_ward": "Bắc Trà My",
       "new_commune_ward": "Trà Liên",
       "merged_communes_wards": "Xã Trà Đông, Xã Trà Nú, Xã Trà Kót",
-      "area_km2": 178.31,
-      "population": 7395,
+      "area_km2": 178.15,
+      "population": 7052,
       "is_commune": true,
       "location": {
         "address": "Thôn Định Yên, xã Trà Liên (Trụ sở Xã Trà Đông cũ)",
@@ -983,7 +983,7 @@
       "new_commune_ward": "Vu Gia",
       "merged_communes_wards": "Xã Đại Phong, Xã Đại Minh, Xã Đại Cường",
       "area_km2": 25.12,
-      "population": 25120.0,
+      "population": 27649.0,
       "is_commune": true,
       "location": {
         "address": "Thôn Lâm Yên, xã Vu Gia",
@@ -997,7 +997,7 @@
       "new_commune_ward": "Phú Thuận",
       "merged_communes_wards": "Xã Đại Tân, Xã Đại Thắng, Xã Đại Chánh, Xã Đại Thạnh",
       "area_km2": 130.89,
-      "population": 130889.99999999999,
+      "population": 27575.0,
       "is_commune": true,
       "location": {
         "address": "Số 204 đường ĐH4 thôn Phú An, xã Phú Thuận (Trụ sở Xã Đại Thắng cũ)",
@@ -1011,7 +1011,7 @@
       "new_commune_ward": "Thạnh Mỹ",
       "merged_communes_wards": "Thị trấn Thạnh Mỹ",
       "area_km2": 207.28,
-      "population": 207280.0,
+      "population": 9072.0,
       "is_commune": true,
       "location": {
         "address": "Thôn Mực, xã Thạnh Mỹ (Trụ sở thị trấn Thạnh Mỹ cũ)",
@@ -1025,7 +1025,7 @@
       "new_commune_ward": "Bến Giằng",
       "merged_communes_wards": "Xã Cà Dy, Xã Tà Bhinh, Xã Tà Pơơ",
       "area_km2": 535.96,
-      "population": 535960.0,
+      "population": 8277.0,
       "is_commune": true,
       "location": {
         "address": "Thôn Bến Giằng, Xã Bến Giằng",
@@ -1039,7 +1039,7 @@
       "new_commune_ward": "Nam Giang",
       "merged_communes_wards": "Xã Zuôich, Xã Chà Vàl",
       "area_km2": 262.94,
-      "population": 262940.0,
+      "population": 4979.0,
       "is_commune": true,
       "location": {
         "address": "Thôn A Bát, xã Chà Vàl",
@@ -1053,7 +1053,7 @@
       "new_commune_ward": "Đắc Pring",
       "merged_communes_wards": "Xã Đắc Pre, Xã Đắc Pring",
       "area_km2": 412.49,
-      "population": 412490.0,
+      "population": 3060.0,
       "is_commune": true,
       "location": {
         "address": "Thôn 56B, xã Đắc Pring",
