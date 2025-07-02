@@ -62,6 +62,8 @@ export function AppSidebar({
     convertedAddress,
     conversionError,
     isConverting,
+    hasMultipleResults,
+    locationInfo,
     provinces,
     districts,
     wards,
@@ -328,36 +330,127 @@ export function AppSidebar({
                               <p className="text-sm font-semibold text-green-800">Địa chỉ mới từ 01/07/2025</p>
                             </div>
                           </div>
-                          <div className="p-3 bg-white border border-green-200 rounded-md mb-3">
-                            <p className="text-sm font-medium text-gray-800">{convertedAddress}</p>
-                          </div>
-                          <div className="flex justify-between">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="text-xs border-gray-300 text-gray-700 hover:bg-gray-100"
-                              onClick={resetConversion}
-                            >
-                              <X className="w-3 h-3 mr-1" />
-                              Đặt lại
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="text-xs bg-green-100 border-green-300 text-green-800 hover:bg-green-200"
-                              onClick={() => {
-                                // Copy to clipboard
-                                navigator.clipboard.writeText(convertedAddress);
-                                // Toast notification
-                                toast.success("Đã sao chép địa chỉ", {
-                                  description: convertedAddress,
-                                });
-                              }}
-                            >
-                              <Copy className="h-3 w-3 mr-1" />
-                              Sao chép
-                            </Button>
-                          </div>
+
+                          {/* Handle the special case where we have multiple results (Hòa Liên ward) */}
+                          {hasMultipleResults && Array.isArray(convertedAddress) ? (
+                            <div className="space-y-3">
+                              {/* Special note for Hòa Liên ward */}
+                              <div className="p-3 bg-amber-50 border border-amber-200 rounded-md mb-3">
+                                <div className="flex items-start">
+                                  <Megaphone className="w-4 h-4 text-amber-700 mr-2 flex-shrink-0 mt-0.5" />
+                                  <p className="text-sm text-amber-800">
+                                    <span className="font-medium">Lưu ý đặc biệt:</span> Xã Hòa Liên đã được điều chỉnh địa giới hành chính và thuộc về hai phường khác nhau. Vui lòng xác định chính xác vị trí của bạn theo địa chỉ dưới đây.
+                                  </p>
+                                </div>
+                              </div>
+
+                              {/* First address option */}
+                              <div className="p-3 bg-white border border-green-200 rounded-md">
+                                <p className="text-sm font-medium text-green-800 mb-1">Địa chỉ 1:</p>
+                                <p className="text-sm font-medium text-gray-800">{convertedAddress[0]}</p>
+                                {locationInfo && locationInfo[0] && (
+                                  <div className="mt-2 pt-2 border-t border-green-100">
+                                    <p className="text-xs text-gray-600">
+                                      <span className="font-medium">Trụ sở UBND:</span> {locationInfo[0].address}
+                                    </p>
+                                    <p className="text-xs text-gray-600">
+                                      <span className="font-medium">Điện thoại:</span> {locationInfo[0].phone}
+                                    </p>
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      className="mt-2 text-xs bg-green-100 border-green-300 text-green-800 hover:bg-green-200"
+                                      onClick={() => {
+                                        navigator.clipboard.writeText(convertedAddress[0]);
+                                        toast.success("Đã sao chép địa chỉ", {
+                                          description: convertedAddress[0],
+                                        });
+                                      }}
+                                    >
+                                      <Copy className="h-3 w-3 mr-1" />
+                                      Sao chép
+                                    </Button>
+                                  </div>
+                                )}
+                              </div>
+
+                              {/* Second address option */}
+                              <div className="p-3 bg-white border border-green-200 rounded-md">
+                                <p className="text-sm font-medium text-green-800 mb-1">Địa chỉ 2:</p>
+                                <p className="text-sm font-medium text-gray-800">{convertedAddress[1]}</p>
+                                {locationInfo && locationInfo[1] && (
+                                  <div className="mt-2 pt-2 border-t border-green-100">
+                                    <p className="text-xs text-gray-600">
+                                      <span className="font-medium">Trung tâm phục vụ hành chính công:</span> {locationInfo[1].address}
+                                    </p>
+                                    <p className="text-xs text-gray-600">
+                                      <span className="font-medium">Điện thoại:</span> {locationInfo[1].phone}
+                                    </p>
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      className="mt-2 text-xs bg-green-100 border-green-300 text-green-800 hover:bg-green-200"
+                                      onClick={() => {
+                                        navigator.clipboard.writeText(convertedAddress[1]);
+                                        toast.success("Đã sao chép địa chỉ", {
+                                          description: convertedAddress[1],
+                                        });
+                                      }}
+                                    >
+                                      <Copy className="h-3 w-3 mr-1" />
+                                      Sao chép
+                                    </Button>
+                                  </div>
+                                )}
+                              </div>
+
+                              <div className="flex justify-start mt-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="text-xs border-gray-300 text-gray-700 hover:bg-gray-100"
+                                  onClick={resetConversion}
+                                >
+                                  <X className="w-3 h-3 mr-1" />
+                                  Đặt lại
+                                </Button>
+                              </div>
+                            </div>
+                          ) : (
+                            <>
+                              {/* Regular single address case */}
+                              <div className="p-3 bg-white border border-green-200 rounded-md mb-3">
+                                <p className="text-sm font-medium text-gray-800">{convertedAddress}</p>
+                              </div>
+                              <div className="flex justify-between">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="text-xs border-gray-300 text-gray-700 hover:bg-gray-100"
+                                  onClick={resetConversion}
+                                >
+                                  <X className="w-3 h-3 mr-1" />
+                                  Đặt lại
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="text-xs bg-green-100 border-green-300 text-green-800 hover:bg-green-200"
+                                  onClick={() => {
+                                    // Copy to clipboard
+                                    navigator.clipboard.writeText(convertedAddress as string);
+                                    // Toast notification
+                                    toast.success("Đã sao chép địa chỉ", {
+                                      description: convertedAddress as string,
+                                    });
+                                  }}
+                                >
+                                  <Copy className="h-3 w-3 mr-1" />
+                                  Sao chép
+                                </Button>
+                              </div>
+                            </>
+                          )}
                         </div>
                       )}
 

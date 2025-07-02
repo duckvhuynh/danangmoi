@@ -2,7 +2,16 @@ import { useState, useEffect, useMemo } from 'react';
 import { getProvinces, getDistricts, getWards, convertAddress, hasWards } from '../utils/address-converter';
 
 interface UseAddressConversionProps {
-  onConversionComplete?: (newAddress: string) => void;
+  onConversionComplete?: (newAddress: string | string[]) => void;
+}
+
+// Define interface for location info
+interface LocationInfo {
+  address: string;
+  district: string;
+  phone: string;
+  latitude: number;
+  longitude: number;
 }
 
 export function useAddressConversion({ onConversionComplete }: UseAddressConversionProps = {}) {
@@ -11,9 +20,11 @@ export function useAddressConversion({ onConversionComplete }: UseAddressConvers
   const [selectedDistrict, setSelectedDistrict] = useState<string>("");
   const [selectedOldWard, setSelectedOldWard] = useState<string>("");
   const [detailedAddress, setDetailedAddress] = useState<string>("");
-  const [convertedAddress, setConvertedAddress] = useState<string | null>(null);
+  const [convertedAddress, setConvertedAddress] = useState<string | string[] | null>(null);
   const [conversionError, setConversionError] = useState<string | null>(null);
   const [isConverting, setIsConverting] = useState<boolean>(false);
+  const [hasMultipleResults, setHasMultipleResults] = useState<boolean>(false);
+  const [locationInfo, setLocationInfo] = useState<LocationInfo[] | null>(null);
   
   // Options for selectors based on current selections
   const provinces = useMemo(() => getProvinces(), []);
@@ -50,6 +61,8 @@ export function useAddressConversion({ onConversionComplete }: UseAddressConvers
     setIsConverting(true);
     setConvertedAddress(null);
     setConversionError(null);
+    setHasMultipleResults(false);
+    setLocationInfo(null);
     
     // Find selected district and ward names
     const district = districts.find(d => d.code === selectedDistrict);
@@ -84,6 +97,15 @@ export function useAddressConversion({ onConversionComplete }: UseAddressConvers
         
         if (result.success && result.newAddress) {
           setConvertedAddress(result.newAddress);
+          
+          // Handle special case with multiple results
+          if (result.multipleResults && Array.isArray(result.newAddress)) {
+            setHasMultipleResults(true);
+            if (result.locationInfo) {
+              setLocationInfo(result.locationInfo);
+            }
+          }
+          
           if (onConversionComplete) {
             onConversionComplete(result.newAddress);
           }
@@ -94,6 +116,15 @@ export function useAddressConversion({ onConversionComplete }: UseAddressConvers
           
           if (retryResult.success && retryResult.newAddress) {
             setConvertedAddress(retryResult.newAddress);
+            
+            // Handle special case with multiple results
+            if (retryResult.multipleResults && Array.isArray(retryResult.newAddress)) {
+              setHasMultipleResults(true);
+              if (retryResult.locationInfo) {
+                setLocationInfo(retryResult.locationInfo);
+              }
+            }
+            
             if (onConversionComplete) {
               onConversionComplete(retryResult.newAddress);
             }
@@ -119,6 +150,8 @@ export function useAddressConversion({ onConversionComplete }: UseAddressConvers
     setDetailedAddress("");
     setConvertedAddress(null);
     setConversionError(null);
+    setHasMultipleResults(false);
+    setLocationInfo(null);
   };
 
   return {
@@ -130,6 +163,8 @@ export function useAddressConversion({ onConversionComplete }: UseAddressConvers
     convertedAddress,
     conversionError,
     isConverting,
+    hasMultipleResults,
+    locationInfo,
     
     // Options for selectors
     provinces,

@@ -166,11 +166,19 @@ export const convertAddress = (
   districtName: string
 ): { 
   success: boolean; 
-  newAddress?: string; 
-  newWard?: string;
+  newAddress?: string | string[]; 
+  newWard?: string | string[];
   isCommune?: boolean;
   adminUnitType?: string;
-  error?: string 
+  error?: string;
+  multipleResults?: boolean;
+  locationInfo?: Array<{
+    address: string;
+    district: string;
+    phone: string;
+    latitude: number;
+    longitude: number;
+  }>
 } => {
   try {
     // Special case for Hoàng Sa district
@@ -181,6 +189,54 @@ export const convertAddress = (
         newWard: "Hoàng Sa",
         adminUnitType: "huyện"
       };
+    }
+    
+    // Special case for Hòa Liên ward (code 20296)
+    if (wardName === "Hòa Liên" || wardName === "Xã Hòa Liên") {
+      // Get both locations where Hòa Liên appears
+      const haiVanInfo = adminInfo.commune_ward_list.find(
+        item => item.new_commune_ward === "Hải Vân" && item.merged_communes_wards.includes("Hòa Liên")
+      );
+      
+      const lienChieuInfo = adminInfo.commune_ward_list.find(
+        item => item.new_commune_ward === "Liên Chiểu" && item.merged_communes_wards.includes("Hòa Liên")
+      );
+      
+      if (haiVanInfo && lienChieuInfo) {
+        const addressDetail = detailedAddress.trim() ? `${detailedAddress}, ` : '';
+        
+        // Create both addresses
+        const haiVanAddress = `${addressDetail}Phường Hải Vân, Thành phố Đà Nẵng`;
+        const lienChieuAddress = `${addressDetail}Phường Liên Chiểu, Thành phố Đà Nẵng`;
+        
+        // Create location info for both results
+        const locationInfo = [
+          {
+            address: haiVanInfo.location.address,
+            district: "Hải Vân",
+            phone: haiVanInfo.location.phone,
+            latitude: haiVanInfo.location.latitude,
+            longitude: haiVanInfo.location.longitude
+          },
+          {
+            address: lienChieuInfo.location.address,
+            district: "Liên Chiểu",
+            phone: lienChieuInfo.location.phone,
+            latitude: lienChieuInfo.location.latitude,
+            longitude: lienChieuInfo.location.longitude
+          }
+        ];
+        
+        return {
+          success: true,
+          newAddress: [haiVanAddress, lienChieuAddress],
+          newWard: ["Hải Vân", "Liên Chiểu"],
+          isCommune: false,
+          adminUnitType: "phường",
+          multipleResults: true,
+          locationInfo
+        };
+      }
     }
     
     // Clean up inputs - remove administrative unit prefixes
