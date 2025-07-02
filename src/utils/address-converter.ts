@@ -195,9 +195,7 @@ export const convertAddress = (
       .trim();
     
     // Find all matching districts in administrative information
-    const matchingDistrictItems = adminInfo.commune_ward_list.filter(
-      item => item.old_commune_ward === cleanDistrictName
-    );
+    const matchingDistrictItems = adminInfo.commune_ward_list;
     
     if (matchingDistrictItems.length === 0) {
       return { 
