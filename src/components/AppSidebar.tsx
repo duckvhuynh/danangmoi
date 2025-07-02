@@ -351,7 +351,7 @@ export function AppSidebar({
                                 {locationInfo && locationInfo[0] && (
                                   <div className="mt-2 pt-2 border-t border-green-100">
                                     <p className="text-xs text-gray-600">
-                                      <span className="font-medium">Trụ sở UBND:</span> {locationInfo[0].address}
+                                      <span className="font-medium">Trung tâm phục vụ hành chính công:</span> {locationInfo[0].address}
                                     </p>
                                     <p className="text-xs text-gray-600">
                                       <span className="font-medium">Điện thoại:</span> {locationInfo[0].phone}
