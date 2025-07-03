@@ -1,7 +1,7 @@
 {
   "metadata": {
     "merged_from": ["TP Đà Nẵng", "Tỉnh Quảng Nam"],
-    "administrative_center": "Quận Hải Châu (TP Đà Nẵng)",
+    "administrative_center": "huyện Núi Thành (Tỉnh Quảng Nam)",
     "subdivision_reduction": "67,13%, từ 286 xuống 94 ĐVHC cấp xã",
     "administrative_structure": {
       "total_subdivisions": 94,
@@ -825,7 +825,7 @@
       }
     },
     {
-      "old_commune_ward": "Nông Sơn",
+      "old_commune_ward": "Quế Sơn",
       "new_commune_ward": "Nông Sơn",
       "merged_communes_wards": "Thị trấn Trung Phước, Xã Quế Lộc",
       "area_km2": 112.53,
@@ -839,7 +839,7 @@
       }
     },
     {
-      "old_commune_ward": "Nông Sơn",
+      "old_commune_ward": "Quế Sơn",
       "new_commune_ward": "Quế Phước",
       "merged_communes_wards": "Xã Quế Lâm, Xã Phước Ninh, Xã Ninh Phước",
       "area_km2": 359.11,
@@ -1091,7 +1091,7 @@
       }
     },
     {
-      "old_commune_ward": "Tây Giang",
+      "old_commune_ward": "Đông Giang",
       "new_commune_ward": "Sông Vàng",
       "merged_communes_wards": "Xã Tư, Xã Ba",
       "area_km2": 183.63,
@@ -1317,12 +1317,12 @@
     {
       "old_commune_ward": "Tam Kỳ",
       "new_commune_ward": "Tam Hải",
-      "merged_communes_wards": "Không thực hiện sắp xếp",
+      "merged_communes_wards": "Xã Tam Hải",
       "area_km2": 13.32,
       "population": 10312.0,
       "is_commune": true,
       "location": {
-        "address": "thôn Tân Lập, xã Tam Hải",
+        "address": "Thôn Tân Lập, Xã Tam Hải",
         "latitude": 15.485983420110013,
         "longitude": 108.66955497147902,
         "phone": "0966604455"
@@ -1331,7 +1331,7 @@
     {
       "old_commune_ward": "Hội An",
       "new_commune_ward": "Tân Hiệp",
-      "merged_communes_wards": "Không thực hiện sắp xếp",
+      "merged_communes_wards": "Xã Tân Hiệp",
       "area_km2": 16.43,
       "population": 2614.0,
       "is_commune": true,
