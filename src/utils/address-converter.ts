@@ -303,8 +303,8 @@ export const convertAddress = (
             .trim();
           
           // Check for containment in both directions
-          return normalizedMergedWard.includes(normalizedWardName) || 
-                 normalizedWardName.includes(normalizedMergedWard);
+          return normalizedMergedWard ===normalizedWardName || 
+                 normalizedWardName === normalizedMergedWard;
         });
         
         if (foundMatch) {
